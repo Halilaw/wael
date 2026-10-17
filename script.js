@@ -90,7 +90,7 @@ const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o)
 $("#stats").innerHTML=STATS.map(s=>`<div><b data-n="${s[0]}" data-s="${s[1]}">0${s[1]}</b>${s[2]}</div>`).join("");
 io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dataset.n,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1200);b.textContent=Math.round(n*p)+b.dataset.s;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)})},{threshold:.6}).observe($("#stats"));
 
-/* ====== Render: lens tabs ====== */
+/* ====== Lens tabs ====== */
 $("#lens").innerHTML=Object.entries(LENS).map(([k,v])=>`<button class="chip2" data-l="${k}" aria-pressed="false">${v.ic} ${v.tab}</button>`).join("");
 $("#lens").onclick=e=>{const b=e.target.closest("button");b&&setLens(b.dataset.l)};
 
@@ -102,19 +102,29 @@ $("#hear").onclick=()=>{if(!("speechSynthesis" in window)){type(SAY_T);return}sp
 u.onstart=()=>{clearInterval(timer);say.textContent=SAY_T;av.classList.add("talk")};
 u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u)};
 
-/* ====== ID card (avatar clone + photo switch) ====== */
-const hero=$("#avatar"), idp=$("#idp");
-if(hero&&idp){
+/* ====== ID card (avatar clone + photo toggle) ====== */
+(function initIdCard(){
+  const hero=$("#avatar"), idp=$("#idp"), idc=$("#idcard"), mode=$("#idmode");
+  if(!hero||!idp)return;
   const c=hero.cloneNode(true);
   c.classList.add("avatar-clone");
   c.removeAttribute("role");c.setAttribute("aria-hidden","true");
   c.setAttribute("viewBox","40 60 320 300");
   c.setAttribute("preserveAspectRatio","xMidYMid slice");
   idp.prepend(c);
-  const mode=$("#idmode");
-  if(mode) mode.onclick=e=>{e.stopPropagation();const p=idp.classList.toggle("photo");mode.textContent=p?"🎭 Switch to avatar":"📷 Switch to photo"};
-  new MutationObserver(()=>idp.classList.toggle("talk",av.classList.contains("talk"))).observe(av,{attributes:true,attributeFilter:["class"]});
-}
+  if(mode){
+    mode.addEventListener("click",e=>{
+      e.stopPropagation();e.preventDefault();
+      const p=idp.classList.toggle("photo");
+      mode.textContent=p?"🎭 Switch to avatar":"📷 Switch to photo";
+    });
+  }
+  if(idc){
+    idc.addEventListener("click",()=>idc.classList.toggle("flip"));
+  }
+  const mo=new MutationObserver(()=>idp.classList.toggle("talk",av.classList.contains("talk")));
+  mo.observe(av,{attributes:true,attributeFilter:["class"]});
+})();
 
 /* ====== AI section ====== */
 $("#aitabs").innerHTML=AI.map((a,i)=>`<button class="chip2" role="tab" data-i="${i}" aria-selected="false">${a.ic} ${a.tab}</button>`).join("");
@@ -263,10 +273,8 @@ $("#share").onclick=async()=>{
 };
 
 /* ====== Avatar pointer-follow + blink ====== */
-(()=>{
-  const svgs=[av,hero&&idp?hero.querySelector(".avatar-svg"):av].filter(Boolean);
-  const clones=idp?[...idp.querySelectorAll(".avatar-svg")]:[];
-  const all=[...new Set([av,...clones,...svgs.filter(Boolean)])];
+(function(){
+  const all=[av,...document.querySelectorAll(".avatar-clone")].filter(Boolean);
   if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
   let tx=0,ty=0,cx=0,cy=0;
   addEventListener("pointermove",e=>{tx=e.clientX/innerWidth*2-1;ty=e.clientY/innerHeight*2-1},{passive:true});

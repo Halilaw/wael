@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b1220">
 <title>Wael Halila — Data, .NET, DevOps &amp; AI Engineer · Tunis</title>
 <meta name="description" content="Wael Halila: engineer with 4+ years in financial services. Data integration, .NET 8 microservices, Azure DevOps CI/CD, and an LLM assistant on Ivanti HEAT. ITIL 5 Foundation. Tunis.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap">
@@ -48,22 +48,14 @@
       </div>
       <p id="say" class="bubble" aria-live="polite"></p>
     </div>
-
     <div class="portrait">
+      <!-- AVATAR: SVG -->
       <svg class="avatar-svg" id="avatar" viewBox="0 0 400 440" role="img" aria-label="Avatar of Wael Halila" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="avBg" cx="50%" cy="38%" r="62%">
-            <stop offset="0%" stop-color="#e9edfa"/><stop offset="60%" stop-color="#d8def4"/><stop offset="100%" stop-color="#ccd4f0"/>
-          </radialGradient>
-          <radialGradient id="avSkin" cx="42%" cy="34%" r="72%">
-            <stop offset="0%" stop-color="#f0c4a8"/><stop offset="55%" stop-color="#e8b89a"/><stop offset="100%" stop-color="#d9a98e"/>
-          </radialGradient>
-          <linearGradient id="avHair" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2e2420"/><stop offset="100%" stop-color="#1a1412"/>
-          </linearGradient>
-          <linearGradient id="avSweater" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#47474a"/><stop offset="45%" stop-color="#3a3a3d"/><stop offset="100%" stop-color="#2b2b2e"/>
-          </linearGradient>
+          <radialGradient id="avBg" cx="50%" cy="38%" r="62%"><stop offset="0%" stop-color="#e9edfa"/><stop offset="60%" stop-color="#d8def4"/><stop offset="100%" stop-color="#ccd4f0"/></radialGradient>
+          <radialGradient id="avSkin" cx="42%" cy="34%" r="72%"><stop offset="0%" stop-color="#f0c4a8"/><stop offset="55%" stop-color="#e8b89a"/><stop offset="100%" stop-color="#d9a98e"/></radialGradient>
+          <linearGradient id="avHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2e2420"/><stop offset="100%" stop-color="#1a1412"/></linearGradient>
+          <linearGradient id="avSweater" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#47474a"/><stop offset="45%" stop-color="#3a3a3d"/><stop offset="100%" stop-color="#2b2b2e"/></linearGradient>
         </defs>
         <rect width="400" height="440" rx="32" fill="url(#avBg)"/>
         <path d="M60 440 Q60 330 120 300 L280 300 Q340 330 340 440 Z" fill="url(#avSweater)"/>
@@ -102,12 +94,13 @@
     </div>
   </section>
 
+  <!-- ID CARD -->
   <section class="idcard-wrap">
     <div id="idcard" class="idcard">
       <div id="idp" class="idp"></div>
       <div class="idinfo">
-        <b id="idrole"></b>
-        <ul id="idlist"></ul>
+        <b id="idrole">Data Engineer · BI Consultant</b>
+        <ul id="idlist"><li>ETL/ELT with SSIS &amp; Talend</li></ul>
         <button id="idmode" class="btn ghost" type="button">📷 Switch to photo</button>
       </div>
     </div>

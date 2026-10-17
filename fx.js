@@ -119,6 +119,7 @@ function words(el){
   t.split(" ").forEach((w,i,a)=>{const s=document.createElement("span");s.className="ww";s.textContent=w;el.append(s);if(i<a.length-1)el.append(" ")});
 }
 function scramble(el,ms=800){
+  if(!el)return;
   const fin=el.textContent,ch="01#$%&*<>/\\+=_",t0=performance.now();
   const f=()=>{const p=Math.min(1,(performance.now()-t0)/ms);
     el.textContent=[...fin].map((c,i)=>c===" "||i<p*fin.length?c:ch[Math.random()*ch.length|0]).join("");
@@ -162,7 +163,7 @@ safe("lenis",()=>{
   if(msgs)msgs.setAttribute("data-lenis-prevent","");
 });
 
-/* quick jump buttons in Ask AI */
+/* ---------- Ask AI quick jump ---------- */
 safe("asknav",()=>{
   const d=document.createElement("div");d.className="sug";
   [["#experience","↗ Experience"],["#ai","↗ AI × HEAT"],["#projects","↗ Projects"],["#contact","↗ Contact"]].forEach(([h,l])=>{
