@@ -4,7 +4,7 @@
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const root=document.documentElement,clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,FINE=matchMedia("(pointer: fine)").matches;
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,FINE=matchMedia("(pointer: fine)").matches,COARSE=matchMedia("(pointer: coarse)").matches,LITE=!!(navigator.connection&&navigator.connection.saveData);
 const KEYS=["data","soft","dev"],SECS=["about","experience","ai","skills","projects","credentials","contact"];
 const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -135,21 +135,42 @@ function moveInd(){const a=links.find(l=>l.getAttribute("aria-current")==="true"
 if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){curSec=e.target.id;links.forEach(l=>l.setAttribute("aria-current",l.getAttribute("href")==="#"+curSec));moveInd()}}),{rootMargin:"-45% 0px -50% 0px"});SECS.forEach(s=>so.observe(document.getElementById(s)))}
 addEventListener("resize",moveInd);
 let tick=false;
-function onScroll(){tick=false;const y=scrollY,h=Math.max(1,root.scrollHeight-innerHeight);
+const hintTxt=$("#hintTxt"),hudSec=$("#hudSec"),hudPct=$("#hudPct"),chap=$("#chap");
+const CH=[["home","Intro"],["about","About"],["experience","Experience"],["ai","AI × HEAT"],["skills","Skills"],["projects","Projects"],["credentials","Credentials"],["contact","Contact"]];
+chap.innerHTML=CH.map(c=>`<a href="#${c[0]}" data-s="${c[0]}"><span>${c[1]}</span><i></i></a>`).join("");
+const chapA=$$("a",chap);let lastId="",lastHint="";
+const toTopNow=()=>scrollTo({top:0,behavior:RM?"auto":"smooth"});
+$$('a[href="#home"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toTopNow()}));
+chap.addEventListener("click",e=>{const a=e.target.closest("a");if(a&&a.dataset.s==="home"){e.preventDefault();toTopNow()}});
+const setHint=t=>{if(t!==lastHint){hintTxt.textContent=t;lastHint=t}};
+function onScroll(){
+  tick=false;const y=scrollY,h=Math.max(1,root.scrollHeight-innerHeight);
   bar.style.transform=`scaleX(${y/h})`;toTop.classList.toggle("show",y>innerHeight*1.3);
-  if(!PINNED)return;
-  const r=scene.getBoundingClientRect(),span=Math.max(1,r.height-innerHeight),p=clamp(-r.top/span,0,1);
-  hint.classList.toggle("off",p>.015);
+  const r=scene.getBoundingClientRect(),inHero=r.bottom>innerHeight*.5,id=inHero?"home":curSec;
+  if(id!==lastId){lastId=id;chapA.forEach(a=>a.setAttribute("aria-current",a.dataset.s===id));hudSec.textContent=id==="home"?"intro":((CH.find(c=>c[0]===id)||[0,id])[1]).toLowerCase()}
+  hudPct.textContent=Math.round(y/h*100);
+  if(y>20)hint.classList.remove("idle");
+  if(!PINNED){hint.classList.toggle("off",y>40);return}
+  const span=Math.max(1,r.height-innerHeight),p=clamp(-r.top/span,0,1),idx=Math.min(2,Math.floor(p*3));
+  hint.classList.toggle("off",!inHero);
   railBtns.forEach((b,i)=>b.style.setProperty("--p",clamp(p*3-i,0,1).toFixed(3)));
-  if(r.top<innerHeight*.9&&r.bottom>innerHeight*.5){const k=KEYS[Math.min(2,Math.floor(p*3))];setLens(k,{src:manual?manual.src:"scroll"});if(manual&&manual.k===k)manual=null}}
+  setHint(p<.02?(COARSE?"Swipe up to explore":"Scroll down to explore"):idx<2?`Profile ${idx+1} of 3 · keep ${COARSE?"swiping":"scrolling"}`:`Profile 3 of 3 · ${COARSE?"swipe":"scroll"} on for the full story`);
+  if(r.top<innerHeight*.9&&inHero){const k=KEYS[idx];setLens(k,{src:manual?manual.src:"scroll"});if(manual&&manual.k===k)manual=null}}
+if(!PINNED)setHint(COARSE?"Swipe up to explore":"Scroll down to explore");
+setTimeout(()=>{if(scrollY<20&&!RM)hint.classList.add("idle")},4500);
 addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
-toTop.onclick=()=>scrollTo({top:0,behavior:RM?"auto":"smooth"});
+toTop.onclick=()=>toTopNow();
 const burger=$("#burger");burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o);burger.querySelector("use").setAttribute("href",o?"#i-close":"#i-menu")};
 menu.onclick=e=>{if(e.target.closest("a")){menu.classList.remove("open");burger.setAttribute("aria-expanded","false");burger.querySelector("use").setAttribute("href","#i-menu")}};
 
-/* reveal on scroll */
-if("IntersectionObserver" in window){const r=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");r.unobserve(e.target)}}),{threshold:.1,rootMargin:"0px 0px -6% 0px"});
-  window.__rv=r;$$(".rv").forEach(e=>r.observe(e))}else $$(".rv").forEach(e=>e.classList.add("in"));
+/* reveal on scroll: headings reveal word by word, blocks fade up. Everything stays visible if this script fails. */
+$$(".sh h2").forEach(hh=>{const t=hh.textContent.trim();hh.setAttribute("aria-label",t);hh.textContent="";t.split(" ").forEach((w,i)=>{const o=document.createElement("span");o.className="w";o.setAttribute("aria-hidden","true");const n=document.createElement("span");n.textContent=w;n.style.setProperty("--i",i);o.append(n);hh.append(o,document.createTextNode(" "))})});
+root.classList.add("ready");
+if("IntersectionObserver" in window){const r=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");r.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+  $$(".rv,.sh").forEach(e=>r.observe(e))}else $$(".rv,.sh").forEach(e=>e.classList.add("in"));
+
+/* cursor spotlight (mouse only) */
+if(FINE&&!RM){let raf=0;addEventListener("pointermove",e=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;root.style.setProperty("--cx",e.clientX+"px");root.style.setProperty("--cy",e.clientY+"px")})},{passive:true})}
 
 /* ---------- avatar: tilt, intro, voice, clock ---------- */
 if(FINE&&!RM){const hero=$(".hero");hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;holo.style.setProperty("--ry",(x*16).toFixed(2)+"deg");holo.style.setProperty("--rx",(-y*11).toFixed(2)+"deg")});
@@ -203,7 +224,7 @@ const idf=w=>Math.log(1+docs.length/(df[w]||.5));
 function search(q){const qt=[...new Set(tok(q))];if(!qt.length)return[];return docs.map(o=>{let s=0;qt.forEach(w=>{const tf=o.w.filter(x=>x===w).length;if(tf)s+=idf(w)*(1+Math.log(tf));if(o.tt.includes(w))s+=idf(w)});return[o.d,s]}).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,3)}
 
 const pal=$("#pal"),pq=$("#pq"),plist=$("#plist");let items=[],sel=0;
-const jump=id=>()=>{const t=document.getElementById(id);t&&t.scrollIntoView({behavior:RM?"auto":"smooth"})};
+const jump=id=>()=>{if(id==="home"){toTopNow();return}const t=document.getElementById(id);t&&t.scrollIntoView({behavior:RM?"auto":"smooth"})};
 const SEC_LABEL={about:"About",experience:"Experience",ai:"AI on Ivanti HEAT",skills:"Skills",projects:"Projects",credentials:"Credentials",contact:"Contact"};
 const CMDS=[
  ...SECS.map(s=>({g:"Go to",i:"out",l:SEC_LABEL[s],h:"#"+s,run:jump(s),kw:s})),
@@ -230,13 +251,14 @@ pq.addEventListener("input",()=>paintPal(pq.value));
 pq.addEventListener("keydown",e=>{if(e.key==="ArrowDown"){e.preventDefault();sel=Math.min(items.length-1,sel+1);mark()}else if(e.key==="ArrowUp"){e.preventDefault();sel=Math.max(0,sel-1);mark()}else if(e.key==="Enter"){e.preventDefault();runSel()}});
 plist.addEventListener("click",e=>{const o=e.target.closest(".opt");o&&runSel(+o.dataset.i)});
 plist.addEventListener("pointermove",e=>{const o=e.target.closest(".opt");if(o&&+o.dataset.i!==sel){sel=+o.dataset.i;mark()}});
-const openPal=()=>{if(pal.open)return;pq.value="";paintPal("");pal.showModal();pq.focus()};
+const MAC=/Mac|iPhone|iPad|iPod/.test(navigator.platform||navigator.userAgent),kbd=$("#askbtn kbd");if(kbd)kbd.textContent=MAC?"⌘ K":"Ctrl K";
+const openPal=()=>{if(pal.open)return;if(typeof pal.showModal!=="function"){toast("The command menu needs a newer browser");return}pq.value="";paintPal("");pal.showModal();pq.focus()};
 $("#askbtn").onclick=openPal;pal.addEventListener("click",e=>{if(e.target===pal)pal.close()});
 addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();pal.open?pal.close():openPal()}});
 
 /* ---------- ambient network canvas ---------- */
 (function fx(){const c=$("#fx"),x=c.getContext("2d");if(!x)return;let W=0,H=0,pts=[],mx=-9e3,my=-9e3,last=0,col="#35d8ff",n=0;
-  function size(){const d=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);const N=clamp(Math.round(W/30),20,60);pts=Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28}))}
+  function size(){const d=COARSE?1:Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);const N=COARSE?clamp(Math.round(W/26),14,26):clamp(Math.round(W/30),20,60);pts=Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28}))}
   function draw(){x.clearRect(0,0,W,H);if(n++%12===0)col=getComputedStyle(root).getPropertyValue("--acc").trim()||col;x.strokeStyle=col;x.fillStyle=col;
     for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
     for(let i=0;i<pts.length;i++){const a=pts[i];x.globalAlpha=.55;x.beginPath();x.arc(a.x,a.y,1.4,0,6.3);x.fill();
@@ -244,8 +266,16 @@ addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()===
       const dm=Math.hypot(a.x-mx,a.y-my);if(dm<170){x.globalAlpha=(1-dm/170)*.6;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(mx,my);x.stroke()}}
     x.globalAlpha=1}
   function loop(t){requestAnimationFrame(loop);if(document.hidden||t-last<34)return;last=t;draw()}
-  size();draw();if(!RM){requestAnimationFrame(loop);addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY},{passive:true})}
+  size();draw();if(!RM&&!LITE){requestAnimationFrame(loop);addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY},{passive:true})}
   let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{size();draw()},200)})})();
+
+/* ---------- boot sequence (first visit per session, skippable) ---------- */
+(function(){const el=$("#boot");if(!el)return;
+  if(!root.classList.contains("booting")){el.remove();return}
+  const box=$("#bootlines"),bar=$("#boot .bootbar i"),L=[["wael.os 2026.10 · starting",0],["mounting profiles: data · .net · devops",0],["loading avatar … ok",1],["open to opportunities … ok",1]];let i=0,done=false;
+  const end=()=>{if(done)return;done=true;root.classList.remove("booting");setTimeout(()=>el.remove(),800)};
+  const step=()=>{if(done)return;if(i<L.length){const d=document.createElement("div");d.textContent="> "+L[i][0];if(L[i][1])d.className="okk";box.append(d);bar.style.width=Math.round((i+1)/L.length*100)+"%";i++;setTimeout(step,250)}else setTimeout(end,350)};
+  el.addEventListener("pointerdown",end);addEventListener("keydown",end,{once:true});step()})();
 
 /* ---------- start ---------- */
 setLens(lens,{src:"init"});onScroll();moveInd();

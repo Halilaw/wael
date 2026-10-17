@@ -8,6 +8,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#05070f">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Wael Halila"><meta name="format-detection" content="telephone=no,email=no,address=no">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="Wael Halila">
 <meta name="wh-lens" content="dotnet">
@@ -33,6 +34,7 @@
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
+<div id="boot" aria-hidden="true"><div class="bootbox"><div id="bootlines"></div><div class="bootbar"><i></i></div></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
@@ -108,7 +110,7 @@
     </div>
    </div>
   </div>
-  <div class="hint" id="hint" aria-hidden="true"><i></i><span>Scroll to switch profile</span></div>
+  <div class="hint" id="hint" aria-hidden="true"><i></i><span id="hintTxt">Scroll down to explore</span><b>↓</b></div>
  </div>
 </section>
 
@@ -164,6 +166,8 @@
 </div></section>
 </main>
 
+<nav class="chap" id="chap" aria-label="Page sections"></nav>
+<div class="hud" id="hud" aria-hidden="true"><span>section <b id="hudSec">intro</b></span><span><b id="hudPct">0</b>%</span></div>
 <footer><div class="wrap"><span>© <span id="yr"></span> Wael Halila · Tunis</span><span>Made without trackers, cookies or third-party requests.</span></div></footer>
 <button class="ibtn toTop" id="toTop" type="button" aria-label="Back to top"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></button>
 

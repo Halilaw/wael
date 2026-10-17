@@ -62,6 +62,8 @@ sh scripts/checksums.sh
 
 | Feature | Notes |
 |---|---|
+| Boot sequence | A 1-second start-up screen on the first visit of each session (tap or press a key to skip; off with reduced motion and on profile links) |
+| Scroll cue and section HUD | A "Scroll down to explore" pill that counts your profile steps, a side rail of section dots on desktop, and a live section and scroll-percentage readout |
 | Scroll-driven profile switch | Pinned hero scene; the badge in the nav rolls between profiles; click a profile or the badge to jump |
 | Command menu | `Ctrl+K` / `Cmd+K`: jump to sections, switch profile, download a CV, copy link, toggle theme, or ask a question (local search over the page) |
 | Hologram avatar | AVIF with WebP fallback in 3 sizes, 3D tilt, scan sweep, glitch on profile change, "Hear intro" voice |
@@ -71,6 +73,14 @@ sh scripts/checksums.sh
 | Offline | Service worker caches the site after the first visit |
 | Accessibility | Keyboard focus, skip link, `prefers-reduced-motion` turns off the scene, tilt, scan and background |
 | Print | `Ctrl+P` gives a clean one-page-style printout |
+
+## Devices and browsers
+
+- **Layout**: tested from 320 px to 1920 px wide with no sideways scroll, including a small phone (iPhone SE size), common Android sizes, tablet, laptop and large monitor.
+- **iPhone and iPad (Safari)**: safe-area insets for the notch and home bar, `svh` units with fallbacks, `-webkit-` prefixes, no blur or blend effects inside the 3D avatar (a known Safari problem), 16 px+ form text so Safari never zooms in, and a "Swipe up" cue instead of "Scroll". Add to Home Screen works with the included icons.
+- **Android (Chrome, Samsung Internet)**: installable, maskable icon, lighter background animation on touch devices, respects Data Saver.
+- **Mac and Windows**: the command menu shows `⌘ K` on Mac and `Ctrl K` elsewhere. Chrome, Edge, Firefox and Safari are supported.
+- I could only run Chromium when building this, so please open the live site once on your iPhone and in Safari or Firefox and tell me if anything looks off.
 
 ## Security and privacy
 
