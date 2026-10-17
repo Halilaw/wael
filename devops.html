@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-lens="data"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wael Halila — DevOps Engineer · CI/CD &amp; Automation · Tunis</title>
+<meta name="description" content="CI/CD automation and production reliability: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, SonarQube quality gates, ELK and Dynatrace observability. Based in Tunis.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; media-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#05070f">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Wael Halila">
+<meta name="wh-lens" content="devops">
+<link rel="canonical" href="https://halilaw.github.io/wael/devops.html">
+<meta property="og:type" content="profile"><meta property="og:site_name" content="Wael Halila"><meta property="og:locale" content="en_US">
+<meta property="og:title" content="Wael Halila — DevOps Engineer · CI/CD &amp; Automation">
+<meta property="og:description" content="CI/CD automation and production reliability: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, SonarQube quality gates, ELK and Dynatrace observability. Based in Tunis.">
+<meta property="og:url" content="https://halilaw.github.io/wael/devops.html">
+<meta property="og:image" content="https://halilaw.github.io/wael/assets/img/og-devops.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wael Halila, DevOps Engineer · CI/CD &amp; Automation">
+<meta property="profile:first_name" content="Wael"><meta property="profile:last_name" content="Halila">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wael Halila — DevOps Engineer · CI/CD &amp; Automation">
+<meta name="twitter:description" content="CI/CD automation and production reliability: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, SonarQube quality gates, ELK and Dynatrace observability. Based in Tunis.">
+<meta name="twitter:image" content="https://halilaw.github.io/wael/assets/img/og-devops.jpg">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preload" href="assets/fonts/display-800.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/inter-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" as="image" type="image/avif" href="assets/img/hero-600.avif" imagesrcset="assets/img/hero-360.avif 360w, assets/img/hero-600.avif 600w, assets/img/hero-1200.avif 1200w" imagesizes="(max-width:900px) 58vw, 470px" fetchpriority="high">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Wael Halila","url":"https://halilaw.github.io/wael/","image":"https://halilaw.github.io/wael/assets/img/og-image.jpg","jobTitle":"Data, .NET, DevOps & AI Engineer","worksFor":{"@type":"Organization","name":"ODDO BHF"},"alumniOf":{"@type":"CollegeOrUniversity","name":"ESPRIT"},"knowsLanguage":["ar","en","fr","de"],"knowsAbout":["Data integration","ETL","SQL Server",".NET 8","C#","Microservices","Azure DevOps","CI/CD","Docker","OpenShift","Large language models","Ivanti HEAT","Playwright","ITIL"],"address":{"@type":"PostalAddress","addressLocality":"Tunis","addressCountry":"TN"},"sameAs":["https://www.linkedin.com/in/wael-halila-9b75ba97/"]}</script>
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+<symbol id="i-net" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"/></symbol>
+<symbol id="i-ops" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8M21 3v5h-5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16M8 16H3v5"/></symbol>
+<symbol id="i-ai" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-test" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-ci" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.5 6C13 6 15.5 8 15.5 12"/></symbol>
+<symbol id="i-etl" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></symbol>
+<symbol id="i-sync" viewBox="0 0 24 24"><path d="M7 7h13l-4-4M17 17H4l4 4"/></symbol>
+<symbol id="i-speed" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24"><path d="m12 2-10 5 10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.500-4.800 10-10 10zM2 21c0-3 1.900-5.400 5.500-7"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-split" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.500"/><circle cx="6" cy="19" r="2.500"/><circle cx="18" cy="8" r="2.500"/><path d="M6 7.500v9M18 10.500c0 4-6 3-12 6"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.800A9 9 0 1 1 11.200 3a7 7 0 0 0 9.800 9.800z"/></symbol>
+<symbol id="i-cmd" viewBox="0 0 24 24"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.600 13.500 6.800 4M15.400 6.500l-6.800 4"/></symbol>
+<symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.500"/><path d="M5.500 17c.6-2 2-3 3.500-3s2.900 1 3.500 3M15 9h3M15 13h3"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.500 8.500a5 5 0 0 1 0 7M18.500 5.500a9 9 0 0 1 0 13"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.500 14-1.500 8 5-3 5 3-1.500-8"/></symbol>
+<symbol id="i-term" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6M12 19h8"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</defs></svg>
+<div id="bar" aria-hidden="true"></div><canvas id="fx" aria-hidden="true"></canvas><div class="veil" aria-hidden="true"></div>
+
+<header class="nav">
+  <a href="#home" class="logo" aria-label="Wael Halila, back to top">WH</a>
+  <nav class="menu" id="menu" aria-label="Main"><i class="ind" aria-hidden="true"></i>
+    <a href="#about">About</a><a href="#experience">Experience</a><a href="#ai">AI × HEAT</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#credentials">Credentials</a><a href="#contact">Contact</a></nav>
+  <div class="navr">
+    <button class="pbadge" id="pbadge" type="button" aria-label="Current profile. Press to switch to the next one"><svg class="ic" id="pbIc" aria-hidden="true"><use href="#i-data"/></svg><span class="rollbox" id="pbTxt">Data</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <button class="kbd" id="askbtn" type="button" aria-label="Open command menu"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span><kbd>Ctrl K</kbd></button>
+    <button class="ibtn" id="theme" type="button" aria-label="Switch between dark and light theme"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></button>
+    <button class="ibtn" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<noscript><div class="nojs"><h1>Wael Halila</h1><p>Data, .NET, DevOps &amp; AI engineer in Tunis. 4+ years in financial services: data integration (SSIS, Talend, Control-M), C# / .NET 8 microservices, Azure DevOps CI/CD and an LLM assistant on Ivanti HEAT. ITIL® 5 Foundation.</p><p>Contact: wael.halila [at] gmail [dot] com · <a href="https://www.linkedin.com/in/wael-halila-9b75ba97/" rel="noopener noreferrer">LinkedIn</a></p><p>CV: <a href="assets/cv/Wael_Halila_CV_Data_Engineer.pdf">Data</a> · <a href="assets/cv/Wael_Halila_CV_Software_Engineer.pdf">.NET</a> · <a href="assets/cv/Wael_Halila_CV_DevOps_Engineer.pdf">DevOps</a></p><p>Turn on JavaScript to see the full interactive portfolio.</p></div></noscript>
+
+<main id="main">
+<section class="scene" id="scene" aria-label="Introduction">
+ <div class="stick" id="home">
+  <div class="hero">
+   <div class="hero-text">
+    <p class="status"><i class="dot"></i><span>Open to opportunities</span><span class="sep"></span><span id="clock">Tunis, Tunisia</span></p>
+    <h1 id="name" aria-label="Wael Halila"><span aria-hidden="true">Wael</span><span aria-hidden="true">Halila</span></h1>
+    <div class="rolebox rollbox" id="role" aria-live="polite"><span class="r"><em>Data Engineer</em><small>BI Consultant</small></span></div>
+    <p class="lead" id="pitch">Data solutions in financial services: ETL/ELT with SSIS and Talend, Control-M orchestration and production monitoring, on a solid SQL Server, C# and .NET 8 base.</p>
+    <div class="term" id="termbox" aria-hidden="true"><header><svg class="ic" aria-hidden="true"><use href="#i-term"/></svg><span>~/wael/profile</span><b id="termTag">data</b></header><div class="body" id="term"></div></div>
+    <div class="row cta"><a class="btn pri" id="cvdl" href="assets/cv/Wael_Halila_CV_Data_Engineer.pdf" download><svg class="ic" aria-hidden="true"><use href="#i-dl"/></svg><span id="cvlbl">Download CV</span></a><a class="btn" href="#contact"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Contact</a><button class="btn ghost" id="hear" type="button"><svg class="ic" aria-hidden="true"><use href="#i-sound"/></svg>Hear intro<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button></div>
+    <div class="rail" id="rail" role="group" aria-label="Choose a profile"><i class="thumb" aria-hidden="true"></i></div>
+   </div>
+   <div class="holo" id="avatar">
+    <div class="holo-in" id="holo">
+     <div class="plate"></div><i class="frame"></i><i class="cb tl"></i><i class="cb tr"></i><i class="cb bl"></i><i class="cb br"></i>
+     <picture class="cut"><source type="image/avif" srcset="assets/img/hero-360.avif 360w, assets/img/hero-600.avif 600w, assets/img/hero-1200.avif 1200w" sizes="(max-width:900px) 58vw, 470px"><source type="image/webp" srcset="assets/img/hero-360.webp 360w, assets/img/hero-600.webp 600w, assets/img/hero-1200.webp 1200w" sizes="(max-width:900px) 58vw, 470px"><img src="assets/img/hero-600.webp" width="600" height="636" alt="Wael Halila, smiling, wearing glasses and a navy suit" fetchpriority="high" decoding="async"></picture>
+     <i class="sweep" aria-hidden="true"></i><i class="tint" aria-hidden="true"></i>
+     <span class="orb o1"><span class="rollbox"></span></span><span class="orb o2"><span class="rollbox"></span></span><span class="orb o3"><span class="rollbox"></span></span><span class="orb o4"><span class="rollbox"></span></span>
+     <span class="live"><i class="dot"></i><span id="clock2">Tunis</span></span>
+    </div>
+   </div>
+  </div>
+  <div class="hint" id="hint" aria-hidden="true"><i></i><span>Scroll to switch profile</span></div>
+ </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="mq" id="mq"></div></div>
+<section class="wrap sec flush" id="impact" aria-label="Key numbers"><div class="stats rv" id="stats"></div></section>
+
+<section id="about" class="wrap sec"><header class="sh"><h2>Four disciplines, one engineer</h2><span class="path">~/about</span></header>
+<div class="about">
+ <div class="idwrap rv"><div class="strap"></div><button class="idcard" id="idcard" type="button" aria-label="Engineer ID card. Press to flip it"><span class="face front">
+  <span class="idtop"><b>WH</b><small>ENGINEER ID · 2026</small></span>
+  <span class="idp"><picture><source type="image/avif" srcset="assets/img/id-360.avif 360w, assets/img/id-720.avif 720w" sizes="272px"><source type="image/webp" srcset="assets/img/id-360.webp 360w, assets/img/id-720.webp 720w" sizes="272px"><img src="assets/img/id-360.webp" width="360" height="450" alt="" loading="lazy" decoding="async"></picture></span>
+  <strong>Wael Halila</strong><span class="idrole" id="idrole"></span>
+  <span class="idchips"><i>ITIL® 5</i><i>.NET 8</i><i>Azure DevOps</i><i>AI × HEAT</i></span><span class="bars" aria-hidden="true"></span><span class="sheen" aria-hidden="true"></span></span>
+  <span class="face back"><strong>What I bring</strong><ul id="idlist"></ul><small>Tunis · tap to flip back</small></span></button></div>
+ <div class="about-text rv">
+  <p>I work on critical platforms for Asset Management, ESG, Private Equity and Private Banking, and I cover the full data lifecycle, from integration to reporting, on solid SQL Server, C# and .NET 8 foundations.</p>
+  <p>I keep delivery reliable with Azure DevOps pipelines, quality gates and observability. On Ivanti HEAT I built an AI assistant from scratch around an LLM, with natural-language search and querying, and I test it end to end with Playwright. I'm training in generative AI engineering and hold the ITIL® 5 Foundation certificate.</p>
+  <dl class="facts"><div><dt>Based in</dt><dd>Tunis, Tunisia</dd></div><div><dt>Current role</dt><dd>Engineer, ODDO BHF (since Sep 2022)</dd></div><div><dt>Degree</dt><dd>Software engineering, ESPRIT</dd></div><div><dt>Languages</dt><dd>Arabic · English · French · German</dd></div></dl>
+ </div></div></section>
+
+<section id="experience" class="wrap sec"><header class="sh"><h2>Experience</h2><span class="path">~/experience</span></header><p class="sub">ODDO BHF, Tunis. The same four years, told for the profile you picked.</p><ol class="tl" id="timeline"></ol></section>
+
+<section id="ai" class="wrap sec"><header class="sh"><h2>AI on Ivanti HEAT</h2><span class="path">~/ai</span></header>
+<p class="sub">Search, querying and testing, powered by generative AI.</p>
+<div class="ai rv"><div><div class="tabs" id="aitabs" role="tablist" aria-label="AI topics"></div><div class="panel aipanel" id="aipanel" role="tabpanel" aria-live="polite"></div><div class="tags" id="aitags"></div></div>
+<div class="panel flow" id="flow" aria-label="How the assistant works"></div></div>
+<p class="note">Overview only. The real architecture details stay with the project.</p></section>
+
+<section id="skills" class="wrap sec"><header class="sh"><h2>Skills</h2><span class="path">~/skills</span></header>
+<p class="sub">Tap a tile. Tiles fade when they matter less for the selected profile.</p>
+<div class="chips" id="filters" role="group" aria-label="Filter skills by family"></div>
+<div class="skills-wrap"><div class="ptable" id="ptable"></div><aside class="panel detail" id="detail" aria-live="polite"><b>Pick a tile</b><p>Hover or tap a tile to see where I've used it.</p></aside></div>
+<div class="charts"><figure class="panel"><figcaption>Skills by family</figcaption><canvas id="radar" height="320" role="img" aria-label="Radar chart of skills by family"></canvas></figure>
+<figure class="panel"><figcaption>Languages</figcaption><div id="langs"></div></figure></div></section>
+
+<section id="projects" class="wrap sec"><header class="sh"><h2>Delivered</h2><span class="path">~/projects</span></header><p class="sub">Most relevant to your profile first.</p><div class="pgrid" id="projgrid"></div>
+<p class="side">Beyond work: a drone telemetry analyzer (Python, DroneKit), an interactive TikTok LIVE overlay (JavaScript), and the Securinets INSAT ethical-hacking community.</p></section>
+
+<section id="credentials" class="wrap sec"><header class="sh"><h2>Credentials</h2><span class="path">~/credentials</span></header>
+<div class="cred rv"><figure class="panel"><figcaption>Certifications and training</figcaption><ul class="certs" id="certs"></ul></figure><div class="edu" id="edu"></div></div></section>
+
+<section id="contact" class="wrap sec"><header class="sh"><h2>Let's talk</h2><span class="path">~/contact</span></header>
+<div class="contact">
+ <div class="rv"><h3>Hiring for a data, .NET, DevOps or AI role?</h3><p class="sub tight">Send a note and I'll reply quickly. Or grab the CV that matches the role.</p>
+  <div class="links" id="links"></div>
+  <div class="row" id="cvs"></div>
+  <form class="mail panel" id="form"><input id="fn" placeholder="Your name or company" required maxlength="120" autocomplete="organization" aria-label="Your name or company"><textarea id="fm" rows="4" placeholder="Tell me about the role" required maxlength="2000" aria-label="Message"></textarea><button class="btn pri" type="submit"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Write the email</button></form></div>
+ <div class="panel share rv" id="sharepanel"><h3>Share this portfolio</h3><p>Pick the profile you want to send. Each one has its own link and preview card for email, LinkedIn and chat.</p>
+  <div class="row" id="sharelens" role="group" aria-label="Profile to share"></div>
+  <div class="sharegrid"><div class="qr" id="qr" role="img" aria-label="QR code for the selected link"></div>
+   <div class="sharebtns"><button class="btn" id="bCopy" type="button"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg>Copy link</button><a class="btn" id="bMail" href="mailto:"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Send by email</a><button class="btn" id="bShare" type="button"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>Share…</button><a class="btn" id="bVcf" href="assets/Wael_Halila.vcf" download="Wael_Halila.vcf"><svg class="ic" aria-hidden="true"><use href="#i-card"/></svg>Save contact</a></div></div>
+  <div class="urlbox" id="urlbox"></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Wael Halila · Tunis</span><span>Made without trackers, cookies or third-party requests.</span></div></footer>
+<button class="ibtn toTop" id="toTop" type="button" aria-label="Back to top"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></button>
+
+<dialog id="pal" aria-label="Command menu">
+ <div class="pal-in"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input id="pq" type="text" role="combobox" aria-expanded="true" aria-controls="plist" aria-autocomplete="list" placeholder="Jump to a section, switch profile, or ask a question" autocomplete="off" spellcheck="false" maxlength="200"></div>
+ <div id="plist" role="listbox" aria-label="Results"></div>
+ <div class="pal-f"><span>↑ ↓ to move</span><span>Enter to run</span><span>Esc to close</span></div>
+</dialog>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/qr.js"></script>
+<script src="assets/js/app.js"></script>
+</body></html>
