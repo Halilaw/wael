@@ -1,573 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Wael Halila — Data, .NET, DevOps &amp; AI Engineer · Tunis</title>
-  <style>
-    /* ----- RESET & BASE ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #eef3fc;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      padding: 1.5rem;
-      color: #1a2b3c;
-    }
-
-    /* ----- MAIN CARD / AVATAR CONTAINER ----- */
-    .avatar-card {
-      background: #ffffff;
-      border-radius: 2rem;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 460px;
-      width: 100%;
-    }
-
-    /* ----- AVATAR CONTAINER ----- */
-    .avatar-container {
-      position: relative;
-      width: 270px;
-      height: 320px;
-      margin-bottom: 1.5rem;
-      transition: transform 0.3s ease;
-    }
-
-    .avatar-container:hover {
-      transform: translateY(-3px);
-    }
-
-    /* --- Soft lavender background panel (matches reference) --- */
-    .avatar-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 35%, #e9edfa 0%, #d8def4 60%, #ccd4f0 100%);
-      border-radius: 1.75rem;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    /* --- Turtleneck Sweater (body) --- */
-    .sweater {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 125px;
-      background: linear-gradient(180deg, #47474a 0%, #3a3a3d 45%, #2b2b2e 100%);
-      border-radius: 55% 55% 18% 18% / 75% 75% 25% 25%;
-      z-index: 2;
-      box-shadow:
-        inset 0 12px 20px rgba(0, 0, 0, 0.3),
-        inset 0 -10px 15px rgba(0, 0, 0, 0.45);
-    }
-
-    /* Turtleneck collar */
-    .collar {
-      position: absolute;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 96px;
-      height: 48px;
-      background: linear-gradient(180deg, #3a3a3d 0%, #2c2c2f 100%);
-      border-radius: 18px 18px 8px 8px;
-      z-index: 3;
-      box-shadow:
-        inset 0 5px 10px rgba(0, 0, 0, 0.45),
-        inset 0 -4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .collar::after {
-      content: '';
-      position: absolute;
-      top: 7px;
-      left: 12px;
-      width: 72px;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 10px;
-    }
-
-    /* --- Neck --- */
-    .neck {
-      position: absolute;
-      bottom: 126px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 56px;
-      height: 42px;
-      background: linear-gradient(90deg, #d9a98e 0%, #e3b89a 50%, #d9a98e 100%);
-      border-radius: 0 0 16px 16px;
-      z-index: 2;
-      box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* --- Head --- */
-    .head {
-      position: absolute;
-      top: 45px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 168px;
-      height: 182px;
-      background: radial-gradient(ellipse at 42% 35%, #f0c4a8 0%, #e8b89a 55%, #d9a98e 100%);
-      border-radius: 50% 50% 46% 46% / 50% 50% 50% 50%;
-      z-index: 4;
-      box-shadow:
-        inset -14px -14px 24px rgba(0, 0, 0, 0.08),
-        inset 10px 10px 24px rgba(255, 255, 255, 0.4);
-    }
-
-    /* --- Ears --- */
-    .ear {
-      position: absolute;
-      top: 108px;
-      width: 26px;
-      height: 38px;
-      background: #e0b295;
-      border-radius: 50%;
-      z-index: 3;
-      box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.12);
-    }
-    .ear.left  { left: 40px; }
-    .ear.right { right: 40px; }
-
-    /* --- Hair (voluminous swept back, like reference) --- */
-    .hair-base {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 184px;
-      height: 128px;
-      background: linear-gradient(180deg, #2e2420 0%, #1f1814 100%);
-      border-radius: 55% 55% 30% 30% / 85% 85% 15% 15%;
-      z-index: 5;
-      box-shadow:
-        inset 0 12px 22px rgba(255, 255, 255, 0.1),
-        inset 0 -12px 18px rgba(0, 0, 0, 0.55);
-    }
-
-    /* Big voluminous swoop on top */
-    .hair-swoop {
-      position: absolute;
-      top: -2px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-4deg);
-      width: 150px;
-      height: 92px;
-      background: linear-gradient(180deg, #352a25 0%, #241c18 100%);
-      border-radius: 72% 62% 22% 32% / 92% 92% 8% 8%;
-      z-index: 6;
-      box-shadow: inset 0 10px 18px rgba(255, 255, 255, 0.12);
-    }
-
-    /* Hair side sweeps (faded sides) */
-    .hair-side {
-      position: absolute;
-      top: 68px;
-      width: 34px;
-      height: 88px;
-      background: #241c18;
-      z-index: 4;
-    }
-    .hair-side.left {
-      left: 40px;
-      border-radius: 45% 0 55% 45% / 50% 0 55% 45%;
-      transform: rotate(7deg);
-    }
-    .hair-side.right {
-      right: 40px;
-      border-radius: 0 45% 45% 55% / 0 50% 45% 55%;
-      transform: rotate(-7deg);
-    }
-
-    /* --- Face Features --- */
-    .face {
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 136px;
-      height: 136px;
-      z-index: 7;
-    }
-
-    /* Thick eyebrows */
-    .eyebrow {
-      position: absolute;
-      top: 10px;
-      width: 38px;
-      height: 11px;
-      background: #1e1612;
-      border-radius: 50% 50% 40% 40%;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-    }
-    .eyebrow.left  { left: 12px;  transform: rotate(-6deg); }
-    .eyebrow.right { right: 12px; transform: rotate(6deg); }
-
-    /* Almond eyes */
-    .eye {
-      position: absolute;
-      top: 30px;
-      width: 32px;
-      height: 30px;
-      background: #ffffff;
-      border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
-      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.14);
-      overflow: hidden;
-    }
-    .eye.left  { left: 14px; }
-    .eye.right { right: 14px; }
-
-    .pupil {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 17px;
-      height: 17px;
-      background: #1a100b;
-      border-radius: 50%;
-      transition: transform 0.1s ease-out;
-    }
-    .pupil::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 3px;
-      width: 5px;
-      height: 5px;
-      background: #ffffff;
-      border-radius: 50%;
-      opacity: 0.95;
-    }
-
-    /* Nose */
-    .nose {
-      position: absolute;
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 22px;
-      height: 34px;
-      background: linear-gradient(180deg, #e0a586 0%, #d39574 100%);
-      border-radius: 42% 42% 50% 50% / 30% 30% 70% 70%;
-      box-shadow:
-        inset -3px -4px 5px rgba(0, 0, 0, 0.12),
-        inset 2px 2px 3px rgba(255, 255, 255, 0.25);
-    }
-
-    /* Thin defined mustache */
-    .mustache {
-      position: absolute;
-      top: 92px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 11px;
-      background: #1e1612;
-      border-radius: 10px;
-      z-index: 8;
-      clip-path: polygon(0 30%, 15% 0, 50% 22%, 85% 0, 100% 30%, 85% 100%, 50% 80%, 15% 100%);
-    }
-
-    /* Goatee / chin patch */
-    .beard {
-      position: absolute;
-      top: 104px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 54px;
-      height: 46px;
-      background: #241c18;
-      border-radius: 15% 15% 50% 50% / 10% 10% 90% 90%;
-      z-index: 6;
-      clip-path: polygon(15% 0, 85% 0, 100% 28%, 85% 100%, 50% 94%, 15% 100%, 0 28%);
-    }
-
-    /* Subtle mouth */
-    .mouth {
-      position: absolute;
-      top: 102px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 32px;
-      height: 12px;
-      background: #b0574a;
-      border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%;
-      z-index: 9;
-      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.28);
-    }
-
-    /* --- Round black glasses --- */
-    .glasses {
-      position: absolute;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 146px;
-      height: 52px;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .lens {
-      position: absolute;
-      top: 0;
-      width: 48px;
-      height: 48px;
-      border: 3.5px solid #111111;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.07);
-    }
-    .lens.left  { left: 14px; }
-    .lens.right { right: 14px; }
-
-    .bridge {
-      position: absolute;
-      top: 21px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 18px;
-      height: 4px;
-      background: #111111;
-      border-radius: 2px;
-    }
-
-    .temple {
-      position: absolute;
-      top: 21px;
-      width: 14px;
-      height: 4px;
-      background: #111111;
-      border-radius: 2px;
-    }
-    .temple.left  { left: 0px; }
-    .temple.right { right: 0px; }
-
-    /* ----- INFO SECTION ----- */
-    .info-section {
-      text-align: center;
-      width: 100%;
-    }
-
-    .name {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0f1c2e;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.2rem;
-    }
-
-    .title-badge {
-      display: inline-block;
-      background: #e5edf9;
-      border-radius: 30px;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: #2c577b;
-      margin-bottom: 1rem;
-    }
-
-    .description {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #3f5368;
-      margin-bottom: 1.5rem;
-      padding: 0 0.5rem;
-    }
-
-    .description strong {
-      color: #0f1c2e;
-      font-weight: 600;
-    }
-
-    /* Tech pills */
-    .tech-pills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 1.2rem 0;
-    }
-
-    .pill {
-      background: #f0f4fa;
-      border: 1px solid #d6e2f0;
-      border-radius: 30px;
-      padding: 0.3rem 0.9rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #2c577b;
-      transition: all 0.15s;
-    }
-
-    .pill:hover {
-      background: #e0ebf7;
-      border-color: #b0cae0;
-    }
-
-    /* Location */
-    .location {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      color: #6b8299;
-      margin-top: 0.8rem;
-      border-top: 1px solid #e6edf5;
-      padding-top: 1rem;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .location svg {
-      width: 16px;
-      height: 16px;
-      fill: #6b8299;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      .avatar-card {
-        padding: 1.5rem 1rem;
-      }
-      .name {
-        font-size: 1.8rem;
-      }
-      .avatar-container {
-        transform: scale(0.92);
-        margin-bottom: 0.5rem;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wael Halila — Data, .NET, DevOps &amp; AI Engineer · Tunis</title>
+<meta name="description" content="Wael Halila: engineer with 4+ years in financial services. Data integration, .NET 8 microservices, Azure DevOps CI/CD and an LLM assistant on Ivanti HEAT. ITIL 5 Foundation. Based in Tunis.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fx.css">
 </head>
 <body>
+<div id="pre" aria-hidden="true"><b>WH<i>.</i></b><span>loading portfolio</span><div class="pbar"><i></i></div></div>
+<canvas id="gl" aria-hidden="true"></canvas>
 
-  <div class="avatar-card">
-    <!-- AVATAR — rebuilt to match the reference image -->
-    <div class="avatar-container" id="avatar">
-      <!-- soft lavender background panel -->
-      <div class="avatar-bg"></div>
-
-      <!-- body / turtleneck sweater -->
-      <div class="sweater"></div>
-      <div class="collar"></div>
-
-      <!-- neck -->
-      <div class="neck"></div>
-
-      <!-- head -->
-      <div class="head"></div>
-
-      <!-- ears -->
-      <div class="ear left"></div>
-      <div class="ear right"></div>
-
-      <!-- hair: base, swoop, sides -->
-      <div class="hair-base"></div>
-      <div class="hair-swoop"></div>
-      <div class="hair-side left"></div>
-      <div class="hair-side right"></div>
-
-      <!-- facial features -->
-      <div class="face">
-        <div class="eyebrow left"></div>
-        <div class="eyebrow right"></div>
-
-        <div class="eye left"><div class="pupil"></div></div>
-        <div class="eye right"><div class="pupil"></div></div>
-
-        <div class="nose"></div>
-        <div class="mustache"></div>
-        <div class="beard"></div>
-        <div class="mouth"></div>
-      </div>
-
-      <!-- round glasses -->
-      <div class="glasses">
-        <div class="lens left"></div>
-        <div class="lens right"></div>
-        <div class="bridge"></div>
-        <div class="temple left"></div>
-        <div class="temple right"></div>
-      </div>
-    </div>
-
-    <!-- INFO (unchanged) -->
-    <div class="info-section">
-      <h1 class="name">Wael Halila</h1>
-      <div class="title-badge">Data · .NET · DevOps · AI</div>
-      <p class="description">
-        Engineer with <strong>4+ years</strong> in financial services.
-        Data integration, <strong>.NET 8</strong> microservices, Azure DevOps CI/CD,
-        and an <strong>LLM assistant</strong> on Ivanti HEAT. ITIL 5 Foundation.
-      </p>
-      <div class="tech-pills">
-        <span class="pill">.NET 8</span>
-        <span class="pill">Azure DevOps</span>
-        <span class="pill">LLM / AI</span>
-        <span class="pill">Data Integration</span>
-        <span class="pill">ITIL 5</span>
-        <span class="pill">Ivanti HEAT</span>
-      </div>
-      <div class="location">
-        <svg viewBox="0 0 24 24" width="16" height="16">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>
-        <span>Tunis, Tunisia</span>
-      </div>
-    </div>
+<header class="nav">
+  <a class="brand" href="#home"><span class="brand-mark">WH</span><span class="brand-txt">Wael Halila</span></a>
+  <nav id="menu" aria-label="Main">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#ai">AI × HEAT</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#credentials">Credentials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="navr">
+    <button id="askbtn" class="tbtn" type="button" aria-label="Ask AI about Wael">🤖 Ask AI</button>
+    <button id="theme" class="tbtn" type="button" aria-label="Toggle theme">🌙</button>
+    <button id="share" class="tbtn" type="button" aria-label="Share this page">🔗</button>
+    <button id="burger" class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
+</header>
+<div id="bar" aria-hidden="true"></div>
 
-  <!-- subtle eye tracking -->
-  <script>
-    (function () {
-      const pupils = document.querySelectorAll('.pupil');
-      const avatar = document.getElementById('avatar');
+<main id="home">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Tunis · Financial services · Data · .NET · DevOps · AI</span>
+      <h1>Wael Halila</h1>
+      <div id="lens" class="lensrow" role="group" aria-label="Choose a profile lens"></div>
+      <p id="role" class="role"></p>
+      <p id="pitch" class="pitch"></p>
+      <div class="badges"><span>🏦 4+ yrs finance</span><span>🤖 LLM on HEAT</span><span>📜 ITIL 5</span></div>
+      <div class="row">
+        <a id="cvdl" class="btn" href="cv/Wael_Halila_CV_Data_Engineer.pdf" download>📄 Download CV</a>
+        <a class="btn ghost" href="#contact">✉️ Contact</a>
+        <button id="hear" class="btn ghost" type="button">🔊 Hear greeting</button>
+      </div>
+      <p id="say" class="bubble" aria-live="polite"></p>
+    </div>
 
-      if (pupils.length && avatar) {
-        document.addEventListener('mousemove', (e) => {
-          const rect = avatar.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
+    <div class="portrait">
+      <!-- ================= AVATAR (inline SVG, matches reference image) ================= -->
+      <svg class="avatar-svg" id="avatar" viewBox="0 0 400 440" role="img" aria-label="Avatar of Wael Halila" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="avBg" cx="50%" cy="38%" r="62%">
+            <stop offset="0%" stop-color="#e9edfa"/>
+            <stop offset="60%" stop-color="#d8def4"/>
+            <stop offset="100%" stop-color="#ccd4f0"/>
+          </radialGradient>
+          <radialGradient id="avSkin" cx="42%" cy="34%" r="72%">
+            <stop offset="0%" stop-color="#f0c4a8"/>
+            <stop offset="55%" stop-color="#e8b89a"/>
+            <stop offset="100%" stop-color="#d9a98e"/>
+          </radialGradient>
+          <linearGradient id="avHair" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2e2420"/>
+            <stop offset="100%" stop-color="#1a1412"/>
+          </linearGradient>
+          <linearGradient id="avSweater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#47474a"/>
+            <stop offset="45%" stop-color="#3a3a3d"/>
+            <stop offset="100%" stop-color="#2b2b2e"/>
+          </linearGradient>
+        </defs>
 
-          const deltaX = Math.max(-3, Math.min(3, (e.clientX - centerX) / 35));
-          const deltaY = Math.max(-2, Math.min(2, (e.clientY - centerY) / 40));
+        <!-- soft lavender background -->
+        <rect width="400" height="440" rx="32" fill="url(#avBg)"/>
 
-          pupils.forEach(pupil => {
-            pupil.style.transform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px))`;
-          });
-        });
+        <!-- sweater / body -->
+        <path d="M60 440 Q60 330 120 300 L280 300 Q340 330 340 440 Z" fill="url(#avSweater)"/>
+        <!-- turtleneck collar -->
+        <rect x="158" y="270" width="84" height="56" rx="16" fill="#2c2c2f"/>
+        <rect x="158" y="270" width="84" height="8" rx="4" fill="#3a3a3d" opacity=".8"/>
 
-        document.addEventListener('mouseleave', () => {
-          pupils.forEach(pupil => {
-            pupil.style.transform = 'translate(-50%, -50%)';
-          });
-        });
-      }
-    })();
-  </script>
+        <!-- neck -->
+        <rect x="176" y="240" width="48" height="42" rx="8" fill="url(#avSkin)"/>
+
+        <!-- head group (JS rotates this via --hr) -->
+        <g style="transform: rotate(var(--hr,0deg)); transform-origin: 200px 200px; transform-box: fill-box; transition: transform .08s linear;">
+          <!-- head -->
+          <ellipse cx="200" cy="180" rx="82" ry="92" fill="url(#avSkin)"/>
+          <!-- ears -->
+          <ellipse cx="120" cy="190" rx="13" ry="20" fill="#d9a98e"/>
+          <ellipse cx="280" cy="190" rx="13" ry="20" fill="#d9a98e"/>
+
+          <!-- hair base -->
+          <path d="M118 140 Q118 78 200 72 Q282 78 282 140 Q270 108 200 102 Q130 108 118 140 Z" fill="url(#avHair)"/>
+          <!-- voluminous swoop -->
+          <path d="M135 112 Q152 62 200 56 Q248 62 265 112 Q236 86 200 84 Q164 86 135 112 Z" fill="#352a25"/>
+          <!-- side sweeps -->
+          <path d="M122 128 Q118 164 128 214 L138 214 Q128 164 132 134 Z" fill="#241c18"/>
+          <path d="M278 128 Q282 164 272 214 L262 214 Q272 164 268 134 Z" fill="#241c18"/>
+
+          <!-- eyebrows -->
+          <path d="M148 158 Q168 148 188 158" stroke="#1e1612" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M212 158 Q232 148 252 158" stroke="#1e1612" stroke-width="7" fill="none" stroke-linecap="round"/>
+
+          <!-- eyes: scaleY via --bl for blink -->
+          <g style="transform: scaleY(calc(1 - var(--bl,0)*0.9)); transform-origin: center; transform-box: fill-box;">
+            <ellipse cx="168" cy="186" rx="17" ry="16" fill="#fff"/>
+            <ellipse cx="232" cy="186" rx="17" ry="16" fill="#fff"/>
+            <!-- pupils: translate via --ex/--ey -->
+            <g style="transform: translate(var(--ex,0px), var(--ey,0px)); transition: transform .1s ease-out;">
+              <circle cx="168" cy="186" r="9" fill="#1a100b"/>
+              <circle cx="232" cy="186" r="9" fill="#1a100b"/>
+              <circle cx="170" cy="183" r="3" fill="#fff"/>
+              <circle cx="234" cy="183" r="3" fill="#fff"/>
+            </g>
+          </g>
+
+          <!-- nose -->
+          <path d="M200 192 Q194 214 200 220 Q206 214 200 192" fill="#d39574" opacity=".55"/>
+
+          <!-- mustache -->
+          <path d="M164 236 Q184 228 200 232 Q216 228 236 236 Q216 244 200 241 Q184 244 164 236 Z" fill="#1e1612"/>
+
+          <!-- goatee -->
+          <path d="M172 252 Q200 244 228 252 Q236 280 200 288 Q164 280 172 252 Z" fill="#241c18"/>
+
+          <!-- mouth -->
+          <path d="M184 246 Q200 254 216 246" stroke="#b0574a" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+          <!-- round glasses -->
+          <circle cx="168" cy="186" r="28" fill="none" stroke="#111" stroke-width="4.5"/>
+          <circle cx="232" cy="186" r="28" fill="none" stroke="#111" stroke-width="4.5"/>
+          <line x1="196" y1="186" x2="204" y2="186" stroke="#111" stroke-width="4.5"/>
+          <line x1="140" y1="186" x2="122" y2="186" stroke="#111" stroke-width="4.5"/>
+          <line x1="260" y1="186" x2="278" y2="186" stroke="#111" stroke-width="4.5"/>
+        </g>
+      </svg>
+      <!-- ================= /AVATAR ================= -->
+    </div>
+  </section>
+
+  <!-- ================= ID CARD (avatar clone + photo toggle) ================= -->
+  <section class="idcard-wrap" style="max-width:1200px;margin:0 auto;padding:1rem clamp(1rem,5vw,3rem)">
+    <div id="idcard" style="max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1rem;box-shadow:var(--shadow)">
+      <div id="idp" class="idp" style="position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:#d8def4"></div>
+      <div style="margin-top:.8rem">
+        <b id="idrole" style="display:block"></b>
+        <ul id="idlist" style="margin:.4rem 0 0;padding-left:1.1rem;color:var(--mut);font-size:.85rem"></ul>
+        <button id="idmode" class="btn ghost" type="button" style="margin-top:.6rem">📷 Switch to photo</button>
+      </div>
+    </div>
+  </section>
+  <!-- ================= /ID CARD ================= -->
+
+  <section id="about" class="about">
+    <h2>About</h2>
+    <div class="about-text">
+      <p>Engineer with more than four years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. I build reliable integrations, clean backends and automated pipelines — and I ship an LLM assistant that makes ITSM work faster.</p>
+      <p>Based in Tunis. Open to opportunities where data, software and automation meet.</p>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="facts">
+      <div><b>Role</b><span>Data · .NET · DevOps · AI</span></div>
+      <div><b>Location</b><span>Tunis, Tunisia</span></div>
+      <div><b>Since</b><span>ODDO BHF · Sep 2022</span></div>
+    </div>
+  </section>
+
+  <section id="experience" class="exp">
+    <h2>Experience</h2>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section id="ai" class="ai">
+    <h2>AI × Ivanti HEAT</h2>
+    <div id="aitabs" class="tabs" role="tablist" aria-label="AI topics"></div>
+    <div id="aipanel" class="panel" role="tabpanel"></div>
+    <div id="flow" class="flow"></div>
+    <div id="aitags" class="tags"></div>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2>Skills</h2>
+    <div id="filters" class="tabs" role="group" aria-label="Skill filters"></div>
+    <div class="skillgrid">
+      <div id="ptable" class="tilegrid" aria-label="Skill tiles"></div>
+      <div id="detail" class="detail" aria-live="polite"></div>
+    </div>
+    <div class="charts">
+      <canvas id="radar" width="400" height="320" aria-label="Skill family radar"></canvas>
+      <div id="langs" class="langs"></div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+    <div id="projgrid" class="grid"></div>
+  </section>
+
+  <section id="credentials" class="creds">
+    <h2>Credentials</h2>
+    <ul id="certs" class="certs"></ul>
+    <div id="edu" class="edugrid"></div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p class="lead">Let's talk about data, .NET, DevOps or AI — or just say hi.</p>
+    <div class="row">
+      <div id="links" class="links"></div>
+    </div>
+    <div class="row" id="cvs"></div>
+    <form id="form" class="form">
+      <label>Name <input id="fn" name="fn" required maxlength="120" autocomplete="name"></label>
+      <label>Message <textarea id="fm" name="fm" required maxlength="2000" rows="4"></textarea></label>
+      <button class="btn" type="submit">✉️ Send via email</button>
+    </form>
+    <footer class="foot"><span>© <span id="yr"></span> Wael Halila</span><span>Tunis, Tunisia</span></footer>
+  </section>
+</main>
+
+<!-- Ask AI dialog -->
+<dialog id="ask" class="ask" aria-label="Ask AI about Wael">
+  <header><b>🤖 Ask AI</b><button id="askx" class="tbtn" type="button" aria-label="Close">✕</button></header>
+  <div id="msgs" class="msgs" aria-live="polite"></div>
+  <div id="sug" class="sug"></div>
+  <form id="askf" class="askf"><input id="q" autocomplete="off" placeholder="Ask about skills, projects, certifications…" aria-label="Question"><button class="btn" type="submit">Send</button></form>
+</dialog>
+
+<!-- CDN libs (pinned, CSP-allowed) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+<script defer src="script.js"></script>
+<script defer src="fx.js"></script>
 </body>
 </html>
