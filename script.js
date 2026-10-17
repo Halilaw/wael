@@ -1,9 +1,9 @@
 "use strict";
-/* ====== Content: edit here ====== */
+/* ====== Content ====== */
 const A={id:"img/id.webp",cv:{data:"cv/Wael_Halila_CV_Data_Engineer.pdf",soft:"cv/Wael_Halila_CV_Software_Engineer.pdf",dev:"cv/Wael_Halila_CV_DevOps_Engineer.pdf"}};
 const CFG={email:"wael.halila@gmail.com",phone:"+216 28 55 16 04",linkedin:"https://www.linkedin.com/in/wael-halila-9b75ba97/"};
-const SAY_T="Hi, I'm Wael Halila. I'm an engineer with 4+ years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it. 👋",
-SAY_S="Hi, I'm Wael Halila. I'm an engineer with more than four years in financial services, working across data, dot net, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it.";
+const SAY_T="Hi, I'm Wael Halila. I'm an engineer with 4+ years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it. 👋";
+const SAY_S="Hi, I'm Wael Halila. I'm an engineer with more than four years in financial services, working across data, dot net, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it.";
 const LENS={
 data:{ic:"📊",tab:"Data",role:"Data Engineer · BI Consultant",pitch:"Data solutions in financial services: ETL/ELT with SSIS and Talend, Control-M orchestration and production monitoring, on a solid SQL Server, C# and .NET 8 base.",exp:"Data Engineer & Data Analyst (BI & data integration)",pts:["📥 ETL/ELT with SSIS & Talend","🗄️ SQL Server & T-SQL tuning","⏱️ Control-M orchestration","📊 Power BI & Jaspersoft","🤖 AI search & querying on HEAT"],file:"Wael_Halila_CV_Data_Engineer.pdf"},
 soft:{ic:"🧩",tab:".NET",role:".NET Software Engineer · Microservices",pitch:"Design, delivery and support of .NET applications, microservices and backend solutions: C#, .NET 8, REST APIs, SQL Server, Clean Architecture, DDD and CQRS.",exp:".NET Software Engineer & DevOps",pts:["🧱 C# / .NET 8 backends","🔌 Secure REST APIs","🏛️ Clean Architecture & DDD","🧪 Unit tests & Playwright","🤖 LLM assistant on HEAT"],file:"Wael_Halila_CV_Software_Engineer.pdf"},
@@ -25,7 +25,6 @@ const AI=[
 const FLOW=[["👤","Ask","A natural-language question"],["🧠","LLM","Understands the intent"],["🔎","Search & query layer","Looks up Ivanti HEAT data"],["✅","Answer","Grounded in real records"],["🎭","Playwright","AI-assisted end-to-end tests"],["🚦","Release checks","Regression safety net"]];
 const AITAGS=["LLM","Generative AI engineering","Prompt engineering","Natural-language search","Query generation","Playwright","AI-assisted testing","Ivanti HEAT"];
 const CATS={data:["Data","#2b2f6b"],bi:["BI","#7a4e9e"],web:["Web","#2f7d6d"],arch:["Arch.","#9a6a10"],ops:["DevOps","#a23b4b"],sec:["Ops & Sec","#37708f"],ai:["AI","#6a3fb5"],pm:["ITSM & Agile","#4d6b2f"]};
-/* [symbol, name, family, lenses: d=data s=software v=devops] */
 const SKILLS=[["Sq","SQL Server","data","dsv"],["Ts","T-SQL","data","ds"],["Pg","PostgreSQL","data","d"],["Or","Oracle","data","ds"],["Ss","SSIS","data","d"],["Tl","Talend","data","dv"],["El","ETL/ELT","data","d"],["Sp","Stored procs","data","ds"],["Rd","Redis","data","ds"],
 ["Dw","Data Warehouse","bi","d"],["Pb","Power BI","bi","d"],["Jr","Jaspersoft","bi","d"],["Te","TopEase","bi","d"],["An","Data analysis","bi","d"],
 ["Cs","C#","web","sd"],["N8",".NET 8","web","s"],["Nc",".NET Core","web","s"],["Fw",".NET 4.8","web","s"],["Rs","REST APIs","web","sv"],["Sw","Swagger","web","sv"],["Js","JavaScript","web","s"],["Tp","TypeScript","web","s"],["Ag","Angular","web","s"],["Pw","PowerBuilder","web","s"],
@@ -34,7 +33,6 @@ const SKILLS=[["Sq","SQL Server","data","dsv"],["Ts","T-SQL","data","ds"],["Pg",
 ["Jw","JWT / OAuth 2.0","sec","sv"],["Rb","RBAC","sec","sv"],["Kc","Keycloak","sec","v"],["Lk","ELK Stack","sec","dv"],["Dy","Dynatrace","sec","dv"],["Cm","Control-M","sec","dv"],["Rt","Retool","sec","dv"],
 ["Ll","LLM apps","ai","dsv"],["Gn","GenAI eng.","ai","dsv"],["Nq","NL search & query","ai","dsv"],["Pe","Prompt eng.","ai","dsv"],["Cl","Claude","ai","dsv"],
 ["It","ITIL 5","pm","dsv"],["Iv","Ivanti Heat","pm","dsv"],["Sc","Scrum","pm","dsv"],["Ji","Jira","pm","dsv"]];
-/* [icon, title, text, tags, lenses, featured] */
 const PROJECTS=[
 ["🤖","AI assistant on Ivanti HEAT","A conversational assistant built from scratch around an LLM. Users ask in plain language; a search and query layer looks up Ivanti HEAT data and the answer comes back grounded in real records.",["LLM apps","NL search & query","Prompt eng.","GenAI eng.","Ivanti Heat"],"dsv",true],
 ["🎭","Playwright AI testing on HEAT","End-to-end tests with Playwright, with AI assistance to write and maintain them, covering the Ivanti HEAT project and its assistant.",["Playwright","Ivanti Heat","Unit tests"],"dsv"],
@@ -57,7 +55,7 @@ const LC={data:"d",soft:"s",dev:"v"},LK={d:"data",s:"soft",v:"dev"};let lens="da
 root.classList.add("js");
 $$("[data-id]").forEach(i=>i.src=A.id);
 const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o):{observe(){}};
-$$(".rv").forEach(e=>e.classList.add("in")); /* fallback: visible; animated below when supported */
+$$(".rv").forEach(e=>e.classList.add("in"));
 if("IntersectionObserver" in window){const r=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");r.unobserve(e.target)}}),{threshold:.12});$$(".rv").forEach(e=>{e.classList.remove("in");r.observe(e)})}
 $("#mq").innerHTML=[...Array(2)].map(()=>["SQL Server","T-SQL","SSIS","Talend","Control-M","C#","NET 8","REST APIs","Clean Architecture","Azure DevOps","Docker","OpenShift","SonarQube","ELK","Dynatrace","Ivanti HEAT","LLM","Playwright","ITIL 5"].map(t=>`<span>✦ ${t}</span>`).join("")).join("");
 /* stats */
@@ -119,7 +117,7 @@ $("#links").innerHTML=[["✉️ "+CFG.email,"mailto:"+CFG.email],["📞 "+CFG.ph
 $("#cvs").innerHTML=Object.entries(LENS).map(([k,v])=>`<a class="btn" href="${A.cv[k]}" download="${v.file}">📄 CV · ${v.tab}</a>`).join("");
 $("#form").onsubmit=e=>{e.preventDefault();location.href=`mailto:${CFG.email}?subject=${encodeURIComponent("Opportunity for Wael Halila: "+$("#fn").value.slice(0,120))}&body=${encodeURIComponent($("#fm").value.slice(0,2000))}`};
 $("#yr").textContent=new Date().getFullYear();
-/* ====== "Ask AI": local retrieval over this page's content (no network) ====== */
+/* ====== Ask AI ====== */
 const STOP=new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what which who how where when why can could would should about tell give show any have has had at as by from it its this that these those not no yes also".split(" "));
 const tok=t=>t.toLowerCase().replace(/[^a-z0-9+#.\u00c0-\u017f ]/g," ").split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/^certif\w*/,"certif").replace(/(ing|es|s)$/,""));
 const KB=[{t:"About Wael",x:"Engineer with 4+ years in financial services across data, .NET, DevOps and AI. Based in Tunis, Tunisia, open to opportunities. Works at ODDO BHF since September 2022.",s:"about"},
@@ -152,7 +150,7 @@ addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()===
 /* ====== nav, theme, progress, share ====== */
 const menu=$("#menu"),bg=$("#burger");bg.onclick=()=>{const o=menu.classList.toggle("open");bg.setAttribute("aria-expanded",o)};menu.onclick=e=>{if(e.target.closest("a")){menu.classList.remove("open");bg.setAttribute("aria-expanded","false")}};
 const links=$$("#menu a"),secs=["about","experience","ai","skills","projects","credentials","contact"].map(id=>document.getElementById(id));
-if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.setAttribute("aria-current",l.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});secs.forEach(s=>so.observe(s))}
+if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.setAttribute("aria-current",l.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});secs.forEach(s=>s&&so.observe(s))}
 const tb=$("#theme"),dark=()=>root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
 try{const s=localStorage.getItem("theme");if(s==="dark"||s==="light")root.dataset.theme=s}catch(e){}
 const paint=()=>{tb.textContent=dark()?"☀️":"🌙";shown&&radar(1)};paint();
@@ -165,7 +163,7 @@ setLens("data");
 /* avatar: pointer-follow, blink, ID card avatar/photo switch */
 (()=>{const hero=$(".avatar-svg"),idp=$(".idp");if(!hero||!idp)return;
 const c=hero.cloneNode(true);c.classList.remove("cut");c.classList.add("avatar-clone");c.setAttribute("viewBox","40 60 320 300");c.setAttribute("preserveAspectRatio","xMidYMid slice");c.removeAttribute("role");c.setAttribute("aria-hidden","true");idp.prepend(c);
-const mode=$("#idmode");mode.onclick=()=>{const p=idp.classList.toggle("photo");mode.textContent=p?"🎭 Switch to avatar":"📷 Switch to photo"};
+const mode=$("#idmode");mode.onclick=e=>{e.stopPropagation();const p=idp.classList.toggle("photo");mode.textContent=p?"🎭 Switch to avatar":"📷 Switch to photo"};
 const av=$("#avatar");new MutationObserver(()=>idp.classList.toggle("talk",av.classList.contains("talk"))).observe(av,{attributes:true,attributeFilter:["class"]});
 if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
 const svgs=[hero,c];let tx=0,ty=0,cx=0,cy=0;addEventListener("pointermove",e=>{tx=e.clientX/innerWidth*2-1;ty=e.clientY/innerHeight*2-1},{passive:true});

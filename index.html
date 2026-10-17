@@ -54,7 +54,7 @@
     </div>
 
     <div class="portrait">
-      <!-- ================= AVATAR (inline SVG, matches reference image) ================= -->
+      <!-- ============ AVATAR (inline SVG, matches reference image) ============ -->
       <svg class="avatar-svg" id="avatar" viewBox="0 0 400 440" role="img" aria-label="Avatar of Wael Halila" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="avBg" cx="50%" cy="38%" r="62%">
@@ -77,44 +77,24 @@
             <stop offset="100%" stop-color="#2b2b2e"/>
           </linearGradient>
         </defs>
-
-        <!-- soft lavender background -->
         <rect width="400" height="440" rx="32" fill="url(#avBg)"/>
-
-        <!-- sweater / body -->
         <path d="M60 440 Q60 330 120 300 L280 300 Q340 330 340 440 Z" fill="url(#avSweater)"/>
-        <!-- turtleneck collar -->
         <rect x="158" y="270" width="84" height="56" rx="16" fill="#2c2c2f"/>
         <rect x="158" y="270" width="84" height="8" rx="4" fill="#3a3a3d" opacity=".8"/>
-
-        <!-- neck -->
         <rect x="176" y="240" width="48" height="42" rx="8" fill="url(#avSkin)"/>
-
-        <!-- head group (JS rotates this via --hr) -->
         <g style="transform: rotate(var(--hr,0deg)); transform-origin: 200px 200px; transform-box: fill-box; transition: transform .08s linear;">
-          <!-- head -->
           <ellipse cx="200" cy="180" rx="82" ry="92" fill="url(#avSkin)"/>
-          <!-- ears -->
           <ellipse cx="120" cy="190" rx="13" ry="20" fill="#d9a98e"/>
           <ellipse cx="280" cy="190" rx="13" ry="20" fill="#d9a98e"/>
-
-          <!-- hair base -->
           <path d="M118 140 Q118 78 200 72 Q282 78 282 140 Q270 108 200 102 Q130 108 118 140 Z" fill="url(#avHair)"/>
-          <!-- voluminous swoop -->
           <path d="M135 112 Q152 62 200 56 Q248 62 265 112 Q236 86 200 84 Q164 86 135 112 Z" fill="#352a25"/>
-          <!-- side sweeps -->
           <path d="M122 128 Q118 164 128 214 L138 214 Q128 164 132 134 Z" fill="#241c18"/>
           <path d="M278 128 Q282 164 272 214 L262 214 Q272 164 268 134 Z" fill="#241c18"/>
-
-          <!-- eyebrows -->
           <path d="M148 158 Q168 148 188 158" stroke="#1e1612" stroke-width="7" fill="none" stroke-linecap="round"/>
           <path d="M212 158 Q232 148 252 158" stroke="#1e1612" stroke-width="7" fill="none" stroke-linecap="round"/>
-
-          <!-- eyes: scaleY via --bl for blink -->
           <g style="transform: scaleY(calc(1 - var(--bl,0)*0.9)); transform-origin: center; transform-box: fill-box;">
             <ellipse cx="168" cy="186" rx="17" ry="16" fill="#fff"/>
             <ellipse cx="232" cy="186" rx="17" ry="16" fill="#fff"/>
-            <!-- pupils: translate via --ex/--ey -->
             <g style="transform: translate(var(--ex,0px), var(--ey,0px)); transition: transform .1s ease-out;">
               <circle cx="168" cy="186" r="9" fill="#1a100b"/>
               <circle cx="232" cy="186" r="9" fill="#1a100b"/>
@@ -122,20 +102,10 @@
               <circle cx="234" cy="183" r="3" fill="#fff"/>
             </g>
           </g>
-
-          <!-- nose -->
           <path d="M200 192 Q194 214 200 220 Q206 214 200 192" fill="#d39574" opacity=".55"/>
-
-          <!-- mustache -->
           <path d="M164 236 Q184 228 200 232 Q216 228 236 236 Q216 244 200 241 Q184 244 164 236 Z" fill="#1e1612"/>
-
-          <!-- goatee -->
           <path d="M172 252 Q200 244 228 252 Q236 280 200 288 Q164 280 172 252 Z" fill="#241c18"/>
-
-          <!-- mouth -->
           <path d="M184 246 Q200 254 216 246" stroke="#b0574a" stroke-width="4" fill="none" stroke-linecap="round"/>
-
-          <!-- round glasses -->
           <circle cx="168" cy="186" r="28" fill="none" stroke="#111" stroke-width="4.5"/>
           <circle cx="232" cy="186" r="28" fill="none" stroke="#111" stroke-width="4.5"/>
           <line x1="196" y1="186" x2="204" y2="186" stroke="#111" stroke-width="4.5"/>
@@ -143,22 +113,22 @@
           <line x1="260" y1="186" x2="278" y2="186" stroke="#111" stroke-width="4.5"/>
         </g>
       </svg>
-      <!-- ================= /AVATAR ================= -->
+      <!-- ============ /AVATAR ============ -->
     </div>
   </section>
 
-  <!-- ================= ID CARD (avatar clone + photo toggle) ================= -->
+  <!-- ============ ID CARD (avatar clone + photo toggle) ============ -->
   <section class="idcard-wrap" style="max-width:1200px;margin:0 auto;padding:1rem clamp(1rem,5vw,3rem)">
-    <div id="idcard" style="max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1rem;box-shadow:var(--shadow)">
-      <div id="idp" class="idp" style="position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:#d8def4"></div>
-      <div style="margin-top:.8rem">
-        <b id="idrole" style="display:block"></b>
-        <ul id="idlist" style="margin:.4rem 0 0;padding-left:1.1rem;color:var(--mut);font-size:.85rem"></ul>
-        <button id="idmode" class="btn ghost" type="button" style="margin-top:.6rem">📷 Switch to photo</button>
+    <div id="idcard" class="idcard">
+      <div id="idp" class="idp"></div>
+      <div class="idinfo">
+        <b id="idrole"></b>
+        <ul id="idlist"></ul>
+        <button id="idmode" class="btn ghost" type="button">📷 Switch to photo</button>
       </div>
     </div>
   </section>
-  <!-- ================= /ID CARD ================= -->
+  <!-- ============ /ID CARD ============ -->
 
   <section id="about" class="about">
     <h2>About</h2>
@@ -214,9 +184,7 @@
   <section id="contact" class="contact">
     <h2>Contact</h2>
     <p class="lead">Let's talk about data, .NET, DevOps or AI — or just say hi.</p>
-    <div class="row">
-      <div id="links" class="links"></div>
-    </div>
+    <div class="row"><div id="links" class="links"></div></div>
     <div class="row" id="cvs"></div>
     <form id="form" class="form">
       <label>Name <input id="fn" name="fn" required maxlength="120" autocomplete="name"></label>
@@ -227,7 +195,6 @@
   </section>
 </main>
 
-<!-- Ask AI dialog -->
 <dialog id="ask" class="ask" aria-label="Ask AI about Wael">
   <header><b>🤖 Ask AI</b><button id="askx" class="tbtn" type="button" aria-label="Close">✕</button></header>
   <div id="msgs" class="msgs" aria-live="polite"></div>
@@ -235,7 +202,6 @@
   <form id="askf" class="askf"><input id="q" autocomplete="off" placeholder="Ask about skills, projects, certifications…" aria-label="Question"><button class="btn" type="submit">Send</button></form>
 </dialog>
 
-<!-- CDN libs (pinned, CSP-allowed) -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
