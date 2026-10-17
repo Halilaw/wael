@@ -40,8 +40,8 @@
     /* ----- AVATAR CONTAINER ----- */
     .avatar-container {
       position: relative;
-      width: 260px;
-      height: 300px;
+      width: 270px;
+      height: 320px;
       margin-bottom: 1.5rem;
       transition: transform 0.3s ease;
     }
@@ -50,12 +50,12 @@
       transform: translateY(-3px);
     }
 
-    /* --- Background (soft lavender/periwinkle like reference) --- */
+    /* --- Soft lavender background panel (matches reference) --- */
     .avatar-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, #d8def4 0%, #e6eaf8 50%, #f2f4fb 100%);
-      border-radius: 1.5rem;
+      background: radial-gradient(ellipse at 50% 35%, #e9edfa 0%, #d8def4 60%, #ccd4f0 100%);
+      border-radius: 1.75rem;
       z-index: 1;
       overflow: hidden;
     }
@@ -66,168 +66,173 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 240px;
-      height: 120px;
-      background: #3b3b3d;
-      border-radius: 50% 50% 20% 20% / 70% 70% 30% 30%;
+      width: 250px;
+      height: 125px;
+      background: linear-gradient(180deg, #47474a 0%, #3a3a3d 45%, #2b2b2e 100%);
+      border-radius: 55% 55% 18% 18% / 75% 75% 25% 25%;
       z-index: 2;
-      box-shadow: inset 0 10px 15px rgba(0, 0, 0, 0.25), inset 0 -8px 12px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        inset 0 12px 20px rgba(0, 0, 0, 0.3),
+        inset 0 -10px 15px rgba(0, 0, 0, 0.45);
     }
 
     /* Turtleneck collar */
     .collar {
       position: absolute;
-      bottom: 95px;
+      bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 90px;
-      height: 45px;
-      background: #2f2f31;
-      border-radius: 15px 15px 8px 8px;
+      width: 96px;
+      height: 48px;
+      background: linear-gradient(180deg, #3a3a3d 0%, #2c2c2f 100%);
+      border-radius: 18px 18px 8px 8px;
       z-index: 3;
-      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        inset 0 5px 10px rgba(0, 0, 0, 0.45),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    /* Collar highlight */
     .collar::after {
       content: '';
       position: absolute;
-      top: 6px;
-      left: 10px;
-      width: 70px;
+      top: 7px;
+      left: 12px;
+      width: 72px;
       height: 6px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.07);
       border-radius: 10px;
     }
 
     /* --- Neck --- */
     .neck {
       position: absolute;
-      bottom: 120px;
+      bottom: 126px;
       left: 50%;
       transform: translateX(-50%);
-      width: 54px;
-      height: 40px;
-      background: #d9a98e;
-      border-radius: 0 0 15px 15px;
+      width: 56px;
+      height: 42px;
+      background: linear-gradient(90deg, #d9a98e 0%, #e3b89a 50%, #d9a98e 100%);
+      border-radius: 0 0 16px 16px;
       z-index: 2;
-      box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.15);
     }
 
     /* --- Head --- */
     .head {
       position: absolute;
-      top: 40px;
+      top: 45px;
       left: 50%;
       transform: translateX(-50%);
-      width: 160px;
-      height: 175px;
-      background: #e8b89a;
-      border-radius: 50% 50% 45% 45% / 50% 50% 50% 50%;
+      width: 168px;
+      height: 182px;
+      background: radial-gradient(ellipse at 42% 35%, #f0c4a8 0%, #e8b89a 55%, #d9a98e 100%);
+      border-radius: 50% 50% 46% 46% / 50% 50% 50% 50%;
       z-index: 4;
-      box-shadow: 
-        inset -12px -12px 20px rgba(0, 0, 0, 0.08), 
-        inset 8px 8px 20px rgba(255, 255, 255, 0.35);
+      box-shadow:
+        inset -14px -14px 24px rgba(0, 0, 0, 0.08),
+        inset 10px 10px 24px rgba(255, 255, 255, 0.4);
     }
 
     /* --- Ears --- */
     .ear {
       position: absolute;
-      top: 100px;
-      width: 24px;
-      height: 36px;
-      background: #e8b89a;
+      top: 108px;
+      width: 26px;
+      height: 38px;
+      background: #e0b295;
       border-radius: 50%;
       z-index: 3;
-      box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.12);
     }
-    .ear.left { left: 40px; }
+    .ear.left  { left: 40px; }
     .ear.right { right: 40px; }
 
-    /* --- Hair (voluminous swept back) --- */
+    /* --- Hair (voluminous swept back, like reference) --- */
     .hair-base {
       position: absolute;
-      top: 15px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
-      width: 175px;
-      height: 120px;
-      background: #241c18;
-      border-radius: 55% 55% 30% 30% / 80% 80% 20% 20%;
+      width: 184px;
+      height: 128px;
+      background: linear-gradient(180deg, #2e2420 0%, #1f1814 100%);
+      border-radius: 55% 55% 30% 30% / 85% 85% 15% 15%;
       z-index: 5;
-      box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.12), inset 0 -10px 15px rgba(0, 0, 0, 0.5);
+      box-shadow:
+        inset 0 12px 22px rgba(255, 255, 255, 0.1),
+        inset 0 -12px 18px rgba(0, 0, 0, 0.55);
     }
 
-    /* Voluminous swoop on top */
+    /* Big voluminous swoop on top */
     .hair-swoop {
       position: absolute;
-      top: 0px;
+      top: -2px;
       left: 50%;
-      transform: translateX(-50%) rotate(-3deg);
-      width: 140px;
-      height: 85px;
-      background: linear-gradient(180deg, #2e2420 0%, #1f1814 100%);
-      border-radius: 70% 60% 20% 30% / 90% 90% 10% 10%;
+      transform: translateX(-50%) rotate(-4deg);
+      width: 150px;
+      height: 92px;
+      background: linear-gradient(180deg, #352a25 0%, #241c18 100%);
+      border-radius: 72% 62% 22% 32% / 92% 92% 8% 8%;
       z-index: 6;
-      box-shadow: inset 0 8px 15px rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 10px 18px rgba(255, 255, 255, 0.12);
     }
 
-    /* Hair side sweeps */
+    /* Hair side sweeps (faded sides) */
     .hair-side {
       position: absolute;
-      top: 60px;
-      width: 32px;
-      height: 85px;
+      top: 68px;
+      width: 34px;
+      height: 88px;
       background: #241c18;
       z-index: 4;
     }
     .hair-side.left {
-      left: 42px;
-      border-radius: 40% 0 50% 50% / 50% 0 50% 50%;
-      transform: rotate(8deg);
+      left: 40px;
+      border-radius: 45% 0 55% 45% / 50% 0 55% 45%;
+      transform: rotate(7deg);
     }
     .hair-side.right {
-      right: 42px;
-      border-radius: 0 40% 50% 50% / 0 50% 50% 50%;
-      transform: rotate(-8deg);
+      right: 40px;
+      border-radius: 0 45% 45% 55% / 0 50% 45% 55%;
+      transform: rotate(-7deg);
     }
 
     /* --- Face Features --- */
     .face {
       position: absolute;
-      top: 95px;
+      top: 100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 130px;
-      height: 130px;
+      width: 136px;
+      height: 136px;
       z-index: 7;
     }
 
-    /* Eyebrows (thick, expressive) */
+    /* Thick eyebrows */
     .eyebrow {
       position: absolute;
-      top: 12px;
-      width: 36px;
-      height: 10px;
+      top: 10px;
+      width: 38px;
+      height: 11px;
       background: #1e1612;
       border-radius: 50% 50% 40% 40%;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     }
-    .eyebrow.left { left: 12px; transform: rotate(-6deg); }
+    .eyebrow.left  { left: 12px;  transform: rotate(-6deg); }
     .eyebrow.right { right: 12px; transform: rotate(6deg); }
 
-    /* Eyes (almond-shaped with subtle shine) */
+    /* Almond eyes */
     .eye {
       position: absolute;
       top: 30px;
-      width: 30px;
-      height: 28px;
+      width: 32px;
+      height: 30px;
       background: #ffffff;
       border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
-      box-shadow: inset 0 3px 5px rgba(0,0,0,0.12);
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.14);
       overflow: hidden;
     }
-    .eye.left { left: 14px; }
+    .eye.left  { left: 14px; }
     .eye.right { right: 14px; }
 
     .pupil {
@@ -235,8 +240,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
       background: #1a100b;
       border-radius: 50%;
       transition: transform 0.1s ease-out;
@@ -256,66 +261,68 @@
     /* Nose */
     .nose {
       position: absolute;
-      top: 58px;
+      top: 60px;
       left: 50%;
       transform: translateX(-50%);
-      width: 20px;
-      height: 32px;
-      background: #db9f80;
-      border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%;
-      box-shadow: inset -3px -4px 5px rgba(0,0,0,0.12), inset 2px 2px 3px rgba(255,255,255,0.2);
+      width: 22px;
+      height: 34px;
+      background: linear-gradient(180deg, #e0a586 0%, #d39574 100%);
+      border-radius: 42% 42% 50% 50% / 30% 30% 70% 70%;
+      box-shadow:
+        inset -3px -4px 5px rgba(0, 0, 0, 0.12),
+        inset 2px 2px 3px rgba(255, 255, 255, 0.25);
     }
 
-    /* Mustache (thin, defined) */
+    /* Thin defined mustache */
     .mustache {
       position: absolute;
-      top: 88px;
+      top: 92px;
       left: 50%;
       transform: translateX(-50%);
-      width: 56px;
-      height: 10px;
+      width: 60px;
+      height: 11px;
       background: #1e1612;
       border-radius: 10px;
       z-index: 8;
-      clip-path: polygon(0 30%, 15% 0, 50% 20%, 85% 0, 100% 30%, 85% 100%, 50% 80%, 15% 100%);
+      clip-path: polygon(0 30%, 15% 0, 50% 22%, 85% 0, 100% 30%, 85% 100%, 50% 80%, 15% 100%);
     }
 
-    /* Goatee / Beard (chin patch) */
+    /* Goatee / chin patch */
     .beard {
       position: absolute;
-      top: 100px;
+      top: 104px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
-      height: 42px;
+      width: 54px;
+      height: 46px;
       background: #241c18;
       border-radius: 15% 15% 50% 50% / 10% 10% 90% 90%;
       z-index: 6;
-      clip-path: polygon(15% 0, 85% 0, 100% 30%, 85% 100%, 50% 95%, 15% 100%, 0 30%);
+      clip-path: polygon(15% 0, 85% 0, 100% 28%, 85% 100%, 50% 94%, 15% 100%, 0 28%);
     }
 
-    /* Mouth (subtle smile) */
+    /* Subtle mouth */
     .mouth {
       position: absolute;
-      top: 98px;
+      top: 102px;
       left: 50%;
       transform: translateX(-50%);
-      width: 30px;
+      width: 32px;
       height: 12px;
       background: #b0574a;
       border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%;
       z-index: 9;
-      box-shadow: inset 0 2px 3px rgba(0,0,0,0.25);
+      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.28);
     }
 
-    /* --- Round Glasses --- */
+    /* --- Round black glasses --- */
     .glasses {
       position: absolute;
-      top: 85px;
+      top: 90px;
       left: 50%;
       transform: translateX(-50%);
-      width: 140px;
-      height: 50px;
+      width: 146px;
+      height: 52px;
       z-index: 10;
       pointer-events: none;
     }
@@ -323,18 +330,18 @@
     .lens {
       position: absolute;
       top: 0;
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border: 3.5px solid #111111;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.07);
     }
-    .lens.left { left: 14px; }
+    .lens.left  { left: 14px; }
     .lens.right { right: 14px; }
 
     .bridge {
       position: absolute;
-      top: 20px;
+      top: 21px;
       left: 50%;
       transform: translateX(-50%);
       width: 18px;
@@ -345,16 +352,16 @@
 
     .temple {
       position: absolute;
-      top: 20px;
+      top: 21px;
       width: 14px;
       height: 4px;
       background: #111111;
       border-radius: 2px;
     }
-    .temple.left { left: 0px; }
+    .temple.left  { left: 0px; }
     .temple.right { right: 0px; }
 
-    /* ----- INFO SECTION (personal) ----- */
+    /* ----- INFO SECTION ----- */
     .info-section {
       text-align: center;
       width: 100%;
@@ -394,7 +401,7 @@
       font-weight: 600;
     }
 
-    /* tech pills */
+    /* Tech pills */
     .tech-pills {
       display: flex;
       flex-wrap: wrap;
@@ -419,7 +426,7 @@
       border-color: #b0cae0;
     }
 
-    /* location */
+    /* Location */
     .location {
       display: flex;
       align-items: center;
@@ -441,7 +448,7 @@
       fill: #6b8299;
     }
 
-    /* responsive */
+    /* Responsive */
     @media (max-width: 480px) {
       .avatar-card {
         padding: 1.5rem 1rem;
@@ -459,21 +466,21 @@
 <body>
 
   <div class="avatar-card">
-    <!-- AVATAR — styled to match the reference image -->
+    <!-- AVATAR — rebuilt to match the reference image -->
     <div class="avatar-container" id="avatar">
-      <!-- soft background panel -->
+      <!-- soft lavender background panel -->
       <div class="avatar-bg"></div>
 
       <!-- body / turtleneck sweater -->
       <div class="sweater"></div>
       <div class="collar"></div>
-      
+
       <!-- neck -->
       <div class="neck"></div>
 
       <!-- head -->
       <div class="head"></div>
-      
+
       <!-- ears -->
       <div class="ear left"></div>
       <div class="ear right"></div>
@@ -488,10 +495,10 @@
       <div class="face">
         <div class="eyebrow left"></div>
         <div class="eyebrow right"></div>
-        
+
         <div class="eye left"><div class="pupil"></div></div>
         <div class="eye right"><div class="pupil"></div></div>
-        
+
         <div class="nose"></div>
         <div class="mustache"></div>
         <div class="beard"></div>
@@ -536,25 +543,24 @@
 
   <!-- subtle eye tracking -->
   <script>
-    (function(){
+    (function () {
       const pupils = document.querySelectorAll('.pupil');
       const avatar = document.getElementById('avatar');
-      
+
       if (pupils.length && avatar) {
         document.addEventListener('mousemove', (e) => {
           const rect = avatar.getBoundingClientRect();
           const centerX = rect.left + rect.width / 2;
           const centerY = rect.top + rect.height / 2;
-          
-          // subtle tracking
+
           const deltaX = Math.max(-3, Math.min(3, (e.clientX - centerX) / 35));
           const deltaY = Math.max(-2, Math.min(2, (e.clientY - centerY) / 40));
-          
+
           pupils.forEach(pupil => {
             pupil.style.transform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px))`;
           });
         });
-        
+
         document.addEventListener('mouseleave', () => {
           pupils.forEach(pupil => {
             pupil.style.transform = 'translate(-50%, -50%)';
