@@ -1,4 +1,3 @@
-/* ===== Tokens ===== */
 :root{
   --bg:#f6f7fc; --surface:#ffffff; --ink:#0f1c2e; --mut:#5a6b80;
   --line:#e2e8f2; --acc:#5a67e0; --gold:#d99a3b;
@@ -19,7 +18,7 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 1rem}
 img,svg{max-width:100%;display:block}
 button{font:inherit;cursor:pointer}
 
-/* ===== Nav ===== */
+/* nav */
 .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:1rem;padding:.7rem clamp(1rem,4vw,2.2rem);background:var(--navbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:.6rem;color:var(--ink);font-weight:700}
 .brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--gold));color:#fff;font-size:.85rem}
@@ -28,50 +27,49 @@ button{font:inherit;cursor:pointer}
 .nav nav a{padding:.4rem .7rem;border-radius:9px;color:var(--mut);font-size:.9rem;font-weight:500}
 .nav nav a:hover{background:var(--surface);color:var(--ink)}
 .navr{margin-left:auto;display:flex;align-items:center;gap:.4rem}
-.tbtn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.45rem .7rem;font-size:.85rem;color:var(--ink)}
+.tbtn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.45rem .7rem;font-size:.85rem;color:var(--ink);transition:border-color .15s}
 .tbtn:hover{border-color:var(--acc)}
 .burger{display:none;background:none;border:0;padding:.4rem;flex-direction:column;gap:4px}
 .burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
-#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--gold));z-index:40}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--gold));z-index:40;transition:width .1s linear}
 
-/* ===== Hero ===== */
+/* hero */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1rem,4vw,3rem);align-items:center;padding:clamp(1.5rem,5vw,3.5rem) clamp(1rem,5vw,3rem);max-width:1200px;margin:0 auto;position:relative}
 .eyebrow{display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.6rem}
 .hero h1{font-size:clamp(2.2rem,6vw,4rem);margin:0 0 1rem}
 .lensrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
-.chip2{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.45rem .9rem;font-size:.85rem;font-weight:500;color:var(--mut)}
+.chip2{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.45rem .9rem;font-size:.85rem;font-weight:500;color:var(--mut);transition:border-color .15s,box-shadow .15s,color .15s}
 .chip2.on{border-color:var(--acc);color:var(--ink);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 25%,transparent)}
 .role{font-weight:600;font-size:1.05rem;margin:0 0 .4rem}
 .pitch{color:var(--mut);margin:0 0 1rem;max-width:56ch}
 .badges{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.2rem}
 .badges span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.3rem .75rem;font-size:.78rem;color:var(--mut)}
 .row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
-.btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--acc);color:#fff;border:1px solid transparent;border-radius:12px;padding:.6rem 1rem;font-weight:600;font-size:.9rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--acc);color:#fff;border:1px solid transparent;border-radius:12px;padding:.6rem 1rem;font-weight:600;font-size:.9rem;transition:filter .15s,transform .15s}
 .btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
 .btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translateY(1px)}
 .bubble{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.75rem 1rem;font-size:.9rem;color:var(--mut);min-height:3.2em;box-shadow:var(--shadow);max-width:56ch}
 
-/* ===== Avatar ===== */
+/* avatar */
 .portrait{position:relative;display:flex;justify-content:center}
-.avatar-svg{width:min(360px,80vw);height:auto;border-radius:28px;box-shadow:var(--shadow);transition:transform .3s ease}
+.avatar-svg{width:min(360px,80vw);height:auto;border-radius:28px;box-shadow:var(--shadow);transition:transform .3s ease;--hr:0deg;--hxp:0px;--ex:0px;--ey:0px;--bl:0}
 .avatar-svg:hover{transform:translateY(-3px)}
 .avatar-svg.talk{animation:talk 1.1s ease-in-out infinite}
 @keyframes talk{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.015)}}
-.avatar-svg{--hr:0deg;--hxp:0px;--ex:0px;--ey:0px;--bl:0}
 .avatar-clone{width:100%;height:100%}
 
-/* ===== ID card ===== */
+/* id card */
+.idcard-wrap{max-width:1200px;margin:0 auto;padding:1rem clamp(1rem,5vw,3rem)}
 .idcard{display:grid;grid-template-columns:180px 1fr;gap:1rem;max-width:520px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1rem;box-shadow:var(--shadow);transition:transform .3s ease}
-.idcard.flip .idp{background:#d8def4}
 .idp{position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:#d8def4}
 .idp.photo{background:url("img/id.webp") center/cover no-repeat}
-.idp .avatar-clone{display:block}
 .idp.photo .avatar-clone{display:none}
 .idinfo b{display:block;margin-bottom:.3rem;font-size:1rem}
 .idinfo ul{margin:.2rem 0 .6rem;padding-left:1.1rem;color:var(--mut);font-size:.85rem}
 .idinfo .btn{margin-top:.2rem}
 
-/* ===== Sections ===== */
+/* sections */
 section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5vw,3rem)}
 .about-text{max-width:70ch;color:var(--mut)}
 .about-text p{margin:0 0 .8rem}
@@ -150,7 +148,7 @@ section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5
 .form input:focus,.form textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
 .foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.82rem}
 
-/* ===== Dialog ===== */
+/* dialog */
 .ask{border:1px solid var(--line);border-radius:20px;padding:0;max-width:520px;width:92vw;background:var(--surface);color:var(--ink);box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
 .ask::backdrop{background:rgba(10,16,28,.55);backdrop-filter:blur(3px)}
 .ask header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid var(--line)}
@@ -166,11 +164,10 @@ section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5
 .askf{display:flex;gap:.5rem;padding:.8rem 1rem;border-top:1px solid var(--line)}
 .askf input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.55rem .8rem;font:inherit;color:var(--ink)}
 
-/* ===== Responsive ===== */
+/* responsive */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;text-align:center}
-  .hero-text{order:2}
-  .portrait{order:1}
+  .hero-text{order:2}.portrait{order:1}
   .lensrow,.row,.badges{justify-content:center}
   .nav nav{position:fixed;inset:auto 0 0 0;top:auto;flex-direction:column;background:var(--surface);border-top:1px solid var(--line);padding:1rem;transform:translateY(110%);transition:transform .3s}
   .nav nav.open{transform:none}
