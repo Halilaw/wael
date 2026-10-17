@@ -169,7 +169,7 @@ safe("asknav",()=>{
   [["#experience","↗ Experience"],["#ai","↗ AI × HEAT"],["#projects","↗ Projects"],["#contact","↗ Contact"]].forEach(([h,l])=>{
     const b=document.createElement("button");b.type="button";b.textContent=l;
     b.onclick=()=>{
-      $("#ask").close();
+      const askEl=$("#ask");if(askEl.close)askEl.close();else askEl.removeAttribute("open");
       const t=document.querySelector(h);
       if(lenis){lenis.start();lenis.scrollTo(t,{offset:-70})}
       else t.scrollIntoView({behavior:"smooth"});
@@ -278,7 +278,7 @@ safe("lamp",()=>{
   const l=document.createElement("i");l.className="lamp";l.setAttribute("aria-hidden","true");c.prepend(l);
 });
 
-/* ---------- Pointer effects (cursor, sparks, tilt) ---------- */
+/* ---------- Pointer effects ---------- */
 safe("pointer",()=>{
   document.addEventListener("pointermove",e=>{
     const c=e.target.closest&&e.target.closest(".card");

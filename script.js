@@ -83,11 +83,10 @@ const $$=s=>[...document.querySelectorAll(s)];
 const root=document.documentElement;
 const LC={data:"d",soft:"s",dev:"v"},LK={d:"data",s:"soft",v:"dev"};
 let lens="data",shown=false;
-let score=0;
 
 const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o):{observe(){}};
 
-/* ====== GAME: sounds, toasts, errors, emoji, score ====== */
+/* ====== GAME: sounds, toasts, errors, emoji ====== */
 const AUDIO={
   ctx:null,
   init(){ if(!this.ctx){ try{this.ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} } return this.ctx },
@@ -105,7 +104,7 @@ const AUDIO={
   levelup(){ [523,659,784,1046].forEach((f,i)=>setTimeout(()=>this.blip(f,.15,"triangle",.06),i*90)) }
 };
 
-const GAME={score:0,achievements:new Set()};
+const GAME={score:0};
 
 function addScore(n=1){
   GAME.score+=n;
@@ -159,10 +158,9 @@ function emojiBurst(x,y){
   setTimeout(()=>n.remove(),950);
 }
 
-/* global click handler: sparks + error popups on cards + emoji */
+/* global click handler */
 document.addEventListener("click",e=>{
   AUDIO.blip(520,.05,"sine",.04);
-  // error popup on card clicks (fun)
   const card=e.target.closest(".card");
   if(card){
     errPopup(e.clientX-140,e.clientY-60);
@@ -170,7 +168,6 @@ document.addEventListener("click",e=>{
     addScore(1);
     toast("🎉 +1 ⭐ for poking the code!");
   }
-  // spark burst on any click
   if(window.gsap){
     for(let i=0;i<10;i++){
       const s=document.createElement("i");s.className="spark";
@@ -200,14 +197,14 @@ $("#hear").onclick=()=>{
   u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u);
 };
 
-/* ====== ID card (avatar clone only, no photo toggle) ====== */
+/* ====== ID card ====== */
 (function initIdCard(){
   const hero=$("#avatar"), idp=$("#idp"), idc=$("#idcard");
   if(!hero||!idp)return;
   const c=hero.cloneNode(true);
   c.classList.add("avatar-clone");
   c.removeAttribute("role");c.setAttribute("aria-hidden","true");
-  c.setAttribute("viewBox","40 60 320 300");
+  c.setAttribute("viewBox","40 60 320 340");
   c.setAttribute("preserveAspectRatio","xMidYMid slice");
   idp.prepend(c);
   if(idc){
@@ -349,9 +346,27 @@ function send(q){q=q.trim().slice(0,200);if(!q)return;msgs.append(el("u",q));con
 $("#sug").innerHTML=SUG.map(s=>`<button type="button">${s}</button>`).join("");
 $("#sug").onclick=e=>{const b=e.target.closest("button");b&&send(b.textContent)};
 $("#askf").onsubmit=e=>{e.preventDefault();send($("#q").value);$("#q").value=""};
-const openAsk=()=>{if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));ask.showModal();$("#q").focus();AUDIO.levelup()};
-$("#askbtn").onclick=openAsk;$("#askx").onclick=()=>ask.close();
-ask.onclick=e=>{if(e.target===ask)ask.close()};
+
+/* ====== ORB morph → dialog ====== */
+const orb=$("#orb"),askEl=$("#ask");
+function openAsk(){
+  if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));
+  orb.classList.add("morph");
+  AUDIO.levelup();
+  setTimeout(()=>{
+    if(askEl.showModal)askEl.showModal();else askEl.setAttribute("open","");
+    orb.classList.remove("morph");
+    const q=$("#q");q&&q.focus();
+  },400);
+}
+function closeAsk(){
+  if(askEl.close)askEl.close();else askEl.removeAttribute("open");
+  orb.classList.remove("morph");
+}
+orb.addEventListener("click",openAsk);
+$("#askbtn")&&$("#askbtn").addEventListener("click",openAsk);
+$("#askx").addEventListener("click",closeAsk);
+askEl.addEventListener("click",e=>{if(e.target===askEl)closeAsk()});
 addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openAsk()}});
 
 /* ====== Nav, theme, progress, share ====== */
@@ -397,7 +412,7 @@ $("#share").onclick=async()=>{
   (function blink(){
     setTimeout(()=>{
       all.forEach(s=>s.style.setProperty("--bl",1));
-      setTimeout(()=>{all.forEach(s=>s.setProperty?s.style.setProperty("--bl",0):0);blink()},120);
+      setTimeout(()=>{all.forEach(s=>s.style.setProperty("--bl",0));blink()},120);
     },2200+Math.random()*3200);
   })();
 })();
@@ -415,4 +430,4 @@ av.addEventListener("click",e=>{
 
 /* ====== Boot ====== */
 setLens("data");
-toast("🎮 Welcome! Click things for fun + ⭐ points");
+setTimeout(()=>toast("🎮 Welcome! Click things for fun + ⭐ points"),1200);
