@@ -278,7 +278,7 @@ safe("lamp",()=>{
   const l=document.createElement("i");l.className="lamp";l.setAttribute("aria-hidden","true");c.prepend(l);
 });
 
-/* ---------- Pointer effects ---------- */
+/* ---------- Pointer effects (cursor, sparks, tilt) ---------- */
 safe("pointer",()=>{
   document.addEventListener("pointermove",e=>{
     const c=e.target.closest&&e.target.closest(".card");
@@ -286,16 +286,6 @@ safe("pointer",()=>{
     const hero=$(".hero");
     if(hero){const h=hero.getBoundingClientRect();hero.style.setProperty("--hx",e.clientX-h.left+"px");hero.style.setProperty("--hy",e.clientY-h.top+"px")}
   },{passive:true});
-
-  document.addEventListener("click",e=>{
-    for(let i=0;i<8;i++){
-      const s=document.createElement("i");s.className="spark";
-      s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";
-      document.body.append(s);
-      const a=i/8*6.28;
-      G.to(s,{x:Math.cos(a)*(30+Math.random()*24),y:Math.sin(a)*(30+Math.random()*24),opacity:0,scale:.2,duration:.6,ease:"power2.out",onComplete:()=>s.remove()});
-    }
-  });
 
   if(!fine)return;
 

@@ -1,7 +1,7 @@
 "use strict";
 
 /* ====== Content ====== */
-const A={id:"img/id.webp",cv:{data:"cv/Wael_Halila_CV_Data_Engineer.pdf",soft:"cv/Wael_Halila_CV_Software_Engineer.pdf",dev:"cv/Wael_Halila_CV_DevOps_Engineer.pdf"}};
+const A={cv:{data:"cv/Wael_Halila_CV_Data_Engineer.pdf",soft:"cv/Wael_Halila_CV_Software_Engineer.pdf",dev:"cv/Wael_Halila_CV_DevOps_Engineer.pdf"}};
 const CFG={email:"wael.halila@gmail.com",phone:"+216 28 55 16 04",linkedin:"https://www.linkedin.com/in/wael-halila-9b75ba97/"};
 const SAY_T="Hi, I'm Wael Halila. I'm an engineer with 4+ years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it. 👋";
 const SAY_S="Hi, I'm Wael Halila. I'm an engineer with more than four years in financial services, working across data, dot net, DevOps and AI on Ivanti HEAT.";
@@ -83,8 +83,103 @@ const $$=s=>[...document.querySelectorAll(s)];
 const root=document.documentElement;
 const LC={data:"d",soft:"s",dev:"v"},LK={d:"data",s:"soft",v:"dev"};
 let lens="data",shown=false;
+let score=0;
 
 const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o):{observe(){}};
+
+/* ====== GAME: sounds, toasts, errors, emoji, score ====== */
+const AUDIO={
+  ctx:null,
+  init(){ if(!this.ctx){ try{this.ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} } return this.ctx },
+  blip(freq=600,dur=.08,type="sine",vol=.06){
+    const c=this.init(); if(!c)return;
+    const o=c.createOscillator(),g=c.createGain();
+    o.type=type; o.frequency.value=freq;
+    g.gain.setValueAtTime(vol,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+dur);
+    o.connect(g).connect(c.destination);
+    o.start(); o.stop(c.currentTime+dur);
+  },
+  error(){ this.blip(220,.15,"sawtooth",.05); setTimeout(()=>this.blip(180,.2,"sawtooth",.05),120) },
+  success(){ this.blip(660,.08,"sine",.05); setTimeout(()=>this.blip(880,.12,"sine",.05),90) },
+  levelup(){ [523,659,784,1046].forEach((f,i)=>setTimeout(()=>this.blip(f,.15,"triangle",.06),i*90)) }
+};
+
+const GAME={score:0,achievements:new Set()};
+
+function addScore(n=1){
+  GAME.score+=n;
+  const el=$("#score"); if(el){el.textContent="⭐ "+GAME.score; el.classList.add("bump"); setTimeout(()=>el.classList.remove("bump"),220)}
+}
+
+function toast(msg){
+  const t=$("#toasts"); if(!t)return;
+  const d=document.createElement("div"); d.className="toast"; d.textContent=msg;
+  t.append(d);
+  requestAnimationFrame(()=>d.classList.add("show"));
+  setTimeout(()=>{d.classList.remove("show"); setTimeout(()=>d.remove(),350)},3200);
+}
+
+const ERRORS=[
+  ["Uncaught TypeError","Cannot read property 'coffee' of undefined"],
+  ["NullPointerException","Employee not found at line 404"],
+  ["StackOverflow","Recursion depth exceeded: 9001"],
+  ["SyntaxError","Unexpected token: '<' in JSON"],
+  ["404 Not Found","Dependency 'motivation' is missing"],
+  ["TimeoutError","Operation exceeded 30000ms"],
+  ["Deprecated API","Please update legacy code since 2018"],
+  ["MemoryLeak","Heap out of bounds at /dev/null"],
+  ["Git Merge Conflict","<<<<<<< HEAD : same line, two devs"],
+  ["ESLint","Unexpected console.log() in production"],
+  ["CORS","Access-Control-Allow-Origin blocked"],
+  ["Deploy Failed","Missing env var PROD_SECRET"],
+  ["SQL Injection Detected","WAF blocked the request 🛡️"],
+  ["Unit Test Failed","Expected true, received false"]
+];
+const EMOJIS=["💥","🚀","🐛","🔥","⚡","🎯","🎉","🧠","🤖","💾","🚨","⚠️","💡","🛠️","🎮","🎲","🕹️","👾"];
+
+function errPopup(x,y){
+  const e=ERRORS[Math.floor(Math.random()*ERRORS.length)];
+  const n=document.createElement("div"); n.className="err-popup";
+  n.innerHTML=`<span class="err-title">⚠️ ${e[0]}</span><span class="err-msg">${e[1]}</span>`;
+  n.style.left=Math.min(x,innerWidth-300)+"px"; n.style.top=Math.min(y,innerHeight-120)+"px";
+  document.body.append(n);
+  AUDIO.error();
+  setTimeout(()=>{n.style.transition="opacity .4s, transform .4s";n.style.opacity="0";n.style.transform="scale(.8)";setTimeout(()=>n.remove(),400)},1400);
+}
+
+function emojiBurst(x,y){
+  const e=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  const n=document.createElement("div"); n.className="emoji-burst"; n.textContent=e;
+  n.style.left=x+"px"; n.style.top=y+"px";
+  const a=Math.random()*Math.PI*2, d=60+Math.random()*80;
+  n.style.setProperty("--tx",Math.cos(a)*d+"px");
+  n.style.setProperty("--ty",Math.sin(a)*d+"px");
+  document.body.append(n);
+  setTimeout(()=>n.remove(),950);
+}
+
+/* global click handler: sparks + error popups on cards + emoji */
+document.addEventListener("click",e=>{
+  AUDIO.blip(520,.05,"sine",.04);
+  // error popup on card clicks (fun)
+  const card=e.target.closest(".card");
+  if(card){
+    errPopup(e.clientX-140,e.clientY-60);
+    emojiBurst(e.clientX,e.clientY);
+    addScore(1);
+    toast("🎉 +1 ⭐ for poking the code!");
+  }
+  // spark burst on any click
+  if(window.gsap){
+    for(let i=0;i<10;i++){
+      const s=document.createElement("i");s.className="spark";
+      s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";document.body.append(s);
+      const a=i/10*6.28;
+      gsap.to(s,{x:Math.cos(a)*(40+Math.random()*30),y:Math.sin(a)*(40+Math.random()*30),opacity:0,scale:.2,duration:.7,ease:"power2.out",onComplete:()=>s.remove()});
+    }
+  }
+});
 
 /* ====== Render: stats ====== */
 $("#stats").innerHTML=STATS.map(s=>`<div><b data-n="${s[0]}" data-s="${s[1]}">0${s[1]}</b>${s[2]}</div>`).join("");
@@ -92,19 +187,22 @@ io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dat
 
 /* ====== Lens tabs ====== */
 $("#lens").innerHTML=Object.entries(LENS).map(([k,v])=>`<button class="chip2" data-l="${k}" aria-pressed="false">${v.ic} ${v.tab}</button>`).join("");
-$("#lens").onclick=e=>{const b=e.target.closest("button");b&&setLens(b.dataset.l)};
+$("#lens").onclick=e=>{const b=e.target.closest("button");if(b){AUDIO.blip(700,.06,"triangle",.05);setLens(b.dataset.l)}};
 
 /* ====== Talking portrait ====== */
 const av=$("#avatar"),say=$("#say");let timer;
 function type(t){clearInterval(timer);say.textContent="";let i=0;av.classList.add("talk");timer=setInterval(()=>{say.textContent=t.slice(0,++i);if(i>=t.length){clearInterval(timer);av.classList.remove("talk")}},34)}
 type(SAY_T);
-$("#hear").onclick=()=>{if(!("speechSynthesis" in window)){type(SAY_T);return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(SAY_S);u.lang="en-US";u.rate=.97;
-u.onstart=()=>{clearInterval(timer);say.textContent=SAY_T;av.classList.add("talk")};
-u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u)};
+$("#hear").onclick=()=>{
+  if(!("speechSynthesis" in window)){type(SAY_T);return}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(SAY_S);u.lang="en-US";u.rate=.97;
+  u.onstart=()=>{clearInterval(timer);say.textContent=SAY_T;av.classList.add("talk")};
+  u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u);
+};
 
-/* ====== ID card (avatar clone + photo toggle) ====== */
+/* ====== ID card (avatar clone only, no photo toggle) ====== */
 (function initIdCard(){
-  const hero=$("#avatar"), idp=$("#idp"), idc=$("#idcard"), mode=$("#idmode");
+  const hero=$("#avatar"), idp=$("#idp"), idc=$("#idcard");
   if(!hero||!idp)return;
   const c=hero.cloneNode(true);
   c.classList.add("avatar-clone");
@@ -112,18 +210,16 @@ u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u)};
   c.setAttribute("viewBox","40 60 320 300");
   c.setAttribute("preserveAspectRatio","xMidYMid slice");
   idp.prepend(c);
-  if(mode){
-    mode.addEventListener("click",e=>{
-      e.stopPropagation();e.preventDefault();
-      const p=idp.classList.toggle("photo");
-      mode.textContent=p?"🎭 Switch to avatar":"📷 Switch to photo";
+  if(idc){
+    idc.addEventListener("click",()=>{
+      AUDIO.blip(880,.08,"triangle",.05);
+      idc.style.transform="rotateZ(2deg)";
+      setTimeout(()=>idc.style.transform="",250);
+      addScore(1);
+      toast("🪪 ID card inspected! +1 ⭐");
+      emojiBurst(idc.getBoundingClientRect().left+80,idc.getBoundingClientRect().top+80);
     });
   }
-  if(idc){
-    idc.addEventListener("click",()=>idc.classList.toggle("flip"));
-  }
-  const mo=new MutationObserver(()=>idp.classList.toggle("talk",av.classList.contains("talk")));
-  mo.observe(av,{attributes:true,attributeFilter:["class"]});
 })();
 
 /* ====== AI section ====== */
@@ -133,7 +229,7 @@ $("#aitags").innerHTML=AITAGS.map(t=>`<span>${t}</span>`).join("");
 function aiTab(i){const a=AI[i];$$("#aitabs button").forEach((b,j)=>{b.classList.toggle("on",j===i);b.setAttribute("aria-selected",j===i)});
   $("#aipanel").innerHTML=`<h3>${a.ic} ${a.h}</h3><p>${a.p}</p><ul>${a.li.map(l=>`<li>${l}</li>`).join("")}</ul>`;
   $$(".fs").forEach(f=>f.classList.toggle("on",a.on.includes(+f.dataset.i)))}
-$("#aitabs").onclick=e=>{const b=e.target.closest("button");b&&aiTab(+b.dataset.i)};
+$("#aitabs").onclick=e=>{const b=e.target.closest("button");if(b){AUDIO.blip(760,.06,"triangle",.05);aiTab(+b.dataset.i)}};
 aiTab(0);
 
 /* ====== Skills ====== */
@@ -142,8 +238,8 @@ pt.innerHTML=SKILLS.map((s,i)=>`<button class="tile" data-i="${i}" data-c="${s[2
 const show=i=>{const s=SKILLS[i],u=PROJECTS.filter(p=>p[3].includes(s[1])).map(p=>p[1]);
   det.innerHTML=`<b>${s[0]} · ${s[1]}</b><p>${CATS[s[2]][0]} · relevant for ${[...s[3]].map(c=>LENS[LK[c]].ic+" "+LENS[LK[c]].tab).join(", ")}</p><p>${u.length?"Used in: "+u.join("; "):"Part of my day-to-day toolbox."}</p>`;
   $$(".tile").forEach(t=>t.classList.toggle("sel",+t.dataset.i===i))};
-pt.onclick=e=>{const t=e.target.closest(".tile");t&&show(+t.dataset.i)};
-pt.onmouseover=e=>{const t=e.target.closest(".tile");t&&show(+t.dataset.i)};
+pt.onclick=e=>{const t=e.target.closest(".tile");if(t){AUDIO.blip(500+Math.random()*400,.05,"square",.04);show(+t.dataset.i)}};
+pt.onmouseover=e=>{const t=e.target.closest(".tile");if(t)show(+t.dataset.i)};
 fl.innerHTML=[["all","All ✨"],...Object.entries(CATS).map(([k,v])=>[k,v[0]])].map(f=>`<button class="chip2${f[0]==="all"?" on":""}" data-f="${f[0]}">${f[1]}</button>`).join("");
 const paintTiles=()=>$$(".tile").forEach(t=>{const s=SKILLS[t.dataset.i];t.classList.toggle("dim",cur!=="all"&&s[2]!==cur);t.style.opacity=s[3].includes(LC[lens])?"":".45"});
 fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;cur=b.dataset.f;$$("#filters button").forEach(x=>x.classList.toggle("on",x===b));paintTiles()};
@@ -201,10 +297,17 @@ $("#links").innerHTML=[
 ].map(l=>`<a class="btn ghost" href="${l[1]}" target="_blank" rel="noopener noreferrer">${l[0]}</a>`).join("");
 
 $("#cvs").innerHTML=Object.entries(LENS).map(([k,v])=>`<a class="btn" href="${A.cv[k]}" download="${v.file}">📄 CV · ${v.tab}</a>`).join("");
-$("#form").onsubmit=e=>{e.preventDefault();location.href=`mailto:${CFG.email}?subject=${encodeURIComponent("Opportunity for Wael Halila: "+$("#fn").value.slice(0,120))}&body=${encodeURIComponent($("#fm").value.slice(0,2000))}`};
+$("#form").onsubmit=e=>{
+  e.preventDefault();
+  AUDIO.success();
+  toast("✉️ Email client opened — hit send!");
+  emojiBurst(e.clientX||innerWidth/2,e.clientY||innerHeight/2);
+  addScore(2);
+  location.href=`mailto:${CFG.email}?subject=${encodeURIComponent("Opportunity for Wael Halila: "+$("#fn").value.slice(0,120))}&body=${encodeURIComponent($("#fm").value.slice(0,2000))}`;
+};
 $("#yr").textContent=new Date().getFullYear();
 
-/* ====== Ask AI: local retrieval ====== */
+/* ====== Ask AI ====== */
 const STOP=new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what which who how where when why can could would should about tell give show any have has had at as by from it its this that these those not no yes also".split(" "));
 const tok=t=>t.toLowerCase().replace(/[^a-z0-9+#.\u00c0-\u017f ]/g," ").split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/^certif\w*/,"certif").replace(/(ing|es|s)$/,""));
 const KB=[
@@ -241,11 +344,12 @@ function reply(q){
   const a=document.createElement("a");a.href="#"+r[0][0].s;a.textContent="Open section ↗";a.onclick=()=>ask.close();n.append(a);return n
 }
 function send(q){q=q.trim().slice(0,200);if(!q)return;msgs.append(el("u",q));const w=el("a","…");msgs.append(w);msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(()=>{w.replaceWith(reply(q));msgs.scrollTop=msgs.scrollHeight},350)}
+  AUDIO.blip(900,.05,"sine",.04);
+  setTimeout(()=>{w.replaceWith(reply(q));msgs.scrollTop=msgs.scrollHeight;AUDIO.success()},350)}
 $("#sug").innerHTML=SUG.map(s=>`<button type="button">${s}</button>`).join("");
 $("#sug").onclick=e=>{const b=e.target.closest("button");b&&send(b.textContent)};
 $("#askf").onsubmit=e=>{e.preventDefault();send($("#q").value);$("#q").value=""};
-const openAsk=()=>{if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));ask.showModal();$("#q").focus()};
+const openAsk=()=>{if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));ask.showModal();$("#q").focus();AUDIO.levelup()};
 $("#askbtn").onclick=openAsk;$("#askx").onclick=()=>ask.close();
 ask.onclick=e=>{if(e.target===ask)ask.close()};
 addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openAsk()}});
@@ -261,7 +365,7 @@ if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.fo
 const tb=$("#theme"),dark=()=>root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
 try{const s=localStorage.getItem("theme");if(s==="dark"||s==="light")root.dataset.theme=s}catch(e){}
 const paint=()=>{tb.textContent=dark()?"☀️":"🌙";if(shown)radar(1)};paint();
-tb.onclick=()=>{root.dataset.theme=dark()?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint()};
+tb.onclick=()=>{root.dataset.theme=dark()?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint();AUDIO.blip(600,.08,"triangle",.05)};
 matchMedia("(prefers-color-scheme:dark)").onchange=paint;
 
 const bar=$("#bar");
@@ -269,7 +373,7 @@ addEventListener("scroll",()=>{bar.style.width=scrollY/Math.max(1,root.scrollHei
 
 $("#share").onclick=async()=>{
   const d={title:document.title,url:location.href};
-  try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.url);$("#share").textContent="✅ Link copied"}}catch(e){}
+  try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.url);$("#share").textContent="✅ Link copied";AUDIO.success();toast("🔗 URL copied to clipboard")}}catch(e){}
 };
 
 /* ====== Avatar pointer-follow + blink ====== */
@@ -293,10 +397,22 @@ $("#share").onclick=async()=>{
   (function blink(){
     setTimeout(()=>{
       all.forEach(s=>s.style.setProperty("--bl",1));
-      setTimeout(()=>{all.forEach(s=>s.style.setProperty("--bl",0));blink()},120);
+      setTimeout(()=>{all.forEach(s=>s.setProperty?s.style.setProperty("--bl",0):0);blink()},120);
     },2200+Math.random()*3200);
   })();
 })();
 
+/* avatar click = fun */
+av.addEventListener("click",e=>{
+  AUDIO.levelup();
+  emojiBurst(e.clientX,e.clientY);
+  errPopup(e.clientX-140,e.clientY-60);
+  addScore(2);
+  toast("😄 Avatar poked! +2 ⭐");
+  av.classList.add("talk");
+  setTimeout(()=>av.classList.remove("talk"),600);
+});
+
 /* ====== Boot ====== */
 setLens("data");
+toast("🎮 Welcome! Click things for fun + ⭐ points");
