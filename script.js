@@ -3,37 +3,37 @@
 /* ====== Content ====== */
 const A={cv:{data:"cv/Wael_Halila_CV_Data_Engineer.pdf",soft:"cv/Wael_Halila_CV_Software_Engineer.pdf",dev:"cv/Wael_Halila_CV_DevOps_Engineer.pdf"}};
 const CFG={email:"wael.halila@gmail.com",phone:"+216 28 55 16 04",linkedin:"https://www.linkedin.com/in/wael-halila-9b75ba97/"};
-const SAY_T="Hi, I'm Wael Halila. I'm an engineer with 4+ years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it. 👋";
-const SAY_S="Hi, I'm Wael Halila. I'm an engineer with more than four years in financial services, working across data, dot net, DevOps and AI on Ivanti HEAT.";
+const SAY_T="Hi, I'm Wael Halila. I'm an engineer at ODDO BHF with 4+ years in financial services — I led the migration of 2000+ SSIS packages on OBAM, built ELIOT and FxTrades reporting, shipped the ESG platform, and today I work on TopEase CMDB and ISM security monitoring while mentoring 2 alternance students. Pick a lens above. 👋";
+const SAY_S="Hi, I'm Wael Halila. I'm an engineer at ODDO BHF with more than four years in financial services. I led the migration of two thousand SSIS packages on OBAM, built ELIOT and FxTrades reporting, and shipped the ESG platform. Today I work on TopEase CMDB and ISM security monitoring, and I mentor two alternance students.";
 
 const LENS={
   data:{ic:"📊",tab:"Data",role:"Data Engineer · BI Consultant",
-    pitch:"Data solutions in financial services: ETL/ELT with SSIS and Talend, Control-M orchestration and production monitoring, on a solid SQL Server, C# and .NET 8 base.",
+    pitch:"Data solutions in financial services: ETL/ELT with SSIS and Talend, 2000+ package migration on OBAM, ELIOT reporting, FxTrades, ESG platform, Control-M orchestration, SQL Server and .NET 8.",
     exp:"Data Engineer & Data Analyst (BI & data integration)",
-    pts:["📥 ETL/ELT with SSIS & Talend","🗄️ SQL Server & T-SQL tuning","⏱️ Control-M orchestration","📊 Power BI & Jaspersoft","🤖 AI search & querying on HEAT"],
+    pts:["📦 2000+ SSIS migration (OBAM)","📈 ELIOT reporting + FxTrades","🌱 ESG key-indicator platform","⏱️ Control-M scheduling","📊 Power BI & Jaspersoft","🗄️ SQL Server & T-SQL tuning"],
     file:"Wael_Halila_CV_Data_Engineer.pdf"},
   soft:{ic:"🧩",tab:".NET",role:".NET Software Engineer · Microservices",
-    pitch:"Design, delivery and support of .NET applications, microservices and backend solutions: C#, .NET 8, REST APIs, SQL Server, Clean Architecture, DDD and CQRS.",
+    pitch:"Design, delivery and support of .NET applications, microservices and backend solutions: C#, .NET 8, REST APIs, SQL Server, Clean Architecture, DDD and CQRS — plus Angular front-ends for ESG and reporting pages.",
     exp:".NET Software Engineer & DevOps",
-    pts:["🧱 C# / .NET 8 backends","🔌 Secure REST APIs","🏛️ Clean Architecture & DDD","🧪 Unit tests & Playwright","🤖 LLM assistant on HEAT"],
+    pts:["🧱 C# / .NET 8 backends","🅰️ Angular front-ends","🔌 Secure REST APIs","🏛️ Clean Architecture & DDD","🧪 Unit tests & Playwright","🤖 LLM assistant on HEAT"],
     file:"Wael_Halila_CV_Software_Engineer.pdf"},
-  dev:{ic:"🚀",tab:"DevOps",role:"DevOps Engineer · CI/CD & Automation",
-    pitch:"CI/CD automation and production reliability: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, SonarQube quality gates, ELK and Dynatrace observability.",
-    exp:"DevOps Engineer (CI/CD & automation)",
-    pts:["🔁 Azure DevOps YAML pipelines","🐳 Docker on OpenShift","🛡️ Quality gates (SonarQube)","📡 ELK & Dynatrace","🎭 Playwright AI testing"],
+  dev:{ic:"🚀",tab:"DevOps & ITSM",role:"DevOps Engineer · CI/CD & ITSM",
+    pitch:"CI/CD automation, IT service management and security: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, TopEase CMDB, ISM security program, SSL/TLS, firewall & DNS monitoring, C4 architecture.",
+    exp:"DevOps Engineer (CI/CD & ITSM)",
+    pts:["🔁 Azure DevOps YAML pipelines","🐳 Docker on OpenShift","🗂️ TopEase CMDB","🛡️ ISM security program","🔒 SSL/TLS, firewall & DNS","🏛️ C4 model (Structurizr)"],
     file:"Wael_Halila_CV_DevOps_Engineer.pdf"}
 };
 
 const EXP=[
-  {team:"Cross-functional & DevOps team",when:"Dec 2024 – Present",b:{
-    data:["Built Talend ETL flows between internal applications and external systems for consistent, synchronised data.","Designed data-warehouse models and led the migration of SSIS/SSAS flows to Talend and of Cognos dashboards to Power BI.","Cut page-load time by 50% through SQL query and index tuning, Redis and MemoryCache.","Automated asset reconciliation by connecting the Ivanti Heat CMDB to Retool.","Deployed and scheduled jobs, procedures and batches (Talend, Control-M); centralised logs with ELK and Dynatrace to trace slow SQL queries."],
-    soft:["Built C#/.NET 8 features with Clean Architecture, SOLID and DDD, plus reusable workflow-automation components.","Exposed secure REST APIs (JWT, OAuth 2.0) documented with Swagger/OpenAPI, and contributed reusable SDKs.","Built responsive web interfaces (Angular, Razor Pages, Bootstrap) with UX/UI teams.","Raised quality with unit tests, SonarQube and CodeScene; documented architectures with C4/Structurizr.","Centralised logs and monitoring with ELK Stack and Dynatrace."],
-    dev:["Maintain Azure DevOps (YAML) pipelines for 20+ microservices alongside Jenkins jobs: build, test and release across environments.","Package services as Docker images and deploy them to OpenShift (Kubernetes) through YAML for repeatable releases.","Diagnose pipeline, build and deployment failures; run tool and platform upgrades.","Automated quality gates: unit tests, SonarQube, CodeScene and coverage.","Centralised logs and monitoring (ELK, Dynatrace); automated deployment of Control-M and Talend jobs."]}},
-  {team:"Asset Management & ESG applications",when:"Sep 2022 – Dec 2024",b:{
-    data:["Built SSIS flows and tuned T-SQL stored procedures for large volumes of banking data.","Set up integration environments and databases; orchestrated batch processing with Control-M.","Maintained transactional backend services for Private Equity valuation, subscription and redemption.","Secured financial data flows (RBAC, JWT, OAuth 2.0) and gave level-3 support for iKiosk reporting in Private Banking."],
-    soft:["Developed .NET, C# and JavaScript apps for ESG indicators and sustainability reporting.","Contributed to the platform migration from .NET Framework 4.8 to .NET 8.","Refactored critical workflows of the PowerBuilder app ELIOT (batch files, SMTP notifications).","Maintained transactional Private Equity backends; reduced technical debt through legacy refactoring and POCs."],
+  {team:"Cross-functional & DevOps team · OBAM",when:"Dec 2024 – Present",b:{
+    data:["Led the migration of <strong>2000+ SSIS packages</strong> across OBAM: analysed, tested, and deployed to Integration, UAT and Production environments through release and Control-M scheduling.","Delivered ELIOT financial reporting and <strong>FxTrades</strong> scheduling, plus a full portfolio-management reporting suite driven by Control-M.","Shipped the <strong>ESG platform</strong>: database and stored procedures mapped to Angular pages, delivering key indicators and sustainability views to the business.","Built Talend ETL flows between internal and external systems; designed data-warehouse models and moved SSIS/SSAS to Talend and Cognos to Power BI.","Cut page-load time by 50% through SQL query and index tuning, Redis and MemoryCache.","Automated asset reconciliation between the Ivanti Heat CMDB and Retool."],
+    soft:["Built C#/.NET 8 features with Clean Architecture, SOLID and DDD, plus reusable workflow-automation components.","Delivered <strong>Angular front-ends</strong> for the ESG platform and reporting pages, wired to stored procedures and APIs.","Exposed secure REST APIs (JWT, OAuth 2.0) documented with Swagger/OpenAPI, and contributed reusable SDKs.","Contributed to daily sprint programming stories with business analysts and the team to deliver incoming features.","Raised quality with unit tests, SonarQube and CodeScene; documented architectures with <strong>C4 / Structurizr</strong>."],
+    dev:["Maintain Azure DevOps (YAML) pipelines for 20+ microservices alongside Jenkins: build, test and release across environments.","Package services as Docker images and deploy them to OpenShift (Kubernetes) through YAML for repeatable releases.","On the <strong>TopEase CMDB project</strong>: model infrastructure and services, and integrate with the Ivanti HEAT ITSM stack.","On the <strong>ISM security program</strong>: monitor prod environments, firewalls and DNS; handle SSL/TLS configuration and certification; deliver Control-M–driven security reporting to business via API integration.","Automated quality gates: unit tests, SonarQube, CodeScene and coverage; centralised logs and monitoring (ELK, Dynatrace)."]}},
+  {team:"Asset Management & ESG applications · OBAM",when:"Sep 2022 – Dec 2024",b:{
+    data:["Built SSIS flows and tuned T-SQL stored procedures for large volumes of banking data; orchestrated batch processing with Control-M.","Delivered <strong>ELIOT</strong> reporting and financial scheduling; contributed to <strong>FxTrades</strong> reporting.","Shipped <strong>ESG platform</strong> views: database + stored procedures mapped to Angular pages for key indicators.","Secured financial data flows (RBAC, JWT, OAuth 2.0) and gave level-3 support for iKiosk reporting in Private Banking."],
+    soft:["Developed .NET, C# and JavaScript apps for ESG indicators and sustainability reporting.","Contributed to the platform migration from .NET Framework 4.8 to .NET 8.","Refactored critical workflows of the PowerBuilder app ELIOT (batch files, SMTP notifications).","Participated in daily sprint programming stories and delivered incoming business features."],
     dev:["Set up integration environments and databases; ran production batch processing with Control-M.","Prepared deployable deliverables and YAML deployment procedures from integration to production.","Managed Git repositories, branches and workflows; supported the .NET 4.8 to .NET 8 upgrade.","Stabilised ELIOT batch workflows and handled level-3 incidents for iKiosk reporting."]}},
-  {role:"Software Engineering Intern (final-year project)",when:"Feb 2022 – Aug 2022",b:{all:["Contributed to migrating the GCA back-office middleware from a monolith to scalable microservices.","Analysed the existing system, modelled flows and components in UML, and identified modules to decouple.","Built C#/.NET components with Oracle integration and documented the target architecture."]}}
+  {team:"Software Engineering Intern (final-year project)",when:"Feb 2022 – Aug 2022",b:{all:["Contributed to migrating the GCA back-office middleware from a monolith to scalable microservices.","Analysed the existing system, modelled flows and components in UML, and identified modules to decouple.","Built C#/.NET components with Oracle integration and documented the target architecture."]}}
 ];
 
 const AI=[
@@ -45,37 +45,44 @@ const AI=[
 const FLOW=[["👤","Ask","A natural-language question"],["🧠","LLM","Understands the intent"],["🔎","Search & query layer","Looks up Ivanti HEAT data"],["✅","Answer","Grounded in real records"],["🎭","Playwright","AI-assisted end-to-end tests"],["🚦","Release checks","Regression safety net"]];
 const AITAGS=["LLM","Generative AI engineering","Prompt engineering","Natural-language search","Query generation","Playwright","AI-assisted testing","Ivanti HEAT"];
 
-const CATS={data:["Data","#2b2f6b"],bi:["BI","#7a4e9e"],web:["Web","#2f7d6d"],arch:["Arch.","#9a6a10"],ops:["DevOps","#a23b4b"],sec:["Ops & Sec","#37708f"],ai:["AI","#6a3fb5"],pm:["ITSM & Agile","#4d6b2f"]};
+const CATS={data:["Data","#2b2f6b"],bi:["BI","#7a4e9e"],web:["Web","#2f7d6d"],arch:["Arch.","#9a6a10"],ops:["DevOps","#a23b4b"],sec:["Security","#37708f"],itsm:["ITSM","#5a67e0"],ai:["AI","#6a3fb5"],pm:["Agile","#4d6b2f"]};
 
 const SKILLS=[
-  ["Sq","SQL Server","data","dsv"],["Ts","T-SQL","data","ds"],["Pg","PostgreSQL","data","d"],["Or","Oracle","data","ds"],["Ss","SSIS","data","d"],["Tl","Talend","data","dv"],["El","ETL/ELT","data","d"],["Sp","Stored procs","data","ds"],["Rd","Redis","data","ds"],
-  ["Dw","Data Warehouse","bi","d"],["Pb","Power BI","bi","d"],["Jr","Jaspersoft","bi","d"],["Te","TopEase","bi","d"],["An","Data analysis","bi","d"],
+  ["Sq","SQL Server","data","dsv"],["Ts","T-SQL","data","ds"],["Pg","PostgreSQL","data","d"],["Or","Oracle","data","ds"],["Ss","SSIS","data","dv"],["Tl","Talend","data","dv"],["El","ETL/ELT","data","d"],["Sp","Stored procs","data","ds"],["Rd","Redis","data","ds"],
+  ["Dw","Data Warehouse","bi","d"],["Pb","Power BI","bi","d"],["Jr","Jaspersoft","bi","d"],["Te","TopEase","itsm","dv"],["An","Data analysis","bi","d"],["El","ELIOT","bi","d"],["Fx","FxTrades","bi","d"],["Esg","ESG platform","bi","d"],
   ["Cs","C#","web","sd"],["N8",".NET 8","web","s"],["Nc",".NET Core","web","s"],["Fw",".NET 4.8","web","s"],["Rs","REST APIs","web","sv"],["Sw","Swagger","web","sv"],["Js","JavaScript","web","s"],["Tp","TypeScript","web","s"],["Ag","Angular","web","s"],["Pw","PowerBuilder","web","s"],
   ["Ms","Microservices","arch","sv"],["Ca","Clean Arch.","arch","s"],["So","SOLID","arch","s"],["Dd","DDD","arch","s"],["Cq","CQRS","arch","s"],["C4","C4 model","arch","sv"],
   ["Az","Azure DevOps","ops","sv"],["Ci","CI/CD","ops","sv"],["Yl","YAML","ops","v"],["Jk","Jenkins","ops","v"],["Gt","Git","ops","sv"],["Os","OpenShift","ops","v"],["Dk","Docker","ops","v"],["K8","Kubernetes","ops","v"],["Sn","SonarQube","ops","sv"],["Ut","Unit tests","ops","sv"],["Pl","Playwright","ops","dsv"],["Sh","Bash / PowerShell","ops","v"],
-  ["Jw","JWT / OAuth 2.0","sec","sv"],["Rb","RBAC","sec","sv"],["Kc","Keycloak","sec","v"],["Lk","ELK Stack","sec","dv"],["Dy","Dynatrace","sec","dv"],["Cm","Control-M","sec","dv"],["Rt","Retool","sec","dv"],
+  ["Jw","JWT / OAuth 2.0","sec","sv"],["Rb","RBAC","sec","sv"],["Kc","Keycloak","sec","v"],["SsL","SSL / TLS","sec","sv"],["Fw","Firewall","sec","v"],["Dns","DNS","sec","v"],["Ism","ISM program","sec","dv"],
+  ["Lk","ELK Stack","ops","dv"],["Dy","Dynatrace","ops","dv"],["Cm","Control-M","ops","dv"],["Rt","Retool","itsm","dv"],["Top","TopEase CMDB","itsm","dv"],["He","Ivanti HEAT","itsm","dsv"],
   ["Ll","LLM apps","ai","dsv"],["Gn","GenAI eng.","ai","dsv"],["Nq","NL search & query","ai","dsv"],["Pe","Prompt eng.","ai","dsv"],["Cl","Claude","ai","dsv"],
-  ["It","ITIL 5","pm","dsv"],["Iv","Ivanti Heat","pm","dsv"],["Sc","Scrum","pm","dsv"],["Ji","Jira","pm","dsv"]
+  ["It","ITIL 5","pm","dsv"],["Sc","Scrum","pm","dsv"],["Ji","Jira","pm","dsv"],["Me","Mentoring","pm","dsv"]
 ];
 
 const PROJECTS=[
+  ["📦","2000+ SSIS migration on OBAM","Led the end-to-end migration of more than 2000 SSIS packages for OBAM: analysis, functional testing on Integration, then deployment to UAT and Production through release and Control-M scheduling.",["SSIS","Control-M","UAT","Production","T-SQL"],"dv",true],
+  ["🌱","ESG platform","A web platform that surfaces key indicators and sustainability reporting to the business. Database and stored procedures mapped to Angular pages, delivered with the team in sprints.",["Angular","SQL Server","Stored procs","ESG",".NET"],"dsv",true],
+  ["🗂️","TopEase CMDB project","Modelling infrastructure and services in TopEase as the single source of truth for the CMDB, integrated with the Ivanti HEAT ITSM stack.",["TopEase","Ivanti Heat","CMDB","ITSM"],"dv",true],
+  ["🛡️","ISM security program","Security monitoring and reporting: prod environment monitoring, firewall and DNS monitoring, SSL/TLS configuration, Control-M–driven security reports to business, API integration for the same subject, and security training tracking (including decommissioned people and desktops).",["ISM","SSL/TLS","Firewall","DNS","API","Control-M"],"dv",true],
   ["🤖","AI assistant on Ivanti HEAT","A conversational assistant built from scratch around an LLM. Users ask in plain language; a search and query layer looks up Ivanti HEAT data and the answer comes back grounded in real records.",["LLM apps","NL search & query","Prompt eng.","GenAI eng.","Ivanti Heat"],"dsv",true],
-  ["🎭","Playwright AI testing on HEAT","End-to-end tests with Playwright, with AI assistance to write and maintain them, covering the Ivanti HEAT project and its assistant.",["Playwright","Ivanti Heat","Unit tests"],"dsv"],
-  ["🚀","CI/CD for 20+ microservices","Azure DevOps (YAML) pipelines alongside Jenkins jobs; Docker images deployed to OpenShift (Kubernetes) for consistent, repeatable releases. Quality gates catch regressions, vulnerabilities and technical debt before delivery.",["Azure DevOps","YAML","Docker","OpenShift","SonarQube","Jenkins","Kubernetes"],"vs"],
+  ["📈","ELIOT reporting + FxTrades","Financial reporting and scheduling for ELIOT plus FxTrades pipelines, driven by Control-M, with portfolio-management reporting to the business.",["ELIOT","FxTrades","Control-M","Reporting"],"d"],
+  ["🚀","CI/CD for 20+ microservices","Azure DevOps (YAML) pipelines alongside Jenkins jobs; Docker images deployed to OpenShift (Kubernetes) for consistent, repeatable releases. Quality gates catch regressions, vulnerabilities and technical debt before delivery.",["Azure DevOps","YAML","Docker","OpenShift","SonarQube","Kubernetes"],"vs"],
   ["🔄","ETL & data-warehouse migration","Modelled data warehouses and led the move of SSIS/SSAS flows to Talend and of Cognos dashboards to Power BI. Talend ETL keeps internal and external systems synchronised.",["Talend","SSIS","Data Warehouse","Power BI","ETL/ELT"],"d"],
   ["🗃️","Ivanti Heat ↔ Retool reconciliation","Automated asset reconciliation by connecting the Ivanti Heat CMDB to Retool, so infrastructure data can be trusted.",["Ivanti Heat","Retool"],"dv"],
   ["⚡","50% faster page loads","Halved page-load time by optimising SQL queries and indexes and adding Redis and MemoryCache.",["SQL Server","T-SQL","Redis"],"ds"],
-  ["🧱","Private Equity transactional backend","Backend services for valuation, subscription and redemption, with SSIS flows and tuned T-SQL procedures for large volumes of banking data, orchestrated by Control-M.",["C#","SSIS","T-SQL","Control-M","Stored procs"],"ds"],
-  ["🌱","ESG & Private Banking apps","ESG indicator and sustainability reporting in .NET; .NET 4.8 to .NET 8 migration; ELIOT (PowerBuilder) workflow refactoring; level-3 support for iKiosk, with JWT/OAuth 2.0 security.",[".NET 8",".NET 4.8","JavaScript","PowerBuilder","JWT / OAuth 2.0","RBAC"],"sv"],
+  ["🧱","Private Equity transactional backend","Backend services for valuation, subscription and redemption, with SSIS flows and tuned T-SQL procedures for large volumes of banking data, orchestrated by Control-M.",["C#","SSIS","T-SQL","Control-M"],"ds"],
+  ["🌱","ESG & Private Banking apps","ESG indicator and sustainability reporting in .NET; .NET 4.8 to .NET 8 migration; ELIOT (PowerBuilder) workflow refactoring; level-3 support for iKiosk with JWT/OAuth 2.0.",[".NET 8","JavaScript","PowerBuilder","JWT / OAuth 2.0","RBAC"],"sv"],
   ["📡","Observability","Centralised logs and monitoring with ELK Stack and Dynatrace to analyse incidents and slow SQL queries.",["ELK Stack","Dynatrace"],"dv"],
-  ["🧩","Monolith → microservices","Final-year project: moved the GCA back-office middleware to scalable microservices; UML analysis, C#/.NET components with Oracle integration.",["Microservices","C#","Oracle"],"s"]
+  ["🎭","Playwright AI testing on HEAT","End-to-end tests with Playwright, with AI assistance to write and maintain them, covering the Ivanti HEAT project and its assistant.",["Playwright","Ivanti Heat","Unit tests"],"dsv"],
+  ["🧩","Monolith → microservices","Final-year project: moved the GCA back-office middleware to scalable microservices; UML analysis, C#/.NET components with Oracle integration.",["Microservices","C#","Oracle"],"s"],
+  ["🎓","Mentoring 2 alternance students","Onboarded and trained two alternance students into the team. Taught ETL and ISM practices hands-on; today they contribute to the same projects alongside me.",["Mentoring","ETL","ISM","Team building"],"dsv",true]
 ];
 
-const LANGS=[["Arabic 🇹🇳","Native",100],["English 🇬🇧","B2",70],["French 🇫🇷","B2",70],["German 🇩🇪","B2",70]];
+const LANGS=[["Arabic 🇹🇳","Native",100],["English 🇬🇧","B2",75],["French 🇫🇷","B2",75],["German 🇩🇪","B2",70]];
 const CERTS=["🏅 ITIL® 5 Foundation · Certificate","🤖 Generative AI engineering · Training","Scrum Master · Scrum.org","C# Advanced Topics · Udemy","Advanced SQL · Clevory Training",".NET Expert · Advancia Training","Talend Basics · Keyrus Academy"];
 const EDU=[["🎓","Engineering degree, software engineering","ESPRIT, Tunis · 2019 – 2022"],["⚙️","Bachelor's in mechanical engineering","ISET Bizerte · 2016 – 2019"],["🤝","Community","Vice-president, Mechanical Engineering Club · Treasurer, Enactus ISET Bizerte · Member, Securinets INSAT"]];
-const STATS=[[4,"+","years in finance 🏦"],[20,"+","microservice pipelines 🚀"],[50,"%","faster page loads ⚡"],[1,"","LLM assistant on Ivanti HEAT 🤖"],[7,"","certifications & trainings 📜"]];
-const SUG=["Are you ITIL certified?","What AI work did you do on Ivanti HEAT?","How do you test with Playwright?","Which DevOps tools do you use?","How can I contact you?"];
+const STATS=[[4,"+","years in finance 🏦"],[2000,"+","SSIS packages migrated 📦"],[20,"+","microservice pipelines 🚀"],[2,"","alternance students mentored 🎓"],[1,"","LLM assistant on Ivanti HEAT 🤖"]];
+const SUG=["Are you ITIL certified?","Tell me about the 2000+ SSIS migration","What is the ISM security program about?","What do you do on the TopEase CMDB?","How did you mentor the students?","How can I contact you?"];
 
 /* ====== Helpers ====== */
 const $=s=>document.querySelector(s);
@@ -105,7 +112,6 @@ const AUDIO={
 };
 
 const GAME={score:0};
-
 function addScore(n=1){
   GAME.score+=n;
   const el=$("#score"); if(el){el.textContent="⭐ "+GAME.score; el.classList.add("bump"); setTimeout(()=>el.classList.remove("bump"),220)}
@@ -133,9 +139,13 @@ const ERRORS=[
   ["CORS","Access-Control-Allow-Origin blocked"],
   ["Deploy Failed","Missing env var PROD_SECRET"],
   ["SQL Injection Detected","WAF blocked the request 🛡️"],
-  ["Unit Test Failed","Expected true, received false"]
+  ["Unit Test Failed","Expected true, received false"],
+  ["SSIS Package Error","2000th package failed in UAT 😅"],
+  ["CMDB Sync","TopEase vs HEAT: reconciliation mismatch"],
+  ["SSL Expired","TLS certificate for *.oddo expired"],
+  ["DNS Timeout","Resolver returned SERVFAIL at 03:00"]
 ];
-const EMOJIS=["💥","🚀","🐛","🔥","⚡","🎯","🎉","🧠","🤖","💾","🚨","⚠️","💡","🛠️","🎮","🎲","🕹️","👾"];
+const EMOJIS=["💥","🚀","🐛","🔥","⚡","🎯","🎉","🧠","🤖","💾","🚨","⚠️","💡","🛠️","🎮","🎲","🕹️","👾","📦","🛡️"];
 
 function errPopup(x,y){
   const e=ERRORS[Math.floor(Math.random()*ERRORS.length)];
@@ -158,7 +168,6 @@ function emojiBurst(x,y){
   setTimeout(()=>n.remove(),950);
 }
 
-/* global click handler */
 document.addEventListener("click",e=>{
   AUDIO.blip(520,.05,"sine",.04);
   const card=e.target.closest(".card");
@@ -180,7 +189,7 @@ document.addEventListener("click",e=>{
 
 /* ====== Render: stats ====== */
 $("#stats").innerHTML=STATS.map(s=>`<div><b data-n="${s[0]}" data-s="${s[1]}">0${s[1]}</b>${s[2]}</div>`).join("");
-io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dataset.n,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1200);b.textContent=Math.round(n*p)+b.dataset.s;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)})},{threshold:.6}).observe($("#stats"));
+io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dataset.n,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1400);b.textContent=Math.round(n*p)+b.dataset.s;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)})},{threshold:.6}).observe($("#stats"));
 
 /* ====== Lens tabs ====== */
 $("#lens").innerHTML=Object.entries(LENS).map(([k,v])=>`<button class="chip2" data-l="${k}" aria-pressed="false">${v.ic} ${v.tab}</button>`).join("");
@@ -308,15 +317,20 @@ $("#yr").textContent=new Date().getFullYear();
 const STOP=new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what which who how where when why can could would should about tell give show any have has had at as by from it its this that these those not no yes also".split(" "));
 const tok=t=>t.toLowerCase().replace(/[^a-z0-9+#.\u00c0-\u017f ]/g," ").split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/^certif\w*/,"certif").replace(/(ing|es|s)$/,""));
 const KB=[
-  {t:"About Wael",x:"Engineer with 4+ years in financial services across data, .NET, DevOps and AI. Based in Tunis, Tunisia, open to opportunities. Works at ODDO BHF since September 2022.",s:"about"},
+  {t:"About Wael",x:"Engineer at ODDO BHF with 4+ years in financial services across data, .NET, DevOps, AI and ITSM. Based in Tunis. Works at ODDO BHF since September 2022.",s:"about"},
   {t:"Contact",x:`Email ${CFG.email}, phone ${CFG.phone}, LinkedIn. CV downloads (Data, .NET, DevOps) are in the contact section.`,s:"contact"},
   {t:"Languages",x:"Arabic is native; English, French and German are at B2 level.",s:"credentials"}
 ];
 Object.values(LENS).forEach(L=>KB.push({t:"Profile: "+L.role,x:L.pitch,s:"home"}));
-EXP.forEach(e=>{const seen=new Set();Object.values(e.b).flat().forEach(b=>{if(!seen.has(b)){seen.add(b);KB.push({t:e.team||"Internship",x:b,s:"experience"})}})});
+EXP.forEach(e=>{const seen=new Set();Object.values(e.b).flat().forEach(b=>{if(!seen.has(b)){seen.add(b);KB.push({t:e.team||"Internship",x:b.replace(/<[^>]+>/g,""),s:"experience"})}})});
 PROJECTS.forEach(p=>KB.push({t:p[1],x:p[2]+" Tools: "+p[3].join(", "),s:p[5]?"ai":"projects"}));
 AI.forEach(a=>KB.push({t:"AI on Ivanti HEAT: "+a.tab,x:a.p+" "+a.li.join(". "),s:"ai"}));
-KB.push({t:"ITIL certification",x:"Yes, I hold the ITIL® 5 Foundation certificate, which supports my ITSM work on Ivanti HEAT.",s:"credentials"});
+KB.push({t:"2000+ SSIS migration",x:"On OBAM I led the migration of more than 2000 SSIS packages: analysed, tested on Integration, deployed to UAT and Production through release and Control-M scheduling.",s:"projects"});
+KB.push({t:"ESG platform",x:"Delivered the ESG key-indicator web platform: database and stored procedures mapped to Angular pages, with the team, delivering new features from the business in sprints.",s:"projects"});
+KB.push({t:"TopEase CMDB",x:"On the TopEase CMDB project: modelling infrastructure and services as the single source of truth, integrated with the Ivanti HEAT ITSM stack.",s:"projects"});
+KB.push({t:"ISM security program",x:"On the ISM program: monitoring prod environments, firewalls and DNS, SSL/TLS configuration, Control-M–driven security reports to business, API integration for the same subject, and tracking security training for decommissioned people and desktops.",s:"projects"});
+KB.push({t:"Mentoring",x:"I onboarded and trained two alternance students into the team, teaching ETL and ISM hands-on. They now contribute to the same projects alongside me.",s:"experience"});
+KB.push({t:"ITIL certification",x:"Yes, I hold the ITIL® 5 Foundation certificate, which supports my ITSM work on Ivanti HEAT and TopEase.",s:"credentials"});
 KB.push({t:"Generative AI engineering training",x:"I am trained in generative AI engineering: LLM applications, prompt engineering and natural-language search and querying.",s:"credentials"});
 CERTS.forEach(c=>KB.push({t:"Certifications and training",x:c,s:"credentials"}));
 EDU.forEach(e=>KB.push({t:e[1],x:e[2],s:"credentials"}));
@@ -334,10 +348,10 @@ const ask=$("#ask"),msgs=$("#msgs");
 const el=(c,t)=>{const n=document.createElement("div");n.className="m "+c;if(t)n.textContent=t;return n};
 function reply(q){
   const r=search(q),n=el("a");
-  if(!r.length){n.textContent="I couldn't find that in this portfolio. Try skills, certifications, Ivanti HEAT AI, DevOps or contact, or email Wael directly.";return n}
+  if(!r.length){n.textContent="I couldn't find that in this portfolio. Try skills, certifications, Ivanti HEAT AI, the SSIS migration, the ISM program, the CMDB project or contact.";return n}
   const p=document.createElement("p");p.textContent=r[0][0].x;n.append(p);
   const rest=r.slice(1).filter(x=>x[1]>r[0][1]*.45);
-  if(rest.length){const ul=document.createElement("ul");rest.forEach(x=>{const li=document.createElement("li");li.textContent=x[0].t+": "+x[0].x.slice(0,100)+(x[0].x.length>100?"…":"");ul.append(li)});n.append(ul)}
+  if(rest.length){const ul=document.createElement("ul");rest.forEach(x=>{const li=document.createElement("li");li.textContent=x[0].t+": "+x[0].x.slice(0,120)+(x[0].x.length>120?"…":"");ul.append(li)});n.append(ul)}
   const a=document.createElement("a");a.href="#"+r[0][0].s;a.textContent="Open section ↗";a.onclick=()=>ask.close();n.append(a);return n
 }
 function send(q){q=q.trim().slice(0,200);if(!q)return;msgs.append(el("u",q));const w=el("a","…");msgs.append(w);msgs.scrollTop=msgs.scrollHeight;
@@ -350,7 +364,7 @@ $("#askf").onsubmit=e=>{e.preventDefault();send($("#q").value);$("#q").value=""}
 /* ====== ORB morph → dialog ====== */
 const orb=$("#orb"),askEl=$("#ask");
 function openAsk(){
-  if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));
+  if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, the 2000+ SSIS migration, the ESG platform, the TopEase CMDB, the ISM program, or the AI assistant he built on Ivanti HEAT."));
   orb.classList.add("morph");
   AUDIO.levelup();
   setTimeout(()=>{

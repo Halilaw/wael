@@ -18,7 +18,6 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 1rem}
 img,svg{max-width:100%;display:block}
 button{font:inherit;cursor:pointer}
 
-/* nav */
 .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:1rem;padding:.7rem clamp(1rem,4vw,2.2rem);background:var(--navbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:.6rem;color:var(--ink);font-weight:700}
 .brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--gold));color:#fff;font-size:.85rem}
@@ -33,7 +32,6 @@ button{font:inherit;cursor:pointer}
 .burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
 #bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--gold));z-index:40;transition:width .1s linear}
 
-/* ============ ORB ============ */
 .orb{position:fixed;bottom:24px;right:24px;z-index:35;width:64px;height:64px;border-radius:50%;border:0;background:transparent;cursor:pointer;transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .orb:hover{transform:scale(1.1)}
 .orb-ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--acc);opacity:.5;animation:orbPulse 2.4s ease-in-out infinite}
@@ -47,7 +45,6 @@ button{font:inherit;cursor:pointer}
 .orb.morph{animation:orbMorph .5s ease forwards}
 @keyframes orbMorph{to{transform:scale(0);opacity:0}}
 
-/* hero */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1rem,4vw,3rem);align-items:center;padding:clamp(1.5rem,5vw,3.5rem) clamp(1rem,5vw,3rem);max-width:1200px;margin:0 auto;position:relative}
 .eyebrow{display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.6rem}
 .hero h1{font-size:clamp(2.2rem,6vw,4rem);margin:0 0 1rem}
@@ -65,7 +62,6 @@ button{font:inherit;cursor:pointer}
 .btn:active{transform:translateY(1px)}
 .bubble{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.75rem 1rem;font-size:.9rem;color:var(--mut);min-height:3.2em;box-shadow:var(--shadow);max-width:56ch}
 
-/* avatar */
 .portrait{position:relative;display:flex;justify-content:center;cursor:pointer}
 .avatar-svg{width:min(360px,80vw);height:auto;border-radius:28px;box-shadow:var(--shadow);transition:transform .3s ease;--hr:0deg;--hxp:0px;--ex:0px;--ey:0px;--bl:0}
 .avatar-svg:hover{transform:translateY(-3px)}
@@ -73,9 +69,8 @@ button{font:inherit;cursor:pointer}
 @keyframes talk{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.015)}}
 .avatar-clone{width:100%;height:100%}
 
-/* ============ ID CARD — refined ============ */
 .idcard-wrap{max-width:1200px;margin:0 auto;padding:1rem clamp(1rem,5vw,3rem)}
-.idcard{display:grid;grid-template-columns:180px 1fr;gap:1.2rem;max-width:540px;background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface) 92%,var(--acc)));border:1px solid var(--line);border-radius:22px;padding:1.1rem;box-shadow:var(--shadow);cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;position:relative;overflow:hidden}
+.idcard{display:grid;grid-template-columns:180px 1fr;gap:1.2rem;max-width:560px;background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface) 92%,var(--acc)));border:1px solid var(--line);border-radius:22px;padding:1.1rem;box-shadow:var(--shadow);cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;position:relative;overflow:hidden}
 .idcard::before{content:'';position:absolute;inset:0;background:radial-gradient(300px circle at 20% 20%,color-mix(in srgb,var(--acc) 12%,transparent),transparent 60%);pointer-events:none}
 .idcard:hover{transform:translateY(-3px);box-shadow:0 22px 50px -20px rgba(90,103,224,.4)}
 .idp{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#dde3f7,#c9d1ee);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
@@ -89,10 +84,10 @@ button{font:inherit;cursor:pointer}
 .idinfo ul li{margin-bottom:.15rem}
 .idinfo-foot{display:flex;justify-content:space-between;gap:.5rem;font-size:.75rem;color:var(--mut);border-top:1px solid var(--line);padding-top:.6rem;margin-top:.2rem}
 
-/* sections */
 section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5vw,3rem)}
 .about-text{max-width:70ch;color:var(--mut)}
 .about-text p{margin:0 0 .8rem}
+.about-text strong{color:var(--ink)}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin:1.5rem 0}
 .stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow)}
 .stats b{display:block;font-size:1.6rem;color:var(--acc)}
@@ -141,7 +136,7 @@ section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5
 .meter{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
 .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--gold));transition:width 1s ease}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;cursor:pointer}
 .card:hover{transform:translateY(-3px)}
 .card h3{margin:.5rem 0 .4rem;font-size:1rem}
@@ -169,7 +164,6 @@ section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5
 .form input:focus,.form textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
 .foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.82rem}
 
-/* ============ Ask AI dialog — fluid ============ */
 .ask{border:1px solid var(--line);border-radius:22px;padding:0;max-width:520px;width:92vw;background:var(--surface);color:var(--ink);box-shadow:0 30px 80px -20px rgba(0,0,0,.5);opacity:0;transform:scale(.85) translateY(20px);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)}
 .ask[open]{opacity:1;transform:scale(1) translateY(0)}
 .ask::backdrop{background:rgba(10,16,28,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .35s}
@@ -189,26 +183,21 @@ section{max-width:1200px;margin:0 auto;padding:clamp(2rem,6vw,4rem) clamp(1rem,5
 .askf{display:flex;gap:.5rem;padding:.8rem 1rem;border-top:1px solid var(--line)}
 .askf input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.55rem .8rem;font:inherit;color:var(--ink)}
 
-/* toasts */
 .toasts{position:fixed;bottom:96px;right:24px;z-index:50;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
 .toast{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:.6rem .9rem;font-size:.82rem;color:var(--ink);box-shadow:var(--shadow);transform:translateX(120%);transition:transform .35s ease,opacity .35s;opacity:0;pointer-events:auto}
 .toast.show{transform:translateX(0);opacity:1}
 
-/* error popup */
 .err-popup{position:fixed;z-index:60;background:#1c1f2b;color:#ff6b6b;border:2px solid #ff6b6b;border-radius:12px;padding:.8rem 1rem;font-family:monospace;font-size:.8rem;box-shadow:0 10px 30px rgba(255,0,0,.3);pointer-events:none;max-width:280px;animation:pop .3s ease-out}
 .err-popup .err-title{font-weight:700;font-size:.9rem;margin-bottom:.2rem;display:block;color:#ff4757}
 .err-popup .err-msg{color:#ffa8a8;font-size:.75rem}
 @keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
 
-/* emoji burst */
 .emoji-burst{position:fixed;z-index:55;pointer-events:none;font-size:1.4rem;animation:burst .9s ease-out forwards}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(.3);opacity:0}}
 
-/* score badge */
 .score{position:fixed;top:70px;right:16px;z-index:35;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;font-size:.85rem;font-weight:700;color:var(--gold);box-shadow:var(--shadow);transition:transform .2s}
 .score.bump{transform:scale(1.25)}
 
-/* responsive */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;text-align:center}
   .hero-text{order:2}.portrait{order:1}

@@ -9,7 +9,6 @@ const pre=$("#pre"),hidePre=()=>pre&&pre.remove();
 let uiTheme=()=>{};
 if(G&&ST)G.registerPlugin(ST);
 
-/* ---------- Three.js ---------- */
 function initGL(){
   if(!T)return;
   const cv=$("#gl");let R;
@@ -95,7 +94,6 @@ matchMedia("(prefers-color-scheme:dark)").addEventListener("change",()=>setTimeo
 if(!G||!ST||reduce){hidePre();return}
 root.classList.add("fx");
 
-/* ---------- helpers ---------- */
 function split(el){
   if(el.dataset.sp)return;el.dataset.sp=1;
   el.setAttribute("aria-label",el.textContent.trim());
@@ -141,7 +139,6 @@ const beams=()=>$$(".pc.feat,#flow").forEach(c=>{
   }
 });
 
-/* ---------- Lenis ---------- */
 let lenis;
 safe("lenis",()=>{
   if(!window.Lenis)return;
@@ -163,10 +160,9 @@ safe("lenis",()=>{
   if(msgs)msgs.setAttribute("data-lenis-prevent","");
 });
 
-/* ---------- Ask AI quick jump ---------- */
 safe("asknav",()=>{
   const d=document.createElement("div");d.className="sug";
-  [["#experience","↗ Experience"],["#ai","↗ AI × HEAT"],["#projects","↗ Projects"],["#contact","↗ Contact"]].forEach(([h,l])=>{
+  [["#experience","↗ Experience"],["#projects","↗ Projects"],["#ai","↗ AI × HEAT"],["#contact","↗ Contact"]].forEach(([h,l])=>{
     const b=document.createElement("button");b.type="button";b.textContent=l;
     b.onclick=()=>{
       const askEl=$("#ask");if(askEl.close)askEl.close();else askEl.removeAttribute("open");
@@ -179,7 +175,6 @@ safe("asknav",()=>{
   const sug=$("#sug");if(sug)sug.after(d);
 });
 
-/* ---------- Intro ---------- */
 $$("h1,h2").forEach(h=>safe("split",()=>split(h)));
 safe("intro",()=>{
   const tl=G.timeline({defaults:{ease:"power4.out"}});
@@ -190,7 +185,6 @@ safe("intro",()=>{
   tl.to("#pre",{yPercent:-100,duration:.9,ease:"power4.inOut",delay:.1,onComplete:hidePre});
 });
 
-/* ---------- Scroll choreography ---------- */
 safe("scroll",()=>{
   $$("h2").forEach(h=>G.from(h.querySelectorAll(".c"),{yPercent:115,duration:.9,stagger:.02,ease:"power4.out",scrollTrigger:{trigger:h,start:"top 88%"}}));
   $$(".about-text p").forEach(p=>{words(p);G.from(p.querySelectorAll(".ww"),{opacity:0,y:8,filter:"blur(8px)",stagger:.015,duration:.6,ease:"power2.out",scrollTrigger:{trigger:p,start:"top 85%"}})});
@@ -205,7 +199,6 @@ safe("scroll",()=>{
   G.from(".timeline",{clipPath:"inset(0 0 100% 0)",duration:1.4,ease:"power2.out",scrollTrigger:{trigger:".timeline",start:"top 85%"}});
 });
 
-/* ---------- Marquee ---------- */
 safe("mq",()=>{
   const mq=$("#mq");if(!mq)return;
   const tw=G.to(mq,{xPercent:-50,duration:42,ease:"none",repeat:-1});
@@ -214,7 +207,6 @@ safe("mq",()=>{
   G.ticker.add(()=>{tw.timeScale(tw.timeScale()+(dir-tw.timeScale())*.04);kv*=.92;sk(kv)});
 });
 
-/* ---------- Horizontal project gallery ---------- */
 safe("hs",()=>{
   const mm=G.matchMedia();
   mm.add("(min-width:1100px)",()=>{
@@ -227,7 +219,6 @@ safe("hs",()=>{
   });
 });
 
-/* ---------- Orbit ---------- */
 safe("orbit",()=>{
   const w=document.createElement("div");w.className="orbitwrap";w.setAttribute("aria-hidden","true");
   ["🗄️","⚙️","🐳","🤖","🎭","📊"].forEach((e,i)=>{
@@ -240,7 +231,6 @@ safe("orbit",()=>{
   fit();addEventListener("resize",fit);
 });
 
-/* ---------- Dock ---------- */
 safe("dock",()=>{
   const d=document.createElement("nav");d.className="dock";d.setAttribute("aria-label","Quick navigation");
   const it=[["home","🏠","Home"],["about","🧑‍💻","About"],["experience","💼","Experience"],["ai","🤖","AI × HEAT"],["skills","🧪","Skills"],["projects","🚀","Projects"],["credentials","🏅","Credentials"],["contact","✉️","Contact"]];
@@ -253,10 +243,8 @@ safe("dock",()=>{
   it.forEach(([id])=>{const s=document.getElementById(id);s&&so.observe(s)});
 });
 
-/* ---------- Tab indicators ---------- */
 const inds=[ind($("#lens")),ind($("#aitabs")),ind($("#filters"))];
 
-/* ---------- Pulse / Meteors / Lamp ---------- */
 safe("pulse",()=>{
   const f=$("#flow");if(!f)return;
   const p=document.createElement("i");p.className="pulse";f.append(p);
@@ -278,7 +266,6 @@ safe("lamp",()=>{
   const l=document.createElement("i");l.className="lamp";l.setAttribute("aria-hidden","true");c.prepend(l);
 });
 
-/* ---------- Pointer effects ---------- */
 safe("pointer",()=>{
   document.addEventListener("pointermove",e=>{
     const c=e.target.closest&&e.target.closest(".card");
@@ -319,7 +306,6 @@ safe("pointer",()=>{
   });
 });
 
-/* ---------- Lens switch hook ---------- */
 const _sl=window.setLens;
 window.setLens=function(k){
   if(typeof _sl==="function")_sl(k);
