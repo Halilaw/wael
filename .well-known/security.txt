@@ -1,4 +1,3 @@
 Contact: mailto:wael.halila@gmail.com
-Expires: 2027-10-17T00:00:00.000Z
+Expires: 2027-10-13T00:00:00.000Z
 Preferred-Languages: en, fr, ar
-Canonical: https://halilaw.github.io/wael/.well-known/security.txt

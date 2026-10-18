@@ -1,284 +1,183 @@
 "use strict";
-/* Wael Halila portfolio 2026. No dependencies, no network calls, no inline code (strict CSP).
-   Content lives in data.js. This file is behaviour only. */
-(()=>{
-const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const root=document.documentElement,clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,FINE=matchMedia("(pointer: fine)").matches,COARSE=matchMedia("(pointer: coarse)").matches,LITE=!!(navigator.connection&&navigator.connection.saveData);
-const KEYS=["data","soft","dev"],SECS=["about","experience","ai","skills","projects","credentials","contact"];
-const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const MAIL=CFG.mail.join("@"),TEL=CFG.tel.join(" "),TELRAW=CFG.tel.join("");
-const PRESET=root.dataset.preset==="1",PINNED=!PRESET&&!RM;
-let lens=root.dataset.lens||"data",ready=false,shareK=lens,shown=false;
-const scene=$("#scene"),rail=$("#rail"),hint=$("#hint"),holo=$("#holo"),avatar=$("#avatar"),bar=$("#bar"),toTop=$("#toTop");
-if(!PINNED)scene.setAttribute("data-static","");
+/* ====== Content: edit here ====== */
+const A={cv:{data:"assets/cv/Wael_Halila_CV_Data_Engineer.pdf",soft:"assets/cv/Wael_Halila_CV_Software_Engineer.pdf",dev:"assets/cv/Wael_Halila_CV_DevOps_Engineer.pdf"}};
+const CFG={email:"wael.halila@gmail.com",phone:"+216 28 55 16 04",linkedin:"https://www.linkedin.com/in/wael-halila-9b75ba97/"};
+const SAY_T="Hi, I'm Wael Halila. I'm an engineer with 4+ years in financial services, working across data, .NET, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it. 👋",
+SAY_S="Hi, I'm Wael Halila. I'm an engineer with more than four years in financial services, working across data, dot net, DevOps and AI on Ivanti HEAT. Pick a lens above to read my profile the way you need it.";
+const LENS={
+data:{ic:"📊",tab:"Data",role:"Data Engineer · BI Consultant",pitch:"Led the migration of 2000+ SSIS packages. Data solutions in financial services: ETL/ELT with SSIS and Talend, Control-M orchestration and production monitoring, on a solid SQL Server, C# and .NET 8 base.",exp:"Data Engineer & Data Analyst (BI & data integration)",pts:["📥 ETL/ELT with SSIS & Talend","🗄️ SQL Server & T-SQL tuning","⏱️ Control-M orchestration","📊 Power BI & Jaspersoft","🤖 AI search & querying on HEAT"],file:"Wael_Halila_CV_Data_Engineer.pdf"},
+soft:{ic:"🧩",tab:".NET",role:".NET Software Engineer · Microservices",pitch:"Design, delivery and support of .NET applications, microservices and backend solutions: C#, .NET 8, REST APIs, SQL Server, Clean Architecture, DDD and CQRS.",exp:".NET Software Engineer & DevOps",pts:["🧱 C# / .NET 8 backends","🔌 Secure REST APIs","🏛️ Clean Architecture & DDD","🧪 Unit tests & Playwright","🤖 LLM assistant on HEAT"],file:"Wael_Halila_CV_Software_Engineer.pdf"},
+dev:{ic:"🚀",tab:"DevOps",role:"DevOps Engineer · CI/CD & Automation",pitch:"CI/CD automation and production reliability: Azure DevOps pipelines for 20+ microservices, Docker on OpenShift, SonarQube quality gates, ELK and Dynatrace observability.",exp:"DevOps Engineer (CI/CD & automation)",pts:["🔁 Azure DevOps YAML pipelines","🐳 Docker on OpenShift","🛡️ Quality gates (SonarQube)","📡 ELK & Dynatrace","🎭 Playwright AI testing"],file:"Wael_Halila_CV_DevOps_Engineer.pdf"}};
+const EXP=[
+{team:"Cross-functional & DevOps team",when:"Dec 2024 – Present",b:{
+data:["Work on the TopEase CMDB project and an ISM security program: monitoring production environments, firewalls, DNS and SSL/TLS configuration.","Deliver Control-M-driven reporting to the business, and mentored two alternance students in ETL and ISM.","Built Talend ETL flows between internal applications and external systems for consistent, synchronised data.","Designed data-warehouse models and led the migration of SSIS/SSAS flows to Talend and of Cognos dashboards to Power BI.","Cut page-load time by 50% through SQL query and index tuning, Redis and MemoryCache.","Automated asset reconciliation by connecting the Ivanti Heat CMDB to Retool.","Deployed and scheduled jobs, procedures and batches (Talend, Control-M); centralised logs with ELK and Dynatrace to trace slow SQL queries."],
+soft:["Work on the TopEase CMDB project and an ISM security program, and mentored two alternance students.","Built C#/.NET 8 features with Clean Architecture, SOLID and DDD, plus reusable workflow-automation components.","Exposed secure REST APIs (JWT, OAuth 2.0) documented with Swagger/OpenAPI, and contributed reusable SDKs.","Built responsive web interfaces (Angular, Razor Pages, Bootstrap) with UX/UI teams.","Raised quality with unit tests, SonarQube and CodeScene; documented architectures with C4/Structurizr.","Centralised logs and monitoring with ELK Stack and Dynatrace."],
+dev:["Monitor production environments for the ISM security program: firewalls, DNS and SSL/TLS configuration.","Maintain Azure DevOps (YAML) pipelines for 20+ microservices alongside Jenkins jobs: build, test and release across environments.","Package services as Docker images and deploy them to OpenShift (Kubernetes) through YAML for repeatable releases.","Diagnose pipeline, build and deployment failures; run tool and platform upgrades.","Automated quality gates: unit tests, SonarQube, CodeScene and coverage.","Centralised logs and monitoring (ELK, Dynatrace); automated deployment of Control-M and Talend jobs."]}},
+{team:"Asset Management & ESG applications",when:"Sep 2022 – Dec 2024",b:{
+data:["Led the migration of 2000+ SSIS packages from on-premises to a modern stack (OBAM team).","Built ELIOT reporting and FxTrades integrations.","Built SSIS flows and tuned T-SQL stored procedures for large volumes of banking data.","Set up integration environments and databases; orchestrated batch processing with Control-M.","Maintained transactional backend services for Private Equity valuation, subscription and redemption.","Secured financial data flows (RBAC, JWT, OAuth 2.0) and gave level-3 support for iKiosk reporting in Private Banking."],
+soft:["Shipped the ESG platform that surfaces key indicators to the business, and built ELIOT reporting and FxTrades integrations.","Developed .NET, C# and JavaScript apps for ESG indicators and sustainability reporting.","Contributed to the platform migration from .NET Framework 4.8 to .NET 8.","Refactored critical workflows of the PowerBuilder app ELIOT (batch files, SMTP notifications).","Maintained transactional Private Equity backends; reduced technical debt through legacy refactoring and POCs."],
+dev:["Led the migration of 2000+ SSIS packages from on-premises to a modern stack (OBAM team).","Set up integration environments and databases; ran production batch processing with Control-M.","Prepared deployable deliverables and YAML deployment procedures from integration to production.","Managed Git repositories, branches and workflows; supported the .NET 4.8 to .NET 8 upgrade.","Stabilised ELIOT batch workflows and handled level-3 incidents for iKiosk reporting."]}},
+{role:"Software Engineering Intern (final-year project)",when:"Feb 2022 – Aug 2022",b:{all:["Contributed to migrating the GCA back-office middleware from a monolith to scalable microservices.","Analysed the existing system, modelled flows and components in UML, and identified modules to decouple.","Built C#/.NET components with Oracle integration and documented the target architecture."]}}];
+const AI=[
+{ic:"💬",tab:"Chatbot",h:"An LLM assistant, built from scratch",p:"A conversational assistant for Ivanti HEAT, built from scratch around a large language model. People ask in plain language instead of navigating screens and forms.",li:["Natural conversation over ITSM questions","Prompt engineering for reliable, on-topic answers","Designed and built end to end"],on:[0,1,3]},
+{ic:"🔎",tab:"Search & querying",h:"Natural-language search and querying",p:"The assistant turns a question into a precise lookup over HEAT data and answers from what it finds, so replies stay grounded in real records instead of guesses.",li:["Intent understanding, then a targeted query","Answers tied to the underlying records","Faster than browsing forms and filters"],on:[1,2,3]},
+{ic:"🎭",tab:"Testing",h:"Playwright AI testing",p:"Automated end-to-end tests with Playwright, using AI assistance to write and maintain them, protect the HEAT project and the assistant across changes.",li:["Browser-level end-to-end scenarios","AI-assisted test authoring and upkeep","Regression safety net for releases"],on:[4,5]}];
+const FLOW=[["👤","Ask","A natural-language question"],["🧠","LLM","Understands the intent"],["🔎","Search & query layer","Looks up Ivanti HEAT data"],["✅","Answer","Grounded in real records"],["🎭","Playwright","AI-assisted end-to-end tests"],["🚦","Release checks","Regression safety net"]];
+const AITAGS=["LLM","Generative AI engineering","Prompt engineering","Natural-language search","Query generation","Playwright","AI-assisted testing","Ivanti HEAT"];
+const CATS={data:["Data","#2b2f6b"],bi:["BI","#7a4e9e"],web:["Web","#2f7d6d"],arch:["Arch.","#9a6a10"],ops:["DevOps","#a23b4b"],sec:["Ops & Sec","#37708f"],ai:["AI","#6a3fb5"],pm:["ITSM & Agile","#4d6b2f"]};
+/* [symbol, name, family, lenses: d=data s=software v=devops] */
+const SKILLS=[["Sq","SQL Server","data","dsv"],["Ts","T-SQL","data","ds"],["Pg","PostgreSQL","data","d"],["Or","Oracle","data","ds"],["Ss","SSIS","data","d"],["Tl","Talend","data","dv"],["El","ETL/ELT","data","d"],["Sp","Stored procs","data","ds"],["Rd","Redis","data","ds"],
+["Dw","Data Warehouse","bi","d"],["Pb","Power BI","bi","d"],["Jr","Jaspersoft","bi","d"],["Te","TopEase","bi","d"],["An","Data analysis","bi","d"],
+["Cs","C#","web","sd"],["N8",".NET 8","web","s"],["Nc",".NET Core","web","s"],["Fw",".NET 4.8","web","s"],["Rs","REST APIs","web","sv"],["Sw","Swagger","web","sv"],["Js","JavaScript","web","s"],["Tp","TypeScript","web","s"],["Ag","Angular","web","s"],["Pw","PowerBuilder","web","s"],
+["Ms","Microservices","arch","sv"],["Ca","Clean Arch.","arch","s"],["So","SOLID","arch","s"],["Dd","DDD","arch","s"],["Cq","CQRS","arch","s"],["C4","C4 model","arch","sv"],
+["Az","Azure DevOps","ops","sv"],["Ci","CI/CD","ops","sv"],["Yl","YAML","ops","v"],["Jk","Jenkins","ops","v"],["Gt","Git","ops","sv"],["Os","OpenShift","ops","v"],["Dk","Docker","ops","v"],["K8","Kubernetes","ops","v"],["Sn","SonarQube","ops","sv"],["Ut","Unit tests","ops","sv"],["Pl","Playwright","ops","dsv"],["Sh","Bash / PowerShell","ops","v"],
+["Jw","JWT / OAuth 2.0","sec","sv"],["Rb","RBAC","sec","sv"],["Kc","Keycloak","sec","v"],["Lk","ELK Stack","sec","dv"],["Dy","Dynatrace","sec","dv"],["Cm","Control-M","sec","dv"],["Rt","Retool","sec","dv"],
+["Is","ISM security","sec","dv"],["Ll","LLM apps","ai","dsv"],["Gn","GenAI eng.","ai","dsv"],["Nq","NL search & query","ai","dsv"],["Pe","Prompt eng.","ai","dsv"],["Cl","Claude","ai","dsv"],
+["It","ITIL 5","pm","dsv"],["Iv","Ivanti Heat","pm","dsv"],["Sc","Scrum","pm","dsv"],["Ji","Jira","pm","dsv"]];
+/* [icon, title, text, tags, lenses, featured] */
+const PROJECTS=[
+["🤖","AI assistant on Ivanti HEAT","A conversational assistant built from scratch around an LLM. Users ask in plain language; a search and query layer looks up Ivanti HEAT data and the answer comes back grounded in real records.",["LLM apps","NL search & query","Prompt eng.","GenAI eng.","Ivanti Heat"],"dsv",true],
+["🎭","Playwright AI testing on HEAT","End-to-end tests with Playwright, with AI assistance to write and maintain them, covering the Ivanti HEAT project and its assistant.",["Playwright","Ivanti Heat","Unit tests"],"dsv"],
+["📦","2000+ SSIS package migration","Led the migration of 2000+ SSIS packages from on-premises to a modern stack on the OBAM team.",["SSIS","Talend","ETL/ELT","Control-M"],"d"],
+["🛡️","ISM security monitoring","Monitoring of production environments, firewalls, DNS and SSL/TLS configuration, with Control-M-driven reporting to the business.",["Control-M","ISM security","Dynatrace","ELK Stack"],"dv"],
+["🗺️","TopEase CMDB project","Ongoing work on the TopEase CMDB project, alongside the ISM security program.",["TopEase","Ivanti Heat","Jaspersoft"],"dv"],
+["🚀","CI/CD for 20+ microservices","Azure DevOps (YAML) pipelines alongside Jenkins jobs; Docker images deployed to OpenShift (Kubernetes) for consistent, repeatable releases. Quality gates catch regressions, vulnerabilities and technical debt before delivery.",["Azure DevOps","YAML","Docker","OpenShift","SonarQube","Jenkins","Kubernetes"],"vs"],
+["🔄","ETL & data-warehouse migration","Modelled data warehouses and led the move of SSIS/SSAS flows to Talend and of Cognos dashboards to Power BI. Talend ETL keeps internal and external systems synchronised.",["Talend","SSIS","Data Warehouse","Power BI","ETL/ELT"],"d"],
+["🗃️","Ivanti Heat ↔ Retool reconciliation","Automated asset reconciliation by connecting the Ivanti Heat CMDB to Retool, so infrastructure data can be trusted.",["Ivanti Heat","Retool"],"dv"],
+["⚡","50% faster page loads","Halved page-load time by optimising SQL queries and indexes and adding Redis and MemoryCache.",["SQL Server","T-SQL","Redis"],"ds"],
+["🧱","Private Equity transactional backend","Backend services for valuation, subscription and redemption, with SSIS flows and tuned T-SQL procedures for large volumes of banking data, orchestrated by Control-M.",["C#","SSIS","T-SQL","Control-M","Stored procs"],"ds"],
+["🌱","ESG & Private Banking apps","Shipped the ESG platform that surfaces key indicators to the business; built ELIOT reporting and FxTrades integrations; .NET 4.8 to .NET 8 migration; level-3 support for iKiosk, with JWT/OAuth 2.0 security.",[".NET 8",".NET 4.8","JavaScript","PowerBuilder","JWT / OAuth 2.0","RBAC"],"sv"],
+["📡","Observability","Centralised logs and monitoring with ELK Stack and Dynatrace to analyse incidents and slow SQL queries.",["ELK Stack","Dynatrace"],"dv"],
+["🧩","Monolith → microservices","Final-year project: moved the GCA back-office middleware to scalable microservices; UML analysis, C#/.NET components with Oracle integration.",["Microservices","C#","Oracle"],"s"]];
+const LANGS=[["Arabic 🇹🇳","Native",100],["English 🇬🇧","B2",70],["French 🇫🇷","B2",70],["German 🇩🇪","B2",70]];
+const CERTS=["🏅 ITIL® 5 Foundation · Certificate","🤖 Generative AI engineering · Training","Scrum Master · Scrum.org","C# Advanced Topics · Udemy","Advanced SQL · Clevory Training",".NET Expert · Advancia Training","Talend Basics · Keyrus Academy"];
+const EDU=[["🎓","Engineering degree, software engineering","ESPRIT, Tunis · 2019 – 2022"],["⚙️","Bachelor's in mechanical engineering","ISET Bizerte · 2016 – 2019"],["🤝","Community","Vice-president, Mechanical Engineering Club (CAD projects, technical training) · Treasurer, Enactus ISET Bizerte (social-impact budgets) · Member, Securinets INSAT (cybersecurity, ethical hacking)"]];
+const STATS=[[4,"+","years in finance 🏦"],[2000,"+","SSIS packages migrated 📦"],[20,"+","microservice pipelines 🚀"],[1,"","LLM assistant on Ivanti HEAT 🤖"],[7,"","certifications & trainings 📜"]];
+const SUG=["Are you ITIL certified?","What AI work did you do on Ivanti HEAT?","How do you test with Playwright?","Which DevOps tools do you use?","How can I contact you?"];
+/* ====== helpers ====== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],root=document.documentElement;
+const LC={data:"d",soft:"s",dev:"v"},LK={d:"data",s:"soft",v:"dev"};let lens="data",shown=false;
+root.classList.add("js");
 
-const toast=t=>{const n=document.createElement("div");n.className="toast";n.setAttribute("role","status");n.textContent=t;document.body.append(n);setTimeout(()=>n.remove(),2500)};
-const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o):{observe(){},unobserve(){}};
-
-/* ---------- rolling text ---------- */
-function roll(el,html,instant){
-  if(instant||RM){el.innerHTML=`<span class="r">${html}</span>`;return}
-  const old=el.querySelector(".r:not(.out)");
-  const n=document.createElement("span");n.className="r"+(old?" in":"");n.innerHTML=html;el.append(n);
-  if(old){old.classList.remove("in");old.classList.add("out");setTimeout(()=>old.remove(),620)}
-}
-
-/* ---------- static blocks ---------- */
-$("#mq").innerHTML=[0,1].map(()=>["SQL Server","T-SQL","SSIS","Talend","Control-M","C#",".NET 8","REST APIs","Clean Architecture","Azure DevOps","Docker","OpenShift","SonarQube","ELK","Dynatrace","Ivanti HEAT","LLM","Playwright","ITIL 5"].map(t=>`<span>${t}</span>`).join("")).join("");
-$("#stats").innerHTML=STATS.map(s=>`<div><b data-n="${s[0]}" data-s="${s[1]}">0${s[1]}</b>${esc(s[2])}</div>`).join("");
-io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dataset.n,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1300),k=1-Math.pow(1-p,3);b.textContent=Math.round(n*(RM?1:k))+b.dataset.s;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)})},{threshold:.6}).observe($("#stats"));
-$("#certs").innerHTML=CERTS.map((c,i)=>`<li${i<2?' class="hl"':""}>${ic("award")}<span>${esc(c)}</span></li>`).join("");
-$("#edu").innerHTML=EDU.map(x=>`<figure class="panel"><h3>${esc(x[1])}</h3><p>${esc(x[2])}</p></figure>`).join("");
-$("#yr").textContent=new Date().getFullYear();
-
-/* ---------- ID card ---------- */
+const io=(fn,o)=>"IntersectionObserver" in window?new IntersectionObserver(fn,o):{observe(){}};
+$$(".rv").forEach(e=>e.classList.add("in")); /* fallback: visible; animated below when supported */
+if("IntersectionObserver" in window){const r=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");r.unobserve(e.target)}}),{threshold:.12});$$(".rv").forEach(e=>{e.classList.remove("in");r.observe(e)})}
+$("#mq").innerHTML=[...Array(2)].map(()=>["SQL Server","T-SQL","SSIS","Talend","Control-M","C#","NET 8","REST APIs","Clean Architecture","Azure DevOps","Docker","OpenShift","SonarQube","ELK","Dynatrace","Ivanti HEAT","LLM","Playwright","ITIL 5"].map(t=>`<span>✦ ${t}</span>`).join("")).join("");
+/* stats */
+$("#stats").innerHTML=STATS.map(s=>`<div><b data-n="${s[0]}" data-s="${s[1]}">0${s[1]}</b>${s[2]}</div>`).join("");
+io(([e])=>{if(!e.isIntersecting)return;$$("[data-n]").forEach(b=>{const n=+b.dataset.n,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1200);b.textContent=Math.round(n*p)+b.dataset.s;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)})},{threshold:.6}).observe($("#stats"));
+/* lens tabs */
+$("#lens").innerHTML=Object.entries(LENS).map(([k,v])=>`<button class="chip2" data-l="${k}" aria-pressed="false">${v.ic} ${v.tab}</button>`).join("");
+$("#lens").onclick=e=>{const b=e.target.closest("button");b&&setLens(b.dataset.l)};
+/* talking portrait */
+const av=$("#avatar"),say=$("#say");let timer;
+function type(t){clearInterval(timer);say.textContent="";let i=0;av.classList.add("talk");timer=setInterval(()=>{say.textContent=t.slice(0,++i);if(i>=t.length){clearInterval(timer);av.classList.remove("talk")}},34)}
+type(SAY_T);
+$("#hear").onclick=()=>{if(!("speechSynthesis" in window)){type(SAY_T);return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(SAY_S);u.lang="en-US";u.rate=.97;
+u.onstart=()=>{clearInterval(timer);say.textContent=SAY_T;av.classList.add("talk")};u.onend=u.onerror=()=>av.classList.remove("talk");speechSynthesis.speak(u)};
+/* ID card */
 const idc=$("#idcard");idc.onclick=()=>idc.classList.toggle("flip");
-idc.addEventListener("pointermove",e=>{if(e.pointerType==="touch"||RM)return;const r=idc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;idc.classList.add("tilt");idc.style.setProperty("--ry",x*16+"deg");idc.style.setProperty("--rx",-y*16+"deg")});
+idc.addEventListener("pointermove",e=>{if(e.pointerType==="touch")return;const r=idc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;idc.classList.add("tilt");idc.style.setProperty("--ry",x*14+"deg");idc.style.setProperty("--rx",-y*14+"deg")});
 idc.addEventListener("pointerleave",()=>{idc.classList.remove("tilt");idc.style.setProperty("--ry","0deg");idc.style.setProperty("--rx","0deg")});
-
-/* ---------- AI section ---------- */
-$("#aitabs").innerHTML=AI.map((a,i)=>`<button class="chip" type="button" role="tab" data-i="${i}" aria-selected="false">${ic(a.ic)}${esc(a.tab)}</button>`).join("");
-$("#flow").innerHTML=FLOW.map((f,i)=>`<div class="fs" data-i="${i}"><span class="n">${i+1}</span><div><b>${esc(f[1])}</b><small>${esc(f[2])}</small></div></div>`).join("");
-$("#aitags").innerHTML=AITAGS.map(t=>`<span>${esc(t)}</span>`).join("");
-function aiTab(i){const a=AI[i];$$("#aitabs button").forEach((b,j)=>b.setAttribute("aria-selected",j===i));
-  $("#aipanel").innerHTML=`<h3>${esc(a.h)}</h3><p>${esc(a.p)}</p><ul>${a.li.map(l=>`<li>${esc(l)}</li>`).join("")}</ul>`;
-  $$(".fs").forEach(f=>f.classList.toggle("on",a.on.includes(+f.dataset.i)))}
+/* AI section */
+$("#aitabs").innerHTML=AI.map((a,i)=>`<button class="chip2" role="tab" data-i="${i}" aria-selected="false">${a.ic} ${a.tab}</button>`).join("");
+$("#flow").innerHTML=FLOW.map((f,i)=>`${i===4?'<div class="fa">· · ·</div>':i?'<div class="fa">↓</div>':""}<div class="fs" data-i="${i}"><span>${f[0]}</span><div><b>${f[1]}</b><small>${f[2]}</small></div></div>`).join("");
+$("#aitags").innerHTML=AITAGS.map(t=>`<span>${t}</span>`).join("");
+function aiTab(i){const a=AI[i];$$("#aitabs button").forEach((b,j)=>{b.classList.toggle("on",j===i);b.setAttribute("aria-selected",j===i)});
+$("#aipanel").innerHTML=`<h3>${a.ic} ${a.h}</h3><p>${a.p}</p><ul>${a.li.map(l=>`<li>${l}</li>`).join("")}</ul>`;$$(".fs").forEach(f=>f.classList.toggle("on",a.on.includes(+f.dataset.i)))}
 $("#aitabs").onclick=e=>{const b=e.target.closest("button");b&&aiTab(+b.dataset.i)};aiTab(0);
-
-/* ---------- skills ---------- */
+/* skills table */
 const pt=$("#ptable"),det=$("#detail"),fl=$("#filters");let cur="all";
-pt.innerHTML=SKILLS.map((s,i)=>`<button class="tile" type="button" data-i="${i}" aria-label="${esc(s[1])}"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></button>`).join("");
-$$(".tile",pt).forEach(t=>t.style.setProperty("--c",CATS[SKILLS[t.dataset.i][2]][1]));
-const LC={data:"d",soft:"s",dev:"v"},LK={d:"data",s:"soft",v:"dev"};
-function showSkill(i){const s=SKILLS[i],u=PROJECTS.filter(p=>p[3].includes(s[1])).map(p=>p[1]);
-  det.innerHTML=`<b>${esc(s[1])}</b><p>${esc(CATS[s[2]][0])} · relevant for ${[...s[3]].map(c=>LENS[LK[c]].tab).join(", ")}</p><p>${u.length?"Used in: "+esc(u.join("; ")):"Part of my day-to-day toolbox."}</p>`;
-  $$(".tile",pt).forEach(t=>t.classList.toggle("sel",+t.dataset.i===i))}
-pt.onclick=e=>{const t=e.target.closest(".tile");t&&showSkill(+t.dataset.i)};
-pt.onmouseover=e=>{const t=e.target.closest(".tile");t&&showSkill(+t.dataset.i)};
-fl.innerHTML=[["all","All"],...Object.entries(CATS).map(([k,v])=>[k,v[0]])].map(f=>`<button class="chip" type="button" data-f="${f[0]}" aria-pressed="${f[0]==="all"}">${esc(f[1])}</button>`).join("");
-const paintTiles=()=>$$(".tile",pt).forEach(t=>{const s=SKILLS[t.dataset.i];t.classList.toggle("dim",cur!=="all"&&s[2]!==cur);t.style.opacity=s[3].includes(LC[lens])?"":".42"});
-fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;cur=b.dataset.f;$$("button",fl).forEach(x=>x.setAttribute("aria-pressed",x===b));paintTiles()};
-
-/* ---------- charts ---------- */
+pt.innerHTML=SKILLS.map((s,i)=>`<button class="tile" data-i="${i}" data-c="${s[2]}" style="background:${CATS[s[2]][1]}" aria-label="${s[1]}"><i>${i+1}</i><b>${s[0]}</b><span>${s[1]}</span></button>`).join("");
+const show=i=>{const s=SKILLS[i],u=PROJECTS.filter(p=>p[3].includes(s[1])).map(p=>p[1]);
+det.innerHTML=`<b>${s[0]} · ${s[1]}</b><p>${CATS[s[2]][0]} · relevant for ${[...s[3]].map(c=>LENS[LK[c]].ic+" "+LENS[LK[c]].tab).join(", ")}</p><p>${u.length?"Used in: "+u.join("; "):"Part of my day-to-day toolbox."}</p>`;
+$$(".tile").forEach(t=>t.classList.toggle("sel",+t.dataset.i===i))};
+pt.onclick=e=>{const t=e.target.closest(".tile");t&&show(+t.dataset.i)};pt.onmouseover=e=>{const t=e.target.closest(".tile");t&&show(+t.dataset.i)};
+fl.innerHTML=[["all","All ✨"],...Object.entries(CATS).map(([k,v])=>[k,v[0]])].map(f=>`<button class="chip2${f[0]==="all"?" on":""}" data-f="${f[0]}">${f[1]}</button>`).join("");
+const paintTiles=()=>$$(".tile").forEach(t=>{const s=SKILLS[t.dataset.i];t.classList.toggle("dim",cur!=="all"&&s[2]!==cur);t.style.opacity=s[3].includes(LC[lens])?"":".45"});
+fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;cur=b.dataset.f;$$("#filters button").forEach(x=>x.classList.toggle("on",x===b));paintTiles()};
+/* radar */
 const cnt=k=>SKILLS.filter(s=>s[2]===k).length,mx=Math.max(...Object.keys(CATS).map(cnt));
-function radar(p){const c=$("#radar"),d=devicePixelRatio||1,W=c.clientWidth,H=320;if(!W)return;c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);
-  const cs=getComputedStyle(root),g=n=>cs.getPropertyValue(n).trim(),keys=Object.keys(CATS),n=keys.length,cx=W/2,cy=H/2+4,R=Math.min(W,H)/2-58,q=(i,r)=>[cx+Math.cos(i/n*6.2832-1.5708)*r,cy+Math.sin(i/n*6.2832-1.5708)*r];
-  x.strokeStyle=g("--line2");x.lineWidth=1;[.25,.5,.75,1].forEach(v=>{x.beginPath();keys.forEach((k,i)=>{const[a,b]=q(i,R*v);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath();x.stroke()});
-  x.fillStyle=g("--mut");x.font="600 13px Inter,system-ui,sans-serif";x.textAlign="center";keys.forEach((k,i)=>{const[a,b]=q(i,R+28);x.fillText(CATS[k][0],a,b+4)});
-  const acc=g("--acc")||"#35d8ff";x.beginPath();keys.forEach((k,i)=>{const[a,b]=q(i,R*cnt(k)/mx*p);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath();x.globalAlpha=.2;x.fillStyle=acc;x.fill();x.globalAlpha=1;x.strokeStyle=acc;x.lineWidth=2.2;x.stroke();
-  keys.forEach((k,i)=>{const[a,b]=q(i,R*cnt(k)/mx*p);x.beginPath();x.arc(a,b,4.5,0,6.3);x.fillStyle=CATS[k][1];x.fill()})}
-$("#langs").innerHTML=LANGS.map(l=>`<div class="bar"><div><span>${esc(l[0])}</span><span>${esc(l[1])}</span></div><div class="meter"><i data-w="${l[2]}"></i></div></div>`).join("");
-io(([e])=>{if(e.isIntersecting&&!shown){shown=true;$$(".meter i[data-w]").forEach(m=>m.style.width=m.dataset.w+"%");const t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1100);radar(RM?1:1-Math.pow(1-p,3));p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)}},{threshold:.25}).observe($(".charts"));
+function radar(p){const c=$("#radar"),d=devicePixelRatio||1,W=c.clientWidth,H=320;c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);
+const cs=getComputedStyle(root),g=n=>cs.getPropertyValue(n).trim(),keys=Object.keys(CATS),n=keys.length,cx=W/2,cy=H/2+4,R=Math.min(W,H)/2-56,q=(i,r)=>[cx+Math.cos(i/n*6.2832-1.5708)*r,cy+Math.sin(i/n*6.2832-1.5708)*r];
+x.strokeStyle=g("--line");[.25,.5,.75,1].forEach(v=>{x.beginPath();keys.forEach((k,i)=>{const[a,b]=q(i,R*v);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath();x.stroke()});
+x.fillStyle=g("--ink");x.font="600 13px Inter Tight,system-ui,sans-serif";x.textAlign="center";keys.forEach((k,i)=>{const[a,b]=q(i,R+26);x.fillText(CATS[k][0],a,b+4)});
+x.beginPath();keys.forEach((k,i)=>{const[a,b]=q(i,R*cnt(k)/mx*p);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath();x.fillStyle="rgba(110,120,230,.28)";x.fill();x.strokeStyle=g("--acc");x.lineWidth=2.5;x.stroke();
+keys.forEach((k,i)=>{const[a,b]=q(i,R*cnt(k)/mx*p);x.beginPath();x.arc(a,b,4,0,6.3);x.fillStyle=CATS[k][1];x.fill()})}
+$("#langs").innerHTML=LANGS.map(l=>`<div class="bar"><div><span>${l[0]}</span><span>${l[1]}</span></div><div class="meter"><i data-w="${l[2]}"></i></div></div>`).join("");
+io(([e])=>{if(e.isIntersecting&&!shown){shown=true;$$(".meter i[data-w]").forEach(m=>m.style.width=m.dataset.w+"%");const t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/1100);radar(1-Math.pow(1-p,3));p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)}},{threshold:.25}).observe($(".charts"));
 addEventListener("resize",()=>shown&&radar(1));
-
-/* ---------- profile-dependent content ---------- */
+/* timeline + projects + lens switch */
 function render(){const L=LENS[lens];
-  $("#timeline").innerHTML=EXP.map(x=>`<li><div class="when">${esc(x.when)}</div><div><h3>${esc(x.role||L.exp)}</h3><p class="team">${esc(x.team||"ODDO BHF")}</p><ul class="bul">${(x.b[lens]||x.b.all).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></li>`).join("");
-  const rel=[...PROJECTS].sort((a,b)=>(!!b[5]-!!a[5])||(b[4].includes(LC[lens])-a[4].includes(LC[lens])));
-  $("#projgrid").innerHTML=rel.map(p=>`<article class="panel pc${p[5]?" feat":""}"><span class="pi">${ic(p[0])}</span>${p[4].includes(LC[lens])?`<span class="match">Top for ${esc(L.tab)}</span>`:""}<h3>${esc(p[1])}</h3><p>${esc(p[2])}</p><div class="tags">${p[3].map(t=>`<span>${esc(t)}</span>`).join("")}</div></article>`).join("");
-  $$(".tl>li,.pc").forEach(e=>e.classList.add("rv","in"))}
-$("#projgrid").addEventListener("pointermove",e=>{const c=e.target.closest(".pc");if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty("--mx",e.clientX-r.left+"px");c.style.setProperty("--my",e.clientY-r.top+"px")});
-
-/* ---------- terminal ---------- */
-const term=$("#term");let tTok=0;
-async function typeTerm(rows){const my=++tTok;term.textContent="";
-  for(const [cls,text] of rows){if(my!==tTok)return;const row=document.createElement("div");row.className="ln "+cls;const p=document.createElement("span");p.className="p";p.textContent=cls==="cmd"?"$":">";const t=document.createElement("span");row.append(p,t);term.append(row);
-    if(RM){t.textContent=text;continue}
-    const car=document.createElement("i");car.className="caret";row.append(car);
-    for(let i=1;i<=text.length;i++){if(my!==tTok)return;t.textContent=text.slice(0,i);await sleep(cls==="cmd"?30:11)}
-    car.remove();await sleep(cls==="cmd"?140:30)}
-  if(my===tTok){const last=term.lastElementChild;if(last&&!RM){const c=document.createElement("i");c.className="caret";last.append(c)}}}
-
-/* ---------- the profile switch ---------- */
-const railBtns=KEYS.map(k=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.setAttribute("aria-pressed","false");b.innerHTML=`${ic(LENS[k].ic)}<span>${esc(LENS[k].tab)}</span><i class="fill"></i>`;rail.append(b);return b});
-rail.onclick=e=>{const b=e.target.closest("button");b&&go(b.dataset.k,"click")};
-const pips=$$("#pbadge .pips i"),pbTxt=$("#pbTxt"),pbIc=$("#pbIc use");
-function sceneActive(){const r=scene.getBoundingClientRect();return PINNED&&r.top<innerHeight*.9&&r.bottom>innerHeight*.5}
-let manual=null;
-function go(k,src){
-  if(sceneActive()){const i=KEYS.indexOf(k),span=scene.offsetHeight-innerHeight,top=scene.getBoundingClientRect().top+scrollY,p=i===0?0:(i+.5)/3;
-    manual={k,src};scrollTo({top:top+p*span+1,behavior:RM||src==="cmd"?"auto":"smooth"})}
-  else setLens(k,{src});
-}
-["wheel","touchstart","keydown"].forEach(t=>addEventListener(t,()=>{manual=null},{passive:true}));
-function setLens(k,{src="init"}={}){
-  if(!LENS[k])k="data";
-  const first=!ready,changed=k!==lens;
-  if(!changed&&!first)return;
-  lens=k;root.dataset.lens=k;const L=LENS[k],i=KEYS.indexOf(k);
-  rail.style.setProperty("--i",i);railBtns.forEach((b,j)=>b.setAttribute("aria-pressed",j===i));pips.forEach((p,j)=>p.classList.toggle("on",j===i));
-  const [r1,r2]=L.role.split(" · ");
-  roll($("#role"),`<em>${esc(r1)}</em>${r2?`<small>${esc(r2)}</small>`:""}`,first);
-  roll(pbTxt,esc(L.tab),first);pbIc.setAttribute("href","#i-"+L.ic);
-  $("#pitch").innerHTML=`<span>${esc(L.pitch)}</span>`;
-  $$(".orb .rollbox").forEach((el,j)=>setTimeout(()=>roll(el,esc(L.orbit[j]),first),first||RM?0:j*70));
-  typeTerm([["cmd","wael --profile "+L.slug],...L.pts.slice(0,4).map(t=>["out",t])]);$("#termTag").textContent=L.slug;
-  const a=$("#cvdl");a.href=CFG.cv[k];a.setAttribute("download",L.file);$("#cvlbl").textContent="Download CV · "+L.tab;
-  $("#idrole").textContent=L.role;$("#idlist").innerHTML=L.pts.map(t=>`<li>${esc(t)}</li>`).join("");
-  if(!first&&!RM){holo.classList.remove("flash");void holo.offsetWidth;holo.classList.add("flash")}
-  const paint=()=>{render();paintTiles()};
-  if(!first&&src==="cmd"&&document.startViewTransition&&!RM)document.startViewTransition(paint);else paint();
-  if(src==="click"||src==="cmd"||src==="badge"){try{history.replaceState(null,"",location.pathname+"?lens="+k+location.hash)}catch(e){}}
-  shareK=k;updateShare();
-  if(shown)setTimeout(()=>radar(1),950);
-  ready=true;
-}
-$("#pbadge").onclick=()=>go(KEYS[(KEYS.indexOf(lens)+1)%3],"badge");
-
-/* ---------- scroll: scene, progress, nav ---------- */
-const menu=$("#menu"),ind=$(".ind",menu),links=$$("a",menu);let curSec="";
-function moveInd(){const a=links.find(l=>l.getAttribute("aria-current")==="true");if(!a||getComputedStyle(ind).display==="none"){ind.style.setProperty("--o",0);return}
-  ind.style.setProperty("--x",a.offsetLeft+"px");ind.style.setProperty("--w2",a.offsetWidth+"px");ind.style.setProperty("--o",1)}
-if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){curSec=e.target.id;links.forEach(l=>l.setAttribute("aria-current",l.getAttribute("href")==="#"+curSec));moveInd()}}),{rootMargin:"-45% 0px -50% 0px"});SECS.forEach(s=>so.observe(document.getElementById(s)))}
-addEventListener("resize",moveInd);
-let tick=false;
-const hintTxt=$("#hintTxt"),hudSec=$("#hudSec"),hudPct=$("#hudPct"),chap=$("#chap");
-const CH=[["home","Intro"],["about","About"],["experience","Experience"],["ai","AI × HEAT"],["skills","Skills"],["projects","Projects"],["credentials","Credentials"],["contact","Contact"]];
-chap.innerHTML=CH.map(c=>`<a href="#${c[0]}" data-s="${c[0]}"><span>${c[1]}</span><i></i></a>`).join("");
-const chapA=$$("a",chap);let lastId="",lastHint="";
-const toTopNow=()=>scrollTo({top:0,behavior:RM?"auto":"smooth"});
-$$('a[href="#home"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toTopNow()}));
-chap.addEventListener("click",e=>{const a=e.target.closest("a");if(a&&a.dataset.s==="home"){e.preventDefault();toTopNow()}});
-const setHint=t=>{if(t!==lastHint){hintTxt.textContent=t;lastHint=t}};
-function onScroll(){
-  tick=false;const y=scrollY,h=Math.max(1,root.scrollHeight-innerHeight);
-  bar.style.transform=`scaleX(${y/h})`;toTop.classList.toggle("show",y>innerHeight*1.3);
-  const r=scene.getBoundingClientRect(),inHero=r.bottom>innerHeight*.5,id=inHero?"home":curSec;
-  if(id!==lastId){lastId=id;chapA.forEach(a=>a.setAttribute("aria-current",a.dataset.s===id));hudSec.textContent=id==="home"?"intro":((CH.find(c=>c[0]===id)||[0,id])[1]).toLowerCase()}
-  hudPct.textContent=Math.round(y/h*100);
-  if(y>20)hint.classList.remove("idle");
-  if(!PINNED){hint.classList.toggle("off",y>40);return}
-  const span=Math.max(1,r.height-innerHeight),p=clamp(-r.top/span,0,1),idx=Math.min(2,Math.floor(p*3));
-  hint.classList.toggle("off",!inHero);
-  railBtns.forEach((b,i)=>b.style.setProperty("--p",clamp(p*3-i,0,1).toFixed(3)));
-  setHint(p<.02?(COARSE?"Swipe up to explore":"Scroll down to explore"):idx<2?`Profile ${idx+1} of 3 · keep ${COARSE?"swiping":"scrolling"}`:`Profile 3 of 3 · ${COARSE?"swipe":"scroll"} on for the full story`);
-  if(r.top<innerHeight*.9&&inHero){const k=KEYS[idx];setLens(k,{src:manual?manual.src:"scroll"});if(manual&&manual.k===k)manual=null}}
-if(!PINNED)setHint(COARSE?"Swipe up to explore":"Scroll down to explore");
-setTimeout(()=>{if(scrollY<20&&!RM)hint.classList.add("idle")},4500);
-addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
-toTop.onclick=()=>toTopNow();
-const burger=$("#burger");burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o);burger.querySelector("use").setAttribute("href",o?"#i-close":"#i-menu")};
-menu.onclick=e=>{if(e.target.closest("a")){menu.classList.remove("open");burger.setAttribute("aria-expanded","false");burger.querySelector("use").setAttribute("href","#i-menu")}};
-
-/* reveal on scroll: headings reveal word by word, blocks fade up. Everything stays visible if this script fails. */
-$$(".sh h2").forEach(hh=>{const t=hh.textContent.trim();hh.setAttribute("aria-label",t);hh.textContent="";t.split(" ").forEach((w,i)=>{const o=document.createElement("span");o.className="w";o.setAttribute("aria-hidden","true");const n=document.createElement("span");n.textContent=w;n.style.setProperty("--i",i);o.append(n);hh.append(o,document.createTextNode(" "))})});
-root.classList.add("ready");
-if("IntersectionObserver" in window){const r=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");r.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -6% 0px"});
-  $$(".rv,.sh").forEach(e=>r.observe(e))}else $$(".rv,.sh").forEach(e=>e.classList.add("in"));
-
-/* cursor spotlight (mouse only) */
-if(FINE&&!RM){let raf=0;addEventListener("pointermove",e=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;root.style.setProperty("--cx",e.clientX+"px");root.style.setProperty("--cy",e.clientY+"px")})},{passive:true})}
-
-/* ---------- avatar: tilt, intro, voice, clock ---------- */
-if(FINE&&!RM){const hero=$(".hero");hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;holo.style.setProperty("--ry",(x*16).toFixed(2)+"deg");holo.style.setProperty("--rx",(-y*11).toFixed(2)+"deg")});
-  hero.addEventListener("pointerleave",()=>{holo.style.setProperty("--ry","0deg");holo.style.setProperty("--rx","0deg")})}
-if(!RM){$$("#name span").forEach((s,si)=>{const t=s.textContent;s.textContent="";[...t].forEach((c,i)=>{const l=document.createElement("i");l.className="lt";l.textContent=c;l.style.setProperty("--d",si*5+i);s.append(l)})})}
-$("#hear").onclick=()=>{const b=avatar;if(!("speechSynthesis" in window)){toast("Voice is not available in this browser");return}
-  if(speechSynthesis.speaking){speechSynthesis.cancel();b.classList.remove("talk");return}
-  const u=new SpeechSynthesisUtterance(SAY_SPOKEN);u.lang="en-US";u.rate=.98;u.onstart=()=>b.classList.add("talk");u.onend=u.onerror=()=>b.classList.remove("talk");speechSynthesis.speak(u)};
-try{const f=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Africa/Tunis"});
-  const tk=()=>{const t=f.format(new Date());$("#clock").innerHTML=`Tunis ${t}<span class="tz"> (UTC+1)</span>`;$("#clock2").textContent=`Tunis ${t}`};tk();setInterval(tk,20000)}catch(e){}
-
-/* ---------- theme ---------- */
-const tb=$("#theme"),isDark=()=>root.dataset.theme!=="light";
-const paintTheme=()=>{tb.querySelector("use").setAttribute("href",isDark()?"#i-sun":"#i-moon");const m=$('meta[name="theme-color"]');if(m)m.content=isDark()?"#05070f":"#eef2fa";shown&&setTimeout(()=>radar(1),60)};
-tb.onclick=()=>{root.dataset.theme=isDark()?"light":"dark";try{localStorage.setItem("wh-theme",root.dataset.theme)}catch(e){}paintTheme()};paintTheme();
-
-/* ---------- contact + share ---------- */
-$("#links").innerHTML=[["mail","Email",MAIL,"mailto:"+MAIL],...(TELRAW?[["phone","Phone",TEL,"tel:"+TELRAW]]:[]),["link","LinkedIn","Open profile",CFG.linkedin]]
-  .map(l=>`<a class="btn" href="${esc(l[3])}"${l[0]==="link"?' target="_blank" rel="noopener noreferrer"':""}>${ic(l[0])}${l[1]}<span>${esc(l[2])}</span></a>`).join("");
-$("#cvs").innerHTML=Object.entries(LENS).map(([k,v])=>`<a class="btn ghost" href="${CFG.cv[k]}" download="${v.file}">${ic("dl")}CV · ${esc(v.tab)}</a>`).join("");
-$("#form").onsubmit=e=>{e.preventDefault();location.href=`mailto:${MAIL}?subject=${encodeURIComponent("Opportunity for Wael Halila: "+$("#fn").value.slice(0,120))}&body=${encodeURIComponent($("#fm").value.slice(0,2000))}`};
-$("#sharelens").innerHTML=KEYS.map(k=>`<button class="chip" type="button" data-k="${k}" aria-pressed="false">${ic(LENS[k].ic)}${esc(LENS[k].tab)}</button>`).join("");
-$("#sharelens").onclick=e=>{const b=e.target.closest("button");if(b){shareK=b.dataset.k;updateShare()}};
-function pageUrl(k){const u=new URL(location.href);u.hash="";u.search="";u.pathname=u.pathname.replace(/[^/]*$/,"")+LENS[k].page;return u.href}
-function absUrl(rel){return new URL(rel,location.href).href}
-function updateShare(){const L=LENS[shareK],u=pageUrl(shareK);
-  $$("#sharelens button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===shareK));
-  $("#urlbox").textContent=u;
-  try{$("#qr").innerHTML=qrSvg(u,{size:150,margin:1,dark:"#04101a",light:"#ffffff"})}catch(e){$("#qr").textContent=""}
-  const subject=`Wael Halila, ${L.role}`,body=`Hi,\n\nHere is Wael Halila's portfolio, tailored for ${L.tab} roles:\n${u}\n\nCV (PDF): ${absUrl(CFG.cv[shareK])}\n\nBest regards`;
-  $("#bMail").href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
-async function copy(t){try{await navigator.clipboard.writeText(t);toast("Link copied")}catch(e){const s=getSelection(),r=document.createRange();r.selectNodeContents($("#urlbox"));s.removeAllRanges();s.addRange(r);toast("Press Ctrl+C to copy")}}
-$("#bCopy").onclick=()=>copy(pageUrl(shareK));
-$("#bShare").onclick=async()=>{const L=LENS[shareK],d={title:`Wael Halila, ${L.role}`,text:"Wael Halila's portfolio",url:pageUrl(shareK)};try{if(navigator.share)await navigator.share(d);else copy(d.url)}catch(e){}};
-
-/* ---------- command menu + local search ---------- */
+$("#timeline").innerHTML=EXP.map(x=>`<li data-e="💼"><h3>${x.role||L.exp}</h3><span class="when">${x.team?x.team+" · ":"ODDO BHF · "}${x.when}</span><ul class="bul">${(x.b[lens]||x.b.all).map(t=>`<li>${t}</li>`).join("")}</ul></li>`).join("");
+const rel=[...PROJECTS].sort((a,b)=>(!!b[5]-!!a[5])||(b[4].includes(LC[lens])-a[4].includes(LC[lens])));
+$("#projgrid").innerHTML=rel.map(p=>`<article class="card pc${p[5]?" feat":""}"><span class="em">${p[0]}</span>${p[4].includes(LC[lens])?`<span class="star">⭐ Top for ${L.tab}</span>`:""}<h3>${p[1]}</h3><p>${p[2]}</p><div class="tags">${p[3].map(t=>`<span>${t}</span>`).join("")}</div></article>`).join("")}
+function setLens(k){lens=k;const L=LENS[k];$$("#lens button").forEach(b=>{const on=b.dataset.l===k;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+$("#role").textContent=L.ic+" "+L.role;$("#pitch").textContent=L.pitch;$("#idrole").textContent=L.role;$("#idlist").innerHTML=L.pts.map(t=>`<li>${t}</li>`).join("");
+$("#cvdl").href=A.cv[k];$("#mcv").href=A.cv[k];$("#mcv").setAttribute("download",LENS[k].file);$("#cvdl").setAttribute("download",L.file);render();paintTiles()}
+$("#certs").innerHTML=CERTS.map((c,i)=>`<li${i<2?' class="hl"':""}>${c}</li>`).join("");
+$("#edu").innerHTML=EDU.map(x=>`<figure class="card"><h3>${x[0]} ${x[1]}</h3><p>${x[2]}</p></figure>`).join("");
+/* contact */
+$("#links").innerHTML=[["✉️ "+CFG.email,"mailto:"+CFG.email],["📞 "+CFG.phone,"tel:"+CFG.phone.replace(/\s/g,"")],["🔗 LinkedIn",CFG.linkedin]].map(l=>`<a class="btn ghost" href="${l[1]}" target="_blank" rel="noopener noreferrer">${l[0]}</a>`).join("");
+$("#cvs").innerHTML=Object.entries(LENS).map(([k,v])=>`<a class="btn" href="${A.cv[k]}" download="${v.file}">📄 CV · ${v.tab}</a>`).join("");
+$("#form").onsubmit=e=>{e.preventDefault();location.href=`mailto:${CFG.email}?subject=${encodeURIComponent("Opportunity for Wael Halila: "+$("#fn").value.slice(0,120))}&body=${encodeURIComponent($("#fm").value.slice(0,2000))}`};
+$("#yr").textContent=new Date().getFullYear();
+/* ====== "Ask AI": local retrieval over this page's content (no network) ====== */
 const STOP=new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what which who how where when why can could would should about tell give show any have has had at as by from it its this that these those not no yes also".split(" "));
-const tok=t=>t.toLowerCase().replace(/[^a-z0-9+#.À-ſ ]/g," ").split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/^certif\w*/,"certif").replace(/(ing|es|s)$/,""));
-const KB=[{t:"About Wael",x:"Engineer with 4+ years in financial services across data, .NET, DevOps and AI. Based in Tunis, Tunisia, open to opportunities. Works at ODDO BHF since September 2022.",s:"about"},
-{t:"Contact",x:"Reach Wael by email, phone or LinkedIn from the contact section. CVs for Data, .NET and DevOps roles can be downloaded there. Hiring and recruiting messages are welcome.",s:"contact"},
+const tok=t=>t.toLowerCase().replace(/[^a-z0-9+#.\u00c0-\u017f ]/g," ").split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/^certif\w*/,"certif").replace(/(ing|es|s)$/,""));
+const KB=[{t:"About Wael",x:"Engineer with 4+ years in financial services across data, .NET, DevOps, AI and ITSM. Led a 2000+ SSIS package migration on the OBAM team; today works on TopEase CMDB and an ISM security program; mentored two alternance students. Based in Tunis, Tunisia, open to opportunities. Works at ODDO BHF since September 2022.",s:"about"},
+{t:"Contact",x:`Email ${CFG.email}, phone ${CFG.phone}, LinkedIn. CV downloads (Data, .NET, DevOps) are in the contact section. Reach out to hire or recruit.`,s:"contact"},
 {t:"Languages",x:"Arabic is native; English, French and German are at B2 level.",s:"credentials"}];
 Object.values(LENS).forEach(L=>KB.push({t:"Profile: "+L.role,x:L.pitch,s:"home"}));
 EXP.forEach(e=>{const seen=new Set();Object.values(e.b).flat().forEach(b=>{if(!seen.has(b)){seen.add(b);KB.push({t:e.team||"Internship",x:b,s:"experience"})}})});
 PROJECTS.forEach(p=>KB.push({t:p[1],x:p[2]+" Tools: "+p[3].join(", "),s:p[5]?"ai":"projects"}));
 AI.forEach(a=>KB.push({t:"AI on Ivanti HEAT: "+a.tab,x:a.p+" "+a.li.join(". "),s:"ai"}));
-KB.push({t:"ITIL certification",x:"Yes, Wael holds the ITIL® 5 Foundation certificate, which supports his ITSM work on Ivanti HEAT.",s:"credentials"},{t:"Generative AI engineering training",x:"Trained in generative AI engineering: LLM applications, prompt engineering and natural-language search and querying.",s:"credentials"});
+KB.push({t:"ITIL certification",x:"Yes, I hold the ITIL® 5 Foundation certificate, which supports my ITSM work on Ivanti HEAT.",s:"credentials"},{t:"Generative AI engineering training",x:"I am trained in generative AI engineering: LLM applications, prompt engineering and natural-language search and querying.",s:"credentials"});
 CERTS.forEach(c=>KB.push({t:"Certifications and training",x:c,s:"credentials"}));EDU.forEach(e=>KB.push({t:e[1],x:e[2],s:"credentials"}));
 Object.entries(CATS).forEach(([k,v])=>KB.push({t:"Skills: "+v[0],x:SKILLS.filter(s=>s[2]===k).map(s=>s[1]).join(", "),s:"skills"}));
 const docs=KB.map(d=>({d,w:tok(d.t+" "+d.x),tt:tok(d.t)})),df={};docs.forEach(o=>new Set(o.w).forEach(w=>df[w]=(df[w]||0)+1));
 const idf=w=>Math.log(1+docs.length/(df[w]||.5));
 function search(q){const qt=[...new Set(tok(q))];if(!qt.length)return[];return docs.map(o=>{let s=0;qt.forEach(w=>{const tf=o.w.filter(x=>x===w).length;if(tf)s+=idf(w)*(1+Math.log(tf));if(o.tt.includes(w))s+=idf(w)});return[o.d,s]}).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,3)}
+const ask=$("#ask"),msgs=$("#msgs");
+const el=(c,t)=>{const n=document.createElement("div");n.className="m "+c;if(t)n.textContent=t;return n};
+function reply(q){const r=search(q),n=el("a");
+if(!r.length){n.textContent="I couldn't find that in this portfolio. Try skills, certifications, Ivanti HEAT AI, DevOps or contact, or email Wael directly.";return n}
+const p=document.createElement("p");p.textContent=r[0][0].x;n.append(p);
+const rest=r.slice(1).filter(x=>x[1]>r[0][1]*.45);if(rest.length){const ul=document.createElement("ul");rest.forEach(x=>{const li=document.createElement("li");li.textContent=x[0].t+": "+x[0].x.slice(0,100)+(x[0].x.length>100?"…":"");ul.append(li)});n.append(ul)}
+const a=document.createElement("a");a.href="#"+r[0][0].s;a.textContent="Open section ↗";a.onclick=()=>ask.close();n.append(a);return n}
+function send(q){q=q.trim().slice(0,200);if(!q)return;msgs.append(el("u",q));const w=el("a","…");msgs.append(w);msgs.scrollTop=msgs.scrollHeight;
+setTimeout(()=>{w.replaceWith(reply(q));msgs.scrollTop=msgs.scrollHeight},350)}
+$("#sug").innerHTML=SUG.map(s=>`<button type="button">${s}</button>`).join("");$("#sug").onclick=e=>{const b=e.target.closest("button");b&&send(b.textContent)};
+$("#askf").onsubmit=e=>{e.preventDefault();send($("#q").value);$("#q").value=""};
+const openAsk=()=>{if(!msgs.children.length)msgs.append(el("a","Hi! I search this portfolio for you. Ask about Wael's skills, projects, certifications or the AI assistant he built on Ivanti HEAT."));(ask.showModal?ask.showModal():ask.setAttribute("open",""));$("#q").focus()};
+$("#askbtn").onclick=openAsk;$("#askx").onclick=()=>ask.close();ask.onclick=e=>{if(e.target===ask)ask.close()};
+addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openAsk()}});
+/* ====== nav, theme, progress, share ====== */
+const menu=$("#menu"),bg=$("#burger");bg.onclick=()=>{const o=menu.classList.toggle("open");bg.setAttribute("aria-expanded",o)};menu.onclick=e=>{if(e.target.closest("a")){menu.classList.remove("open");bg.setAttribute("aria-expanded","false")}};
+const links=$$("#menu a"),secs=["about","experience","ai","skills","projects","credentials","contact"].map(id=>document.getElementById(id));
+if("IntersectionObserver" in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.setAttribute("aria-current",l.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});secs.forEach(s=>so.observe(s))}
+const tb=$("#theme"),dark=()=>root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+try{const s=localStorage.getItem("theme");if(s==="dark"||s==="light")root.dataset.theme=s}catch(e){}
+const paint=()=>{tb.textContent=dark()?"☀️":"🌙";shown&&radar(1)};paint();
+tb.onclick=()=>{root.dataset.theme=dark()?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint()};
+{const q=matchMedia("(prefers-color-scheme:dark)");q.addEventListener?q.addEventListener("change",paint):q.addListener&&q.addListener(paint)}
+const bar=$("#bar");addEventListener("scroll",()=>{bar.style.width=scrollY/Math.max(1,root.scrollHeight-innerHeight)*100+"%"},{passive:true});
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1900)};
+const copyText=async t=>{try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.cssText="position:fixed;opacity:0";document.body.append(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}};
+const pageUrl=()=>location.href.split("#")[0];
+$("#copy").onclick=async()=>{await copyText(pageUrl());toast("🔗 Link copied")};
+$("#share").onclick=async()=>{const d={title:document.title,url:pageUrl()};try{if(navigator.share)await navigator.share(d);else{await copyText(d.url);toast("🔗 Link copied")}}catch(e){}};
+setLens(LENS[document.documentElement.dataset.lens]?document.documentElement.dataset.lens:"data");
 
-const pal=$("#pal"),pq=$("#pq"),plist=$("#plist");let items=[],sel=0;
-const jump=id=>()=>{if(id==="home"){toTopNow();return}const t=document.getElementById(id);t&&t.scrollIntoView({behavior:RM?"auto":"smooth"})};
-const SEC_LABEL={about:"About",experience:"Experience",ai:"AI on Ivanti HEAT",skills:"Skills",projects:"Projects",credentials:"Credentials",contact:"Contact"};
-const CMDS=[
- ...SECS.map(s=>({g:"Go to",i:"out",l:SEC_LABEL[s],h:"#"+s,run:jump(s),kw:s})),
- ...KEYS.map(k=>({g:"Profile",i:LENS[k].ic,l:`Show the ${LENS[k].tab} profile`,h:LENS[k].role.split(" · ")[0],run:()=>{scrollTo({top:0,behavior:"auto"});go(k,"cmd")},kw:"lens profile role "+LENS[k].tab})),
- ...KEYS.map(k=>({g:"Actions",i:"dl",l:`Download CV: ${LENS[k].tab}`,h:"PDF",run:()=>{const a=document.createElement("a");a.href=CFG.cv[k];a.download=LENS[k].file;document.body.append(a);a.click();a.remove()},kw:"cv resume download pdf "+LENS[k].tab})),
- {g:"Actions",i:"mail",l:"Write an email to Wael",h:"mailto",run:()=>{location.href="mailto:"+MAIL},kw:"contact hire recruit message"},
- {g:"Actions",i:"link",l:"Open LinkedIn",h:"new tab",run:()=>open(CFG.linkedin,"_blank","noopener,noreferrer"),kw:"linkedin social"},
- {g:"Actions",i:"card",l:"Save contact (.vcf)",h:"vCard",run:()=>{const a=document.createElement("a");a.href=CFG.vcard;a.download="Wael_Halila.vcf";document.body.append(a);a.click();a.remove()},kw:"vcard contact address book"},
- {g:"Actions",i:"copy",l:"Copy link to this profile",h:"clipboard",run:()=>copy(pageUrl(lens)),kw:"share link url"},
- {g:"Actions",i:"share",l:"Go to the share panel",h:"QR · email",run:jump("sharepanel"),kw:"share qr code email send"},
- {g:"Actions",i:"sun",l:"Switch dark or light theme",h:"theme",run:()=>tb.click(),kw:"theme dark light mode"}
-];
-function paintPal(q){q=q.trim();const ts=q.toLowerCase().split(/\s+/).filter(Boolean);
-  const hit=CMDS.filter(c=>ts.every(t=>(c.l+" "+c.kw+" "+c.h).toLowerCase().includes(t))).slice(0,q?8:11);
-  items=[];let html="",last="";
-  hit.forEach(c=>{if(c.g!==last){html+=`<div class="grp" role="presentation">${c.g}</div>`;last=c.g}const id="o"+items.length;items.push({run:c.run});html+=`<div class="opt" role="option" id="${id}" data-i="${items.length-1}" aria-selected="false">${ic(c.i)}<span>${esc(c.l)}</span><small>${esc(c.h)}</small></div>`});
-  if(q.length>=3){const r=search(q);if(r.length&&r[0][1]>1.2){const d=r[0][0];html+=`<div class="grp" role="presentation">From the portfolio</div><div class="ans"><b>${esc(d.t)}</b>${esc(d.x)}</div>`;
-    const id="o"+items.length;items.push({run:jump(d.s)});html+=`<div class="opt" role="option" id="${id}" data-i="${items.length-1}" aria-selected="false">${ic("out")}<span>Open the related section</span><small>#${esc(d.s)}</small></div>`}
-    else if(!hit.length)html+=`<div class="ans"><b>Nothing found for “${esc(q.slice(0,60))}”</b>Try a skill, a tool, “ITIL”, “Playwright” or “contact”.</div>`}
-  plist.innerHTML=html;sel=0;mark()}
-function mark(){$$(".opt",plist).forEach((o,i)=>o.setAttribute("aria-selected",i===sel));const o=$$(".opt",plist)[sel];if(o){pq.setAttribute("aria-activedescendant",o.id);o.scrollIntoView({block:"nearest"})}}
-function runSel(i=sel){const it=items[i];if(!it)return;pal.close();setTimeout(it.run,30)}
-pq.addEventListener("input",()=>paintPal(pq.value));
-pq.addEventListener("keydown",e=>{if(e.key==="ArrowDown"){e.preventDefault();sel=Math.min(items.length-1,sel+1);mark()}else if(e.key==="ArrowUp"){e.preventDefault();sel=Math.max(0,sel-1);mark()}else if(e.key==="Enter"){e.preventDefault();runSel()}});
-plist.addEventListener("click",e=>{const o=e.target.closest(".opt");o&&runSel(+o.dataset.i)});
-plist.addEventListener("pointermove",e=>{const o=e.target.closest(".opt");if(o&&+o.dataset.i!==sel){sel=+o.dataset.i;mark()}});
-const MAC=/Mac|iPhone|iPad|iPod/.test(navigator.platform||navigator.userAgent),kbd=$("#askbtn kbd");if(kbd)kbd.textContent=MAC?"⌘ K":"Ctrl K";
-const openPal=()=>{if(pal.open)return;if(typeof pal.showModal!=="function"){toast("The command menu needs a newer browser");return}pq.value="";paintPal("");pal.showModal();pq.focus()};
-$("#askbtn").onclick=openPal;pal.addEventListener("click",e=>{if(e.target===pal)pal.close()});
-addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();pal.open?pal.close():openPal()}});
+$(".mbar")&&(addEventListener("scroll",()=>$(".mbar").classList.toggle("show",scrollY>innerHeight*.5),{passive:true}),$("#mask").onclick=openAsk);
+/* avatar: pointer-follow, blink, ID-card clone */
+(()=>{const hero=$(".cut.av"),idp=$(".idp");if(!hero)return;
+const clone=hero.cloneNode(true);clone.classList.remove("cut");clone.setAttribute("aria-hidden","true");clone.removeAttribute("role");idp&&idp.prepend(clone);
+const list=[hero,clone],av=$("#avatar");
+if(idp)new MutationObserver(()=>idp.classList.toggle("talk",av.classList.contains("talk"))).observe(av,{attributes:true,attributeFilter:["class"]});
+if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+let tx=0,ty=0,cx=0,cy=0;const mv=e=>{tx=e.clientX/innerWidth*2-1;ty=e.clientY/innerHeight*2-1};addEventListener("pointermove",mv,{passive:true});addEventListener("pointerdown",mv,{passive:true});
+(function loop(){if(!document.hidden&&(Math.abs(tx-cx)>.001||Math.abs(ty-cy)>.001)){cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;list.forEach(s=>{const o=s.style;o.setProperty("--hr",cx*3.5+"deg");o.setProperty("--hxp",cx*6+"px");o.setProperty("--tx",-cy*4+"deg");o.setProperty("--ty",cx*7+"deg")})}requestAnimationFrame(loop)})();
+(function blink(){setTimeout(()=>{list.forEach(s=>s.style.setProperty("--bl",1));setTimeout(()=>{list.forEach(s=>s.style.setProperty("--bl",0));blink()},120)},2200+Math.random()*3200)})()})();
 
-/* ---------- ambient network canvas ---------- */
-(function fx(){const c=$("#fx"),x=c.getContext("2d");if(!x)return;let W=0,H=0,pts=[],mx=-9e3,my=-9e3,last=0,col="#35d8ff",n=0;
-  function size(){const d=COARSE?1:Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);const N=COARSE?clamp(Math.round(W/26),14,26):clamp(Math.round(W/30),20,60);pts=Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28}))}
-  function draw(){x.clearRect(0,0,W,H);if(n++%12===0)col=getComputedStyle(root).getPropertyValue("--acc").trim()||col;x.strokeStyle=col;x.fillStyle=col;
-    for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
-    for(let i=0;i<pts.length;i++){const a=pts[i];x.globalAlpha=.55;x.beginPath();x.arc(a.x,a.y,1.4,0,6.3);x.fill();
-      for(let j=i+1;j<pts.length;j++){const b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<140){x.globalAlpha=(1-d/140)*.3;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
-      const dm=Math.hypot(a.x-mx,a.y-my);if(dm<170){x.globalAlpha=(1-dm/170)*.6;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(mx,my);x.stroke()}}
-    x.globalAlpha=1}
-  function loop(t){requestAnimationFrame(loop);if(document.hidden||t-last<34)return;last=t;draw()}
-  size();draw();if(!RM&&!LITE){requestAnimationFrame(loop);addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY},{passive:true})}
-  let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{size();draw()},200)})})();
-
-/* ---------- boot sequence (first visit per session, skippable) ---------- */
-(function(){const el=$("#boot");if(!el)return;
-  if(!root.classList.contains("booting")){el.remove();return}
-  const box=$("#bootlines"),bar=$("#boot .bootbar i"),L=[["wael.os 2026.10 · starting",0],["mounting profiles: data · .net · devops",0],["loading avatar … ok",1],["open to opportunities … ok",1]];let i=0,done=false;
-  const end=()=>{if(done)return;done=true;root.classList.remove("booting");setTimeout(()=>el.remove(),800)};
-  const step=()=>{if(done)return;if(i<L.length){const d=document.createElement("div");d.textContent="> "+L[i][0];if(L[i][1])d.className="okk";box.append(d);bar.style.width=Math.round((i+1)/L.length*100)+"%";i++;setTimeout(step,250)}else setTimeout(end,350)};
-  el.addEventListener("pointerdown",end);addEventListener("keydown",end,{once:true});step()})();
-
-/* ---------- start ---------- */
-setLens(lens,{src:"init"});onScroll();moveInd();
-$$("body > main .rv").forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight)e.classList.add("in")});
-if("serviceWorker" in navigator&&/^https?:/.test(location.protocol))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-})();
+if("serviceWorker" in navigator&&location.protocol==="https:")addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));

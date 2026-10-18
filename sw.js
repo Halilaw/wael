@@ -1,17 +1,9 @@
-/* Offline cache. Bump VERSION on every release so returning visitors get the new files. */
-const VERSION="2026.10.17-2",CACHE="wh-"+VERSION;
-const CORE=["./","index.html","manifest.webmanifest","assets/css/app.css","assets/js/boot.js","assets/js/data.js","assets/js/qr.js","assets/js/app.js","assets/fonts/display-800.woff","assets/fonts/inter-400.woff","assets/fonts/inter-600.woff","assets/img/hero-600.webp","assets/img/favicon-32.png"];
-self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
-self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(n=>n!==CACHE).map(n=>caches.delete(n)))).then(()=>self.clients.claim()))});
-self.addEventListener("fetch",e=>{
-  const r=e.request,u=new URL(r.url);
-  if(r.method!=="GET"||u.origin!==location.origin)return;
-  if(r.mode==="navigate"){ /* pages: network first, cached copy when offline */
-    e.respondWith(fetch(r).then(x=>{if(x.ok){const c=x.clone();caches.open(CACHE).then(h=>h.put(r,c))}return x}).catch(()=>caches.match(r).then(m=>m||caches.match("index.html"))));
-    return;
-  }
-  e.respondWith(caches.match(r).then(m=>{ /* assets: cached first, refreshed in the background */
-    const n=fetch(r).then(x=>{if(x.ok){const c=x.clone();caches.open(CACHE).then(h=>h.put(r,c))}return x}).catch(()=>m);
-    return m||n;
-  }));
-});
+/* Offline cache. The version below is rewritten by scripts/make_pages.py on every build. */
+const V="wh-3528c7916c";
+const CORE=["./","index.html","assets/css/style.css","assets/css/fx.css","assets/js/app.js","assets/js/fx.js","assets/img/av-body.webp","assets/img/av-head.webp","manifest.webmanifest"];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
+self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET"||r.headers.has("range"))return;const u=new URL(r.url);if(u.origin!==location.origin)return;
+const put=res=>{if(res&&res.status===200){const cp=res.clone();caches.open(V).then(c=>c.put(r,cp))}return res};
+if(r.mode==="navigate"){e.respondWith(fetch(r).then(put).catch(()=>caches.match(r).then(m=>m||caches.match("index.html"))));return}
+e.respondWith(caches.match(r).then(m=>m||fetch(r).then(put)))});

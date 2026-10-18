@@ -1,4 +1,0 @@
-Inter and Inter Display
-Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
-Licensed under the SIL Open Font License 1.1: https://openfontlicense.org
-The .woff files here are Latin subsets of the original fonts.

@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://halilaw.github.io/wael/sitemap.xml

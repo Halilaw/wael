@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://halilaw.github.io/wael/</loc><priority>1.0</priority></url>
-  <url><loc>https://halilaw.github.io/wael/data.html</loc><priority>0.8</priority></url>
-  <url><loc>https://halilaw.github.io/wael/dotnet.html</loc><priority>0.8</priority></url>
-  <url><loc>https://halilaw.github.io/wael/devops.html</loc><priority>0.8</priority></url>
-</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://halilaw.github.io/wael/</loc><lastmod>2026-10-18</lastmod></url><url><loc>https://halilaw.github.io/wael/data.html</loc><lastmod>2026-10-18</lastmod></url><url><loc>https://halilaw.github.io/wael/dotnet.html</loc><lastmod>2026-10-18</lastmod></url><url><loc>https://halilaw.github.io/wael/devops.html</loc><lastmod>2026-10-18</lastmod></url></urlset>
