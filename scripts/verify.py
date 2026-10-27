@@ -12,6 +12,18 @@ def local(ref):
     if ref.startswith("__SITE_URL__"): ref = ref[len("__SITE_URL__"):]
     if re.match(r"^[a-z]+://", ref): return None
     return ref.split("#")[0].split("?")[0].lstrip("/") or "index.html"
+REQUIRED = ["index.html","data.html","dotnet.html","devops.html","sw.js","manifest.webmanifest",
+  "assets/css/app.css","assets/js/boot.js","assets/js/data.js","assets/js/qr.js","assets/js/app.js",
+  "assets/fonts/display-800.woff","assets/fonts/inter-400.woff","assets/fonts/inter-600.woff",
+  "assets/img/hero-600.webp","assets/img/hero-600.avif","assets/img/og-image.jpg",
+  "assets/cv/Wael_Halila_CV_Data_Engineer.pdf","assets/cv/Wael_Halila_CV_Software_Engineer.pdf","assets/cv/Wael_Halila_CV_DevOps_Engineer.pdf"]
+missing = [f for f in REQUIRED if not (root / f).exists()]
+if missing:
+    print("FAIL: these files are missing from the repository:")
+    print("\n".join("  - " + m for m in missing))
+    print("\nThe upload was incomplete. Folders such as assets/ are often skipped by the GitHub web uploader.")
+    print("Fix: upload with git (see README, 'Put it online'), GitHub Desktop, or upload the folder contents one folder at a time.")
+    sys.exit(1)
 pages = [p for p in ("index.html", "data.html", "dotnet.html", "devops.html") if (root / p).exists()]
 for p in pages:
     s = (root / p).read_text(encoding="utf-8")

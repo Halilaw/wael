@@ -109,6 +109,8 @@ _headers netlify.toml vercel.json   other free hosts
 
 ## Troubleshooting
 
+- **The "Verify" check fails with "files are missing"** (or `FileNotFoundError: assets/css/app.css`): the `assets/` folder did not reach GitHub. The web uploader often skips folders. Use the git commands above, or GitHub Desktop, or upload each folder (`assets/css`, `assets/js`, `assets/fonts`, `assets/img`, `assets/cv`) separately. The check lists exactly which files are missing.
+
 - **Blank page or 404**: Settings → Pages must show the branch `main` and folder `/ (root)`. File names are case-sensitive.
 - **Old version still showing**: hard refresh (Ctrl+F5); bump `VERSION` in `sw.js`.
 - **Preview card is wrong in LinkedIn or WhatsApp**: re-scrape with the inspector tools above, or add `?v=2`.
